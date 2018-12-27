@@ -1,0 +1,48 @@
+{
+  "name": "terraformer",
+  "version": "2.0.0",
+  "description": "A geographic toolkit for dealing with geometry, geography, formats, and building geodatabases",
+  "main": "index.js",
+  "scripts": {
+    "build": "lerna run build",
+    "jsdoc": "jsdoc packages/**/index.js",
+    "lint": "semistandard | snazzy",
+    "test:node": "babel-node packages/**/test/index.js [ babelify --presets @babel/preset-env ] | faucet",
+    "test:browser": "browserify packages/**/test/index.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run | faucet",
+    "test": "npm run lint && npm run test:node && npm run test:browser",
+    "release": "./release.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terraformer-js/terraformer.git"
+  },
+  "keywords": [
+    "esri",
+    "geojson",
+    "wkt",
+    "spatial"
+  ],
+  "author": "john gravois",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/terraformer-js/terraformer/issues"
+  },
+  "homepage": "https://github.com/terraformer-js/terraformer#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babelify": "^10.0.0",
+    "browserify": "^16.0.0",
+    "faucet": "0.0.1",
+    "gh-release": "^3.4.0",
+    "jsdoc": "^3.5.5",
+    "lerna": "^2.8.0",
+    "rollup": "^0.68.2",
+    "semistandard": "*",
+    "snazzy": "^8.0.0",
+    "tape": "^4.0.0",
+    "tape-run": "^5.0.0"
+  }
+}
