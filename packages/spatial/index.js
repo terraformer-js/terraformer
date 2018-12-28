@@ -516,6 +516,7 @@ export function isConvex (points) {
   return true;
 }
 
+// a duplicate method can be found in @terraformer/arcgis
 export function coordinatesContainPoint (coordinates, point) {
   var contains = false;
   for (var i = -1, l = coordinates.length, j = l - 1; ++i < l; j = i) {
@@ -616,6 +617,7 @@ function closedPolygon (coordinates) {
   return outer;
 }
 
+// a duplicate method can be found in @terraformer/arcgis
 function pointsEqual (a, b) {
   for (var i = 0; i < a.length; i++) {
     if (a[i] !== b[i]) {

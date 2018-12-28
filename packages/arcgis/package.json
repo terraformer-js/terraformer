@@ -35,7 +35,7 @@
     "url": "https://github.com/terraformer-js/terraformer"
   },
   "scripts": {
-    "build": "rollup index.js -m dist/arcgis.umd.js.map -f umd -o dist/arcgis.umd.js -n TerraformerArcGIS",
+    "build": "rollup index.js -m -f umd -o dist/arcgis.umd.js -n TerraformerArcGIS",
     "prepare": "npm run build"
   }
 }

@@ -38,7 +38,7 @@
     "url": "https://github.com/terraformer-js/terraformer"
   },
   "scripts": {
-    "build": "rollup index.js -m dist/spatial.umd.js.map -f umd -o dist/spatial.umd.js -n Terraformer",
+    "build": "rollup index.js -m -f umd -o dist/spatial.umd.js -n Terraformer",
     "prepare": "npm run build"
   }
 }

@@ -1,15 +1,16 @@
 {
-  "name": "@terraformer/spatial",
+  "name": "terraformer",
   "version": "2.0.0",
   "description": "A geographic toolkit for dealing with geometry, geography, formats, and building geodatabases",
   "main": "index.js",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "jsdoc": "jsdoc packages/**/index.js",
     "lint": "semistandard | snazzy",
     "test:node": "babel-node packages/**/test/index.js [ babelify --presets @babel/preset-env ] | faucet",
     "test:browser": "browserify packages/**/test/index.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run | faucet",
-    "test": "npm run lint && npm run test:node && npm run test:browser",
+    "test": "npm run lint && npm run test:browser",
     "release": "./release.sh"
   },
   "repository": {

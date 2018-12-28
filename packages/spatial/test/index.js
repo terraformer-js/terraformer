@@ -11,6 +11,7 @@ import {
   convexHull,
   calculateEnvelope,
   calculateBounds,
+  polygonContainsPoint,
   MercatorCRS
 } from '../index';
 
@@ -66,17 +67,6 @@ test('should create a circular GeoJSON polygon from an input point.', function (
   t.ok(circle.properties.radius);
 });
 
-test('should create a circular GeoJSON polygon from an input point.', function (t) {
-  t.plan(6);
-  const circle = toCircle([-122.6764, 45.5165], 100);
-  t.equal(circle.type, 'Feature');
-  t.ok(circle.geometry);
-  t.ok(circle.geometry.coordinates);
-  t.ok(circle.properties.center);
-  t.ok(circle.properties.steps);
-  t.ok(circle.properties.radius);
-});
-
 test('should calculate the bounds of a point.', function (t) {
   t.plan(1);
   t.deepEqual(calculateBounds({
@@ -110,4 +100,35 @@ test('should calculate the envelope of a point.', function (t) {
     'type': 'Point',
     'coordinates': [ 45, 60 ]
   }), { x: 45, y: 60, w: 0, h: 0 });
+});
+
+test('should calculate the envelope of a point.', function (t) {
+  t.plan(1);
+  t.equal(polygonContainsPoint([], []), false);
+});
+
+test('should return false when polygonContainsPoint is passed an empty polygon.', function (t) {
+  t.plan(1);
+  t.equal(polygonContainsPoint([], []), false);
+});
+
+test('should return true when polygonContainsPoint is passed the right stuff.', function (t) {
+  t.plan(1);
+
+  const pt = [-111.873779, 40.647303];
+  const polygon = [[
+    [-112.074279, 40.52215],
+    [-112.074279, 40.853293],
+    [-111.610107, 40.853293],
+    [-111.610107, 40.52215],
+    [-112.074279, 40.52215]
+  ]];
+
+  t.equal(polygonContainsPoint(polygon, pt), true);
+});
+
+test('should return false if a polygonContainsPoint is called and the point is outside the polygon.', function (t) {
+  t.plan(1);
+
+  t.equal(polygonContainsPoint([[1, 2], [2, 2], [2, 1], [1, 1], [1, 2]], [10, 10]), false);
 });
