@@ -643,7 +643,7 @@ test('should convert a GeoJSON GeometryCollection into an array of ArcGIS Geomet
 test('should not modify the original GeoJSON object', function (t) {
   t.plan(1);
 
-  var primitive = {
+  var geojson = {
     'type': 'FeatureCollection',
     'features': [{
       'type': 'Feature',
@@ -686,11 +686,11 @@ test('should not modify the original GeoJSON object', function (t) {
     }]
   };
 
-  var original = JSON.stringify(primitive);
+  const original = JSON.stringify(geojson);
 
-  fromGeoJSON(primitive);
+  fromGeoJSON(geojson);
 
-  t.deepEqual(original, JSON.stringify(primitive));
+  t.deepEqual(original, JSON.stringify(geojson));
 });
 
 test('should parse an ArcGIS Point in a GeoJSON Point', function (t) {
