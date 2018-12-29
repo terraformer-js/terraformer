@@ -23,7 +23,7 @@ npm install @terraformer/spatial
 
 ### Browser (from CDN)
 
-This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `Terraformer` namespace.
+This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `TerraformerSpatial` namespace.
 
 ```html
 <script src="https://unpkg.com/@terraformer/spatial"></script>
@@ -36,7 +36,7 @@ const input = {
   ]
 };
 
-Terraformer.isConvex(input.coordinates[0]); // true
+TerraformerSpatial.isConvex(input.coordinates[0]); // true
 ```
 
 ### ES6

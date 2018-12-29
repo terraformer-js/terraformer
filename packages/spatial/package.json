@@ -10,8 +10,10 @@
     "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
     "Jerry Sievert <code@legitimatesounding.com> (http://legitimatesounding.com)",
     "John Gravois <john@esri.com>"
-
   ],
+  "dependencies": {
+    "@terraformer/common": "2.0.0"
+  },
   "files": [
     "index.js",
     "dist/spatial.umd.js.map"
@@ -38,7 +40,7 @@
     "url": "https://github.com/terraformer-js/terraformer"
   },
   "scripts": {
-    "build": "rollup index.js -m -f umd -o dist/spatial.umd.js -n Terraformer",
+    "build": "rollup -c ../../rollup.config.js",
     "prepare": "npm run build"
   }
 }
