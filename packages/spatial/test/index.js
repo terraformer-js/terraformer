@@ -1,43 +1,35 @@
 import test from 'tape';
 import { GeoJSON } from './mock.js';
 import {
+  MercatorCRS,
   toMercator,
   toGeographic,
   toCircle,
-  // intersects,
-  // contains,
-  // within,
   isConvex,
   convexHull,
   calculateEnvelope,
   calculateBounds,
   polygonContainsPoint,
-  MercatorCRS
+  intersects,
+  contains,
+  within
 } from '../index';
 
-/* to do
-convexHull
-isConvex
-intersects
-contains
-within
-envelope
-*/
-
 test('should exist', function (t) {
-  t.plan(5);
+  t.plan(10);
   t.ok(toMercator);
   t.ok(toGeographic);
   t.ok(toCircle);
   t.ok(isConvex);
   t.ok(convexHull);
-  // t.ok(intersects);
-  // t.ok(contains);
-  // t.ok(within);
-  // t.ok(calculateEnvelope);
-  // t.ok(calculateBounds);
+  t.ok(calculateBounds);
+  t.ok(calculateEnvelope);
+  t.ok(intersects);
+  t.ok(contains);
+  t.ok(within);
 });
 
+// helper methods
 test('should reproject GeoJSON in WGS84 to Web Mercator', function (t) {
   t.plan(2);
   const mercator = toMercator(GeoJSON.points[2]);
@@ -67,6 +59,7 @@ test('should create a circular GeoJSON polygon from an input point.', function (
   t.ok(circle.properties.radius);
 });
 
+// point
 test('should calculate the bounds of a point.', function (t) {
   t.plan(1);
   t.deepEqual(calculateBounds({
@@ -84,6 +77,55 @@ test('should calculate the convex hull of a point.', function (t) {
   t.equal(hull, null);
 });
 
+test('should calculate the envelope of a point.', function (t) {
+  t.plan(1);
+  t.deepEqual(calculateEnvelope({
+    'type': 'Point',
+    'coordinates': [ 45, 60 ]
+  }), { x: 45, y: 60, w: 0, h: 0 });
+});
+
+// multipoint
+test('should calculate the bounds of a multipoint.', function (t) {
+  t.plan(1);
+  t.deepEqual(calculateBounds(GeoJSON.multiPoints[2]), [-45, 0, 100, 122]);
+});
+
+test('should calculate the convex hull of a multipoint.', function (t) {
+  t.plan(1);
+  t.deepEqual(convexHull(GeoJSON.multiPoints[3]).coordinates, [
+    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
+  ]);
+});
+
+test('should return null when a convex hull cannot return a valid Polygon.', function (t) {
+  t.plan(1);
+  t.equal(convexHull(GeoJSON.multiPoints[2]), null);
+});
+
+test('should calculate a multipoint envelope.', function (t) {
+  t.plan(1);
+  t.deepEqual(calculateEnvelope(GeoJSON.multiPoints[2]), { x: -45, y: 0, w: 145, h: 122 });
+});
+
+// linestring
+
+test('should calculate the bounds of a linestring.', function (t) {
+  t.plan(1);
+  t.deepEqual(calculateBounds(GeoJSON.lineStrings[4]), [-45, 0, 100, 122]);
+});
+
+test('should calculate the convex hull of a linestring.', function (t) {
+  t.plan(1);
+  t.deepEqual(convexHull(GeoJSON.lineStrings[5]).coordinates, [
+    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
+  ]);
+});
+
+// multilinestring
+
+// polygon
+
 test('should be able to recognize a non-convex polygon.', function (t) {
   t.plan(1);
   t.notOk(isConvex(GeoJSON.polygons[1].coordinates[0]));
@@ -94,18 +136,21 @@ test('should be able to recognize a convex polygon.', function (t) {
   t.ok(isConvex(GeoJSON.polygons[0].coordinates[0]));
 });
 
-test('should calculate the envelope of a point.', function (t) {
-  t.plan(1);
-  t.deepEqual(calculateEnvelope({
-    'type': 'Point',
-    'coordinates': [ 45, 60 ]
-  }), { x: 45, y: 60, w: 0, h: 0 });
-});
+// multipolygon
 
-test('should calculate the envelope of a point.', function (t) {
-  t.plan(1);
-  t.equal(polygonContainsPoint([], []), false);
-});
+// circle?
+
+// feature
+
+// feature collection
+
+// geometry collection
+
+// intersects
+
+// within
+
+// catch all
 
 test('should return false when polygonContainsPoint is passed an empty polygon.', function (t) {
   t.plan(1);

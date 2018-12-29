@@ -309,7 +309,7 @@ export function positionToGeographic (position) {
 }
 
 /*
-Convert a GeoJSON Position object to Web Mercator (102100)
+Convert a GeoJSON Position object to Web Mercator (3857)
 */
 export function positionToMercator (position) {
   var lng = position[0];
@@ -320,7 +320,7 @@ export function positionToMercator (position) {
 /*
 Apply a function agaist all positions in a geojson object. Used by spatial reference converters.
 */
-export function applyConverter (geojson, converter, noCrs) {
+function applyConverter (geojson, converter, noCrs) {
   if (geojson.type === 'Point') {
     geojson.coordinates = converter(geojson.coordinates);
   } else if (geojson.type === 'Feature') {
@@ -351,7 +351,7 @@ export function applyConverter (geojson, converter, noCrs) {
 }
 
 /*
-Convert a GeoJSON object to ESRI Web Mercator (102100)
+Convert a GeoJSON object to ESRI Web Mercator (3857)
 */
 export function toMercator (geojson) {
   return applyConverter(geojson, positionToMercator);
@@ -425,7 +425,7 @@ function nextHullPoint (points, p) {
   return q;
 }
 
-function internalConvexHull (points) {
+function coordinateConvexHull (points) {
   // implementation of the Jarvis March algorithm
   // adapted from http://tixxit.wordpress.com/2009/12/09/jarvis-march/
 
@@ -484,13 +484,12 @@ export function convexHull (geojson) {
       return null;
     }
   } else if (geojson.type === 'Feature') {
-    var primitive = geojson.geometry;
-    return convexHull(primitive);
+    return convexHull(geojson.geometry);
   }
 
   return {
     type: 'Polygon',
-    coordinates: closedPolygon([internalConvexHull(coordinates)])
+    coordinates: closedPolygon([coordinateConvexHull(coordinates)])
   };
 }
 
@@ -562,7 +561,7 @@ function closedPolygon (coordinates) {
   return outer;
 }
 
-function coordinatesEqual (a, b) {
+export function coordinatesEqual (a, b) {
   if (a.length !== b.length) {
     return false;
   }
@@ -584,32 +583,32 @@ function coordinatesEqual (a, b) {
   return true;
 }
 
-export function contains (geojson1, geojson2) {
-  return within(geojson2, geojson1);
+export function contains (geoJSON, comparisonGeoJSON) {
+  return within(comparisonGeoJSON, geoJSON);
 }
 
-export function within (geojson1, geojson2) {
+export function within (geoJSON, comparisonGeoJSON) {
   var coordinates, i, contains;
 
   // if we are passed a feature, use the polygon inside instead
-  if (geojson2.type === 'Feature') {
-    geojson2 = geojson2.geometry;
+  if (comparisonGeoJSON.type === 'Feature') {
+    comparisonGeoJSON = comparisonGeoJSON.geometry;
   }
 
   // point.within(point) :: equality
-  if (geojson2.type === 'Point') {
-    if (geojson1.type === 'Point') {
-      return pointsEqual(geojson1.coordinates, geojson2.coordinates);
+  if (comparisonGeoJSON.type === 'Point') {
+    if (geoJSON.type === 'Point') {
+      return pointsEqual(geoJSON.coordinates, comparisonGeoJSON.coordinates);
     }
   }
 
   // point.within(multilinestring)
-  if (geojson1.type === 'MultiLineString') {
-    if (geojson2.type === 'Point') {
-      for (i = 0; i < geojson1.coordinates.length; i++) {
-        var linestring = { type: 'LineString', coordinates: geojson1.coordinates[i] };
+  if (geoJSON.type === 'MultiLineString') {
+    if (comparisonGeoJSON.type === 'Point') {
+      for (i = 0; i < geoJSON.coordinates.length; i++) {
+        var linestring = { type: 'LineString', coordinates: geoJSON.coordinates[i] };
 
-        if (within(linestring, geojson2)) {
+        if (within(linestring, comparisonGeoJSON)) {
           return true;
         }
       }
@@ -617,50 +616,50 @@ export function within (geojson1, geojson2) {
   }
 
   // point.within(linestring), point.within(multipoint)
-  if (geojson1.type === 'LineString' || geojson1.type === 'MultiPoint') {
-    if (geojson2.type === 'Point') {
-      for (i = 0; i < geojson1.coordinates.length; i++) {
-        if (geojson2.coordinates.length !== geojson1.coordinates[i].length) {
+  if (geoJSON.type === 'LineString' || geoJSON.type === 'MultiPoint') {
+    if (comparisonGeoJSON.type === 'Point') {
+      for (i = 0; i < geoJSON.coordinates.length; i++) {
+        if (comparisonGeoJSON.coordinates.length !== geoJSON.coordinates[i].length) {
           return false;
         }
 
-        if (pointsEqual(geojson2.coordinates, geojson1.coordinates[i])) {
+        if (pointsEqual(comparisonGeoJSON.coordinates, geoJSON.coordinates[i])) {
           return true;
         }
       }
     }
   }
 
-  if (geojson1.type === 'Polygon') {
+  if (geoJSON.type === 'Polygon') {
     // polygon.within(polygon)
-    if (geojson2.type === 'Polygon') {
+    if (comparisonGeoJSON.type === 'Polygon') {
       // check for equal polygons
-      if (geojson1.coordinates.length === geojson2.coordinates.length) {
-        for (i = 0; i < geojson2.coordinates.length; i++) {
-          if (coordinatesEqual(geojson2.coordinates[i], geojson1.coordinates[i])) {
+      if (geoJSON.coordinates.length === comparisonGeoJSON.coordinates.length) {
+        for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
+          if (coordinatesEqual(comparisonGeoJSON.coordinates[i], geoJSON.coordinates[i])) {
             return true;
           }
         }
       }
 
-      if (geojson2.coordinates.length && polygonContainsPoint(geojson1.coordinates, geojson2.coordinates[0][0])) {
-        return !arraysIntersectArrays(closedPolygon(geojson2.coordinates), closedPolygon(geojson1.coordinates));
+      if (comparisonGeoJSON.coordinates.length && polygonContainsPoint(geoJSON.coordinates, comparisonGeoJSON.coordinates[0][0])) {
+        return !arraysIntersectArrays(closedPolygon(comparisonGeoJSON.coordinates), closedPolygon(geoJSON.coordinates));
       } else {
         return false;
       }
 
     // point.within(polygon)
-    } else if (geojson2.type === 'Point') {
-      return polygonContainsPoint(geojson1.coordinates, geojson2.coordinates);
+    } else if (comparisonGeoJSON.type === 'Point') {
+      return polygonContainsPoint(geoJSON.coordinates, comparisonGeoJSON.coordinates);
 
     // linestring/multipoint withing polygon
-    } else if (geojson2.type === 'LineString' || geojson2.type === 'MultiPoint') {
-      if (!geojson2.coordinates || geojson2.coordinates.length === 0) {
+    } else if (comparisonGeoJSON.type === 'LineString' || comparisonGeoJSON.type === 'MultiPoint') {
+      if (!comparisonGeoJSON.coordinates || comparisonGeoJSON.coordinates.length === 0) {
         return false;
       }
 
-      for (i = 0; i < geojson2.coordinates.length; i++) {
-        if (polygonContainsPoint(geojson1.coordinates, geojson2.coordinates[i]) === false) {
+      for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
+        if (polygonContainsPoint(geoJSON.coordinates, comparisonGeoJSON.coordinates[i]) === false) {
           return false;
         }
       }
@@ -668,11 +667,11 @@ export function within (geojson1, geojson2) {
       return true;
 
     // multilinestring.within(polygon)
-    } else if (geojson2.type === 'MultiLineString') {
-      for (i = 0; i < geojson2.coordinates.length; i++) {
-        const ls = geojson2.coordinates[i];
+    } else if (comparisonGeoJSON.type === 'MultiLineString') {
+      for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
+        const ls = comparisonGeoJSON.coordinates[i];
 
-        if (within(geojson1, ls) === false) {
+        if (within(geoJSON, ls) === false) {
           contains++;
           return false;
         }
@@ -681,11 +680,11 @@ export function within (geojson1, geojson2) {
       return true;
 
     // multipolygon.within(polygon)
-    } else if (geojson2.type === 'MultiPolygon') {
-      for (i = 0; i < geojson2.coordinates.length; i++) {
-        const p1 = { type: 'Polygon', coordinates: geojson2.coordinates[i] };
+    } else if (comparisonGeoJSON.type === 'MultiPolygon') {
+      for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
+        const p1 = { type: 'Polygon', coordinates: comparisonGeoJSON.coordinates[i] };
 
-        if (within(geojson1, p1) === false) {
+        if (within(geoJSON, p1) === false) {
           return false;
         }
       }
@@ -694,13 +693,13 @@ export function within (geojson1, geojson2) {
     }
   }
 
-  if (geojson1.type === 'MultiPolygon') {
+  if (geoJSON.type === 'MultiPolygon') {
     // point.within(multipolygon)
-    if (geojson2.type === 'Point') {
-      if (geojson1.coordinates.length) {
-        for (i = 0; i < geojson1.coordinates.length; i++) {
-          coordinates = geojson1.coordinates[i];
-          if (polygonContainsPoint(coordinates, geojson2.coordinates) && arraysIntersectArrays([geojson2.coordinates], geojson1.coordinates) === false) {
+    if (comparisonGeoJSON.type === 'Point') {
+      if (geoJSON.coordinates.length) {
+        for (i = 0; i < geoJSON.coordinates.length; i++) {
+          coordinates = geoJSON.coordinates[i];
+          if (polygonContainsPoint(coordinates, comparisonGeoJSON.coordinates) && arraysIntersectArrays([comparisonGeoJSON.coordinates], geoJSON.coordinates) === false) {
             return true;
           }
         }
@@ -708,22 +707,22 @@ export function within (geojson1, geojson2) {
 
       return false;
     // polygon.within(multipolygon)
-    } else if (geojson2.type === 'Polygon') {
-      for (i = 0; i < geojson2.coordinates.length; i++) {
-        if (geojson1.coordinates[i].length === geojson2.coordinates.length) {
-          for (let j = 0; j < geojson2.coordinates.length; j++) {
-            if (coordinatesEqual(geojson2.coordinates[j], geojson1.coordinates[i][j])) {
+    } else if (comparisonGeoJSON.type === 'Polygon') {
+      for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
+        if (geoJSON.coordinates[i].length === comparisonGeoJSON.coordinates.length) {
+          for (let j = 0; j < comparisonGeoJSON.coordinates.length; j++) {
+            if (coordinatesEqual(comparisonGeoJSON.coordinates[j], geoJSON.coordinates[i][j])) {
               return true;
             }
           }
         }
       }
 
-      if (arraysIntersectArrays(geojson2.coordinates, geojson1.coordinates) === false) {
-        if (geojson1.coordinates.length) {
-          for (i = 0; i < geojson1.coordinates.length; i++) {
-            coordinates = geojson1.coordinates[i];
-            if (polygonContainsPoint(coordinates, geojson2.coordinates[0][0]) === false) {
+      if (arraysIntersectArrays(comparisonGeoJSON.coordinates, geoJSON.coordinates) === false) {
+        if (geoJSON.coordinates.length) {
+          for (i = 0; i < geoJSON.coordinates.length; i++) {
+            coordinates = geoJSON.coordinates[i];
+            if (polygonContainsPoint(coordinates, comparisonGeoJSON.coordinates[0][0]) === false) {
               contains = false;
             } else {
               contains = true;
@@ -735,11 +734,11 @@ export function within (geojson1, geojson2) {
       }
 
     // linestring.within(multipolygon), multipoint.within(multipolygon)
-    } else if (geojson2.type === 'LineString' || geojson2.type === 'MultiPoint') {
-      for (i = 0; i < geojson1.coordinates.length; i++) {
-        var p = { type: 'Polygon', coordinates: geojson1.coordinates[i] };
+    } else if (comparisonGeoJSON.type === 'LineString' || comparisonGeoJSON.type === 'MultiPoint') {
+      for (i = 0; i < geoJSON.coordinates.length; i++) {
+        var p = { type: 'Polygon', coordinates: geoJSON.coordinates[i] };
 
-        if (within(p, geojson2)) {
+        if (within(p, comparisonGeoJSON)) {
           return true;
         }
 
@@ -747,11 +746,11 @@ export function within (geojson1, geojson2) {
       }
 
     // multilinestring.within(multipolygon)
-    } else if (geojson2.type === 'MultiLineString') {
-      for (i = 0; i < geojson2.coordinates.length; i++) {
-        const lines = geojson2.coordinates[i];
+    } else if (comparisonGeoJSON.type === 'MultiLineString') {
+      for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
+        const lines = comparisonGeoJSON.coordinates[i];
 
-        if (within(geojson1, lines) === false) {
+        if (within(geoJSON, lines) === false) {
           return false;
         }
       }
@@ -759,11 +758,11 @@ export function within (geojson1, geojson2) {
       return true;
 
     // multipolygon.within(multipolygon)
-    } else if (geojson2.type === 'MultiPolygon') {
-      for (i = 0; i < geojson1.coordinates.length; i++) {
-        var mpoly = { type: 'Polygon', coordinates: geojson1.coordinates[i] };
+    } else if (comparisonGeoJSON.type === 'MultiPolygon') {
+      for (i = 0; i < geoJSON.coordinates.length; i++) {
+        var mpoly = { type: 'Polygon', coordinates: geoJSON.coordinates[i] };
 
-        if (within(mpoly, geojson2) === false) {
+        if (within(mpoly, comparisonGeoJSON) === false) {
           return false;
         }
       }
@@ -776,26 +775,26 @@ export function within (geojson1, geojson2) {
   return false;
 }
 
-export function intersects (geojson1, geojson2) {
+export function intersects (geoJSON, comparisonGeoJSON) {
   // if we are passed a feature, use the polygon inside instead
-  if (geojson2.type === 'Feature') {
-    geojson2 = geojson2.geometry;
+  if (comparisonGeoJSON.type === 'Feature') {
+    comparisonGeoJSON = comparisonGeoJSON.geometry;
   }
 
-  if (within(geojson1, geojson2) || within(geojson1, geojson2)) {
+  if (within(geoJSON, comparisonGeoJSON) || within(geoJSON, comparisonGeoJSON)) {
     return true;
   }
 
-  if (geojson1.type !== 'Point' && geojson1.type !== 'MultiPoint' &&
-      geojson2.type !== 'Point' && geojson2.type !== 'MultiPoint') {
-    return arraysIntersectArrays(geojson1.coordinates, geojson2.coordinates);
-  } else if (geojson1.type === 'Feature') {
+  if (geoJSON.type !== 'Point' && geoJSON.type !== 'MultiPoint' &&
+      comparisonGeoJSON.type !== 'Point' && comparisonGeoJSON.type !== 'MultiPoint') {
+    return arraysIntersectArrays(geoJSON.coordinates, comparisonGeoJSON.coordinates);
+  } else if (geoJSON.type === 'Feature') {
     // in the case of a Feature, use the internal geometry for intersection
-    const inner = geojson1.geometry;
-    return intersects(inner, geojson2);
+    const inner = geoJSON.geometry;
+    return intersects(inner, comparisonGeoJSON);
   }
 
-  warn('Type ' + geojson1.type + ' to ' + geojson2.type + ' intersection is not supported by intersects');
+  warn('Type ' + geoJSON.type + ' to ' + comparisonGeoJSON.type + ' intersection is not supported by intersects');
   return false;
 }
 
