@@ -10,17 +10,17 @@ import {
 } from '@terraformer/common';
 
 // checks if the first and last points of a ring are equal and closes the ring
-function closeRing (coordinates) {
+const closeRing = (coordinates) => {
   if (!pointsEqual(coordinates[0], coordinates[coordinates.length - 1])) {
     coordinates.push(coordinates[0]);
   }
   return coordinates;
-}
+};
 
 // determine if polygon ring coordinates are clockwise. clockwise signifies outer ring, counter-clockwise an inner ring
 // or hole. this logic was found at http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-
 // points-are-in-clockwise-order
-function ringIsClockwise (ringToTest) {
+const ringIsClockwise = (ringToTest) => {
   var total = 0;
   var i = 0;
   var rLength = ringToTest.length;
@@ -32,20 +32,20 @@ function ringIsClockwise (ringToTest) {
     pt1 = pt2;
   }
   return (total >= 0);
-}
+};
 
-function coordinatesContainCoordinates (outer, inner) {
+const coordinatesContainCoordinates = (outer, inner) => {
   var intersects = arrayIntersectsArray(outer, inner);
   var contains = coordinatesContainPoint(outer, inner[0]);
   if (!intersects && contains) {
     return true;
   }
   return false;
-}
+};
 
 // do any polygons in this array contain any other polygons in this array?
 // used for checking for holes in arcgis rings
-function convertRingsToGeoJSON (rings) {
+const convertRingsToGeoJSON = (rings) => {
   var outerRings = [];
   var holes = [];
   var x; // iterator
@@ -127,12 +127,12 @@ function convertRingsToGeoJSON (rings) {
       coordinates: outerRings
     };
   }
-}
+};
 
 // This function ensures that rings are oriented in the right directions
 // outer rings are clockwise, holes are counterclockwise
 // used for converting GeoJSON Polygons to ArcGIS Polygons
-function orientRings (poly) {
+const orientRings = (poly) => {
   var output = [];
   var polygon = poly.slice(0);
   var outerRing = closeRing(polygon.shift().slice(0));
@@ -155,11 +155,11 @@ function orientRings (poly) {
   }
 
   return output;
-}
+};
 
 // This function flattens holes in multipolygons to one array of polygons
 // used for converting GeoJSON Polygons to ArcGIS Polygons
-function flattenMultiPolygonRings (rings) {
+const flattenMultiPolygonRings = (rings) => {
   var output = [];
   for (var i = 0; i < rings.length; i++) {
     var polygon = orientRings(rings[i]);
@@ -169,11 +169,11 @@ function flattenMultiPolygonRings (rings) {
     }
   }
   return output;
-}
+};
 
 // shallow object clone for feature properties and attributes
 // from http://jsperf.com/cloning-an-object/2
-function shallowClone (obj) {
+const shallowClone = (obj) => {
   var target = {};
   for (var i in obj) {
     if (obj.hasOwnProperty(i)) {
@@ -181,9 +181,9 @@ function shallowClone (obj) {
     }
   }
   return target;
-}
+};
 
-function getId (attributes, idAttribute) {
+const getId = (attributes, idAttribute) => {
   var keys = idAttribute ? [idAttribute, 'OBJECTID', 'FID'] : ['OBJECTID', 'FID'];
   for (var i = 0; i < keys.length; i++) {
     var key = keys[i];
@@ -196,7 +196,7 @@ function getId (attributes, idAttribute) {
     }
   }
   throw Error('No valid id attribute found');
-}
+};
 
 /**
  * Converts ArcGIS JSON into GeoJSON.
@@ -204,14 +204,14 @@ function getId (attributes, idAttribute) {
  * @param {string} idAttribute? - When converting an ArcGIS Feature its attributes will contain the ID of the feature. If something other than OBJECTID or FID stores the ID, you should pass through the fieldname explicitly.
  * @return {object} GeoJSON.
  */
-export function toGeoJSON (arcgis, idAttribute) {
+export const arcgisToGeoJSON = (arcgis, idAttribute) => {
   var geojson = {};
 
   if (arcgis.features) {
     geojson.type = 'FeatureCollection';
     geojson.features = [];
     for (var i = 0; i < arcgis.features.length; i++) {
-      geojson.features.push(toGeoJSON(arcgis.features[i], idAttribute));
+      geojson.features.push(arcgisToGeoJSON(arcgis.features[i], idAttribute));
     }
   }
 
@@ -260,7 +260,7 @@ export function toGeoJSON (arcgis, idAttribute) {
 
   if (arcgis.geometry || arcgis.attributes) {
     geojson.type = 'Feature';
-    geojson.geometry = (arcgis.geometry) ? toGeoJSON(arcgis.geometry) : null;
+    geojson.geometry = (arcgis.geometry) ? arcgisToGeoJSON(arcgis.geometry) : null;
     geojson.properties = (arcgis.attributes) ? shallowClone(arcgis.attributes) : null;
     if (arcgis.attributes) {
       try {
@@ -285,7 +285,7 @@ export function toGeoJSON (arcgis, idAttribute) {
   }
 
   return geojson;
-}
+};
 
 /**
  * Converts GeoJSON into ArcGIS JSON.
@@ -293,7 +293,7 @@ export function toGeoJSON (arcgis, idAttribute) {
  * @param {string} idAttribute? - When converting GeoJSON features, the id will be set as the OBJECTID unless another fieldname is supplied.
  * @return {object} ArcGIS JSON.
  */
-export function fromGeoJSON (geojson, idAttribute) {
+export const geojsonToArcGIS = (geojson, idAttribute) => {
   idAttribute = idAttribute || 'OBJECTID';
   var spatialReference = { wkid: 4326 };
   var result = {};
@@ -327,7 +327,7 @@ export function fromGeoJSON (geojson, idAttribute) {
       break;
     case 'Feature':
       if (geojson.geometry) {
-        result.geometry = fromGeoJSON(geojson.geometry, idAttribute);
+        result.geometry = geojsonToArcGIS(geojson.geometry, idAttribute);
       }
       result.attributes = (geojson.properties) ? shallowClone(geojson.properties) : {};
       if (geojson.id) {
@@ -337,16 +337,16 @@ export function fromGeoJSON (geojson, idAttribute) {
     case 'FeatureCollection':
       result = [];
       for (i = 0; i < geojson.features.length; i++) {
-        result.push(fromGeoJSON(geojson.features[i], idAttribute));
+        result.push(geojsonToArcGIS(geojson.features[i], idAttribute));
       }
       break;
     case 'GeometryCollection':
       result = [];
       for (i = 0; i < geojson.geometries.length; i++) {
-        result.push(fromGeoJSON(geojson.geometries[i], idAttribute));
+        result.push(geojsonToArcGIS(geojson.geometries[i], idAttribute));
       }
       break;
   }
 
   return result;
-}
+};

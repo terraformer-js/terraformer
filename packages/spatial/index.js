@@ -40,6 +40,12 @@ function warn () {
   }
 }
 
+/**
+ * Returns the envelope surrounding a GeoJSON input.
+ * @param {object} JSON - The input GeoJSON geometry, feature, geometry collection or feature collection.
+ * @return {object} in the form { w, y, w, h }.
+ */
+
 export function calculateEnvelope (geojson) {
   var bounds = calculateBounds(geojson);
   return {

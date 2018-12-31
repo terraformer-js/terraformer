@@ -9,10 +9,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-* `@esri/arcgis-to-geojson-utils` > `@terraformer/arcgis`
-* `ArcgisToGeojsonUtils` > `TerraformerArcGIS`
-* `arcgisToGeoJSON()` > `toGeoJSON()`
-* `geojsonToArcGIS()` > `fromGeoJSON()`
+* New Package names:
+  * `terraformer` > `@terraformer/spatial`.
+  * `terraformer-arcgis-parser` > `@terraformer/arcgis`.
+  * `terraformer-wkt-parser` > `@terraformer/wkt`.
+
+* All packages are now standalone.
 
 ## [1.3.0] - 2018-07-06
 

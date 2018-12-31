@@ -21,9 +21,17 @@ npm install @terraformer/spatial
 
 ## Usage
 
+### ES6
+
+```js
+import { isConvex } from '@terraformer/spatial';
+
+isConvex([ [41.83, 71.01], [56.95, 33.75], [21.79, 36.56], [41.83, 71.01] ]); // true
+```
+
 ### Browser (from CDN)
 
-This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `TerraformerSpatial` namespace.
+This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `Terraformer` namespace.
 
 ```html
 <script src="https://unpkg.com/@terraformer/spatial"></script>
@@ -36,15 +44,7 @@ const input = {
   ]
 };
 
-TerraformerSpatial.isConvex(input.coordinates[0]); // true
-```
-
-### ES6
-
-```js
-import { isConvex } from '@terraformer/spatial';
-
-isConvex([ [41.83, 71.01], [56.95, 33.75], [21.79, 36.56], [41.83, 71.01] ]); // true
+Terraformer.isConvex(input.coordinates[0]); // true
 ```
 
 ## [Contributing](./CONTRIBUTING.md)

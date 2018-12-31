@@ -21,30 +21,13 @@ npm install @terraformer/arcgis
 
 ## Usage
 
-### Browser (from CDN)
-
-This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `TerraformerArcGIS` namespace.
-
-```html
-<script src="https://unpkg.com/@terraformer/arcgis"></script>
-```
-```js
-TerraformerArcGIS.toGeoJSON({
-    "x":-122.6764,
-    "y":45.5165,
-    "spatialReference": {
-      "wkid": 4326
-    }
-});
-```
-
 ### ES6
 
 ```js
-import { toGeoJSON, fromGeoJSON } from '@terraformer/arcgis';
+import { arcgisToGeoJSON, geojsonToArcGIS } from '@terraformer/arcgis';
 
 // parse ArcGIS JSON, convert it to GeoJSON
-const geojson = toGeoJSON({
+const geojson = arcgisToGeoJSON({
     "x":-122.6764,
     "y":45.5165,
     "spatialReference": {
@@ -53,19 +36,36 @@ const geojson = toGeoJSON({
   });
 
 // take GeoJSON and convert it to ArcGIS JSON
-const arcgis = fromGeoJSON({
+const arcgis = geojsonToArcGIS({
   "type": "Point",
   "coordinates": [45.5165, -122.6764]
+});
+```
+
+### Browser (from CDN)
+
+This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `TerraformerArcgis` namespace.
+
+```html
+<script src="https://unpkg.com/@terraformer/arcgis"></script>
+```
+```js
+TerraformerArcgis.arcgisToGeoJSON({
+    "x":-122.6764,
+    "y":45.5165,
+    "spatialReference": {
+      "wkid": 4326
+    }
 });
 ```
 
 ### Node.js
 
 ```js
-const TerraformerArcGIS = require('@terraformer/arcgis');
+const TerraformerArcgis = require('@terraformer/arcgis');
 
-TerraformerArcGIS.fromGeoJSON(/* ... */);
-TerraformerArcGIS.toGeoJSON(/* ... */);
+TerraformerArcgis.geojsonToArcGIS(/* ... */);
+TerraformerArcgis.arcgisToGeoJSON(/* ... */);
 ```
 
 ## [Contributing](./CONTRIBUTING.md)

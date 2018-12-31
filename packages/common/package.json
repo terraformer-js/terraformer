@@ -1,6 +1,6 @@
 {
   "name": "@terraformer/common",
-  "description": "Utility methods used in more than one @terraformer package.",
+  "description": "Shared @terraformer utility methods.",
   "version": "2.0.0",
   "author": "John Gravois <john@esri.com>",
   "bugs": {

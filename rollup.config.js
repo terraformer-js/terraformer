@@ -17,9 +17,12 @@ const truncatedName = name.replace('@terraformer/', '');
 
 const copyright = `/* @preserve
 * ${pkg.name} - v${pkg.version} - ${pkg.license}
-* Copyright (c) 2012-${new Date().getFullYear()} Esri, Inc.
+* Copyright (c) 2012-${new Date().getFullYear()} Environmental Systems Research Institute, Inc.
 * ${new Date().toString()}
 */`;
+
+// Terraformer, TerraformerArcgis, TerraformerWkt
+const globalNamespace = (truncatedName !== 'spatial') ? `Terraformer${truncatedName.charAt(0).toUpperCase() + truncatedName.slice(1)}` : `Terraformer`;
 
 export default {
   input: 'index.js', // resolved by our plugin
@@ -28,7 +31,7 @@ export default {
     file: `./dist/${truncatedName}.umd.js`,
     banner: copyright,
     format: 'umd',
-    name: `Terraformer${truncatedName.charAt(0).toUpperCase() + truncatedName.slice(1)}`,
+    name: globalNamespace,
     sourcemap: true
   }
 };
