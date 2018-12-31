@@ -1,0 +1,54 @@
+# @terraformer/spatial
+
+[![npm][npm-image]][npm-url]
+[![travis][travis-image]][travis-url]
+[![standard][standard-image]][standard-url]
+
+[npm-image]: https://img.shields.io/npm/v/@terraformer/spatial.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/@terraformer/spatial
+[travis-image]: https://img.shields.io/travis/terraformer-js/terraformer/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/terraformer-js/terraformer
+[standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
+[standard-url]: http://npm.im/semistandard
+
+Spatial predicates for GeoJSON.
+
+## Install
+
+```
+npm install @terraformer/spatial
+```
+
+## Usage
+
+### ES6
+
+```js
+import { isConvex } from '@terraformer/spatial';
+
+isConvex([ [41.83, 71.01], [56.95, 33.75], [21.79, 36.56], [41.83, 71.01] ]); // true
+```
+
+### Browser (from CDN)
+
+This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `Terraformer` namespace.
+
+```html
+<script src="https://unpkg.com/@terraformer/spatial"></script>
+```
+```js
+const input = {
+  'type': 'Polygon',
+  'coordinates': [
+    [ [41.83, 71.01], [56.95, 33.75], [21.79, 36.56], [41.83, 71.01] ]
+  ]
+};
+
+Terraformer.isConvex(input.coordinates[0]); // true
+```
+
+## [Contributing](./CONTRIBUTING.md)
+
+## Licensing
+
+A copy of the license is available in the repository's [LICENSE](LICENSE) file.

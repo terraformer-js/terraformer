@@ -1,12 +1,14 @@
 {
-  "name": "@terraformer/arcgis",
-  "description": "Tools to convert ArcGIS JSON geometries to GeoJSON geometries and vica-versa.",
+  "name": "@terraformer/spatial",
+  "description": "Spatial predicates for GeoJSON.",
   "version": "2.0.0",
   "author": "Patrick Arlt <patrick.arlt@gmail.com>",
   "bugs": {
     "url": "https://github.com/terraformer-js/terraformer/issues"
   },
   "contributors": [
+    "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
+    "Jerry Sievert <code@legitimatesounding.com> (http://legitimatesounding.com)",
     "John Gravois <john@esri.com>"
   ],
   "dependencies": {
@@ -14,7 +16,7 @@
   },
   "files": [
     "index.js",
-    "dist/arcgis.umd.js.map"
+    "dist/spatial.umd.js.map"
   ],
   "homepage": "https://github.com/terraformer-js/terraformer",
   "keywords": [
@@ -25,8 +27,8 @@
     "geometry"
   ],
   "license": "MIT",
-  "main": "dist/arcgis.umd.js",
-  "unpkg": "dist/arcgis.umd.js",
+  "main": "dist/spatial.umd.js",
+  "unpkg": "dist/spatial.umd.js",
   "module": "index.js",
   "jspm": {
     "main": "index.js",
