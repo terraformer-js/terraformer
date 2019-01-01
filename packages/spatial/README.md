@@ -11,7 +11,7 @@
 [standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/semistandard
 
-Spatial predicates for GeoJSON.
+> Spatial predicates for GeoJSON.
 
 ## Install
 
@@ -21,7 +21,7 @@ npm install @terraformer/spatial
 
 ## Usage
 
-### ES6
+### ES Module
 
 ```js
 import { isConvex } from '@terraformer/spatial';
@@ -46,9 +46,3 @@ const input = {
 
 Terraformer.isConvex(input.coordinates[0]); // true
 ```
-
-## [Contributing](./CONTRIBUTING.md)
-
-## Licensing
-
-A copy of the license is available in the repository's [LICENSE](LICENSE) file.

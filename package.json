@@ -8,9 +8,9 @@
     "build": "lerna run build",
     "jsdoc": "jsdoc packages/**/index.js",
     "lint": "semistandard | snazzy",
-    "test:node": "babel-node packages/**/test/index.js [ babelify --presets @babel/preset-env ] | faucet",
+    "test:node": "node test-helper.js",
     "test:browser": "browserify packages/**/test/index.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run | faucet",
-    "test": "npm run lint && npm run test:browser",
+    "test": "npm run lint && npm run test:browser && npm run test:node",
     "release": "./release.sh"
   },
   "repository": {

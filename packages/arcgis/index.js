@@ -199,6 +199,7 @@ const getId = (attributes, idAttribute) => {
 };
 
 /**
+ * @function
  * Converts ArcGIS JSON into GeoJSON.
  * @param {object} JSON - The input geometry, feature or feature collection.
  * @param {string} idAttribute? - When converting an ArcGIS Feature its attributes will contain the ID of the feature. If something other than OBJECTID or FID stores the ID, you should pass through the fieldname explicitly.
@@ -288,6 +289,7 @@ export const arcgisToGeoJSON = (arcgis, idAttribute) => {
 };
 
 /**
+ * @function
  * Converts GeoJSON into ArcGIS JSON.
  * @param {object} JSON - The input GeoJSON geometry, feature, geometry collection or feature collection.
  * @param {string} idAttribute? - When converting GeoJSON features, the id will be set as the OBJECTID unless another fieldname is supplied.

@@ -11,18 +11,14 @@
 [standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/semistandard
 
-Tools to convert ArcGIS JSON geometries to GeoJSON geometries and vice versa.
+> A geographic toolkit for dealing with geometry, geography, formats, and building geodatabases.
+
+See our website [@terraformer](http://terraformer.io) for more information.
 
 ## Install
 
+```shell
+npm install
+npm run bootstrap
+npm test
 ```
-npm install @terraformer/arcgis
-npm install @terraformer/wkt
-npm install @terraformer/spatial
-```
-
-## Issues
-
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
-
-## [Contributing](./CONTRIBUTING.md)

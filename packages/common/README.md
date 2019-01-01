@@ -11,8 +11,8 @@
 [standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/semistandard
 
-Shared Terraformer utility methods.
+> Shared Terraformer utility methods.
 
-## Licensing
+See our website [@terraformer](http://terraformer.io) for more information.
 
-A copy of the license is available in the repository's [LICENSE](LICENSE) file.
+
