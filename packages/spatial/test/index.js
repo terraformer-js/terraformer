@@ -122,7 +122,34 @@ test('should calculate the convex hull of a linestring.', function (t) {
   ]);
 });
 
+test('should calculate the envelope of a linestring.', function (t) {
+  t.plan(1);
+  t.deepEqual(calculateEnvelope(GeoJSON.lineStrings[4]), { x: -45, y: 0, w: 145, h: 122 });
+});
+
 // multilinestring
+
+test('should calculate the bounds of a multilinestring.', function (t) {
+  t.plan(1);
+  t.deepEqual(calculateBounds(GeoJSON.multiLineStrings[2]), [-115, 40, -100, 55]);
+});
+
+test('should calculate the convex hull of a multilinestring.', function (t) {
+  t.plan(1);
+  t.deepEqual(convexHull({
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [-105, 40], [-110, 45], [-115, 55] ],
+      [ [-100, 40], [-105, 45], [-110, 55] ]
+    ] }).coordinates, [
+    [ [ -100, 40 ], [ -110, 55 ], [ -115, 55 ], [ -110, 45 ], [ -105, 40 ], [ -100, 40 ] ]
+  ]);
+});
+
+test('should calculate the envelope of a multilinestring.', function (t) {
+  t.plan(1);
+  t.deepEqual(calculateEnvelope(GeoJSON.multiLineStrings[2]), { x: -115, y: 40, w: 15, h: 15 });
+});
 
 // polygon
 

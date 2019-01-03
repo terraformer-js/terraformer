@@ -424,7 +424,7 @@ function nextHullPoint (points, p) {
   var q = p;
   for (var r in points) {
     var t = turn(p, q, points[r]);
-    if ((t === -1 || t === 0) && euclideanDistance(p, points[r]) > euclideanDistance(p, q)) {
+    if (t === -1 || (t === 0 && euclideanDistance(p, points[r]) > euclideanDistance(p, q))) {
       q = points[r];
     }
   }
@@ -456,21 +456,21 @@ function coordinateConvexHull (points) {
 }
 
 export function convexHull (geojson) {
-  var coordinates = [ ]; var i; var j;
+  var freshCoordinates = [ ]; var i; var j;
   if (geojson.type === 'Point') {
     return null;
   } else if (geojson.type === 'LineString' || geojson.type === 'MultiPoint') {
     if (geojson.coordinates && geojson.coordinates.length >= 3) {
-      coordinates = geojson.coordinates;
+      freshCoordinates = geojson.coordinates;
     } else {
       return null;
     }
   } else if (geojson.type === 'Polygon' || geojson.type === 'MultiLineString') {
     if (geojson.coordinates && geojson.coordinates.length > 0) {
       for (i = 0; i < geojson.coordinates.length; i++) {
-        coordinates = coordinates.concat(geojson.coordinates[i]);
+        freshCoordinates = freshCoordinates.concat(geojson.coordinates[i]);
       }
-      if (coordinates.length < 3) {
+      if (freshCoordinates.length < 3) {
         return null;
       }
     } else {
@@ -480,10 +480,10 @@ export function convexHull (geojson) {
     if (geojson.coordinates && geojson.coordinates.length > 0) {
       for (i = 0; i < geojson.coordinates.length; i++) {
         for (j = 0; j < geojson.coordinates[i].length; j++) {
-          coordinates = coordinates.concat(geojson.coordinates[i][j]);
+          freshCoordinates = freshCoordinates.concat(geojson.coordinates[i][j]);
         }
       }
-      if (coordinates.length < 3) {
+      if (freshCoordinates.length < 3) {
         return null;
       }
     } else {
@@ -495,7 +495,7 @@ export function convexHull (geojson) {
 
   return {
     type: 'Polygon',
-    coordinates: closedPolygon([coordinateConvexHull(coordinates)])
+    coordinates: closedPolygon([coordinateConvexHull(freshCoordinates)])
   };
 }
 
@@ -550,7 +550,7 @@ export function polygonContainsPoint (polygon, point) {
 }
 
 /*
-Internal: Returns a copy of coordinates for s closed polygon
+Internal: Returns a copy of coordinates for a closed polygon
 */
 function closedPolygon (coordinates) {
   var outer = [ ];
