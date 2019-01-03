@@ -22,7 +22,7 @@ const copyright = `/* @preserve
 */`;
 
 // Terraformer, TerraformerArcgis, TerraformerWkt
-const globalNamespace = (truncatedName !== 'spatial') ? `Terraformer${truncatedName.charAt(0).toUpperCase() + truncatedName.slice(1)}` : `TerraformerSpatial`;
+const globalNamespace = (truncatedName !== 'spatial') ? `Terraformer${truncatedName.charAt(0).toUpperCase() + truncatedName.slice(1)}` : `Terraformer`;
 
 export default {
   input: 'index.js', // resolved by our plugin

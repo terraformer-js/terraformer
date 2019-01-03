@@ -33,12 +33,14 @@ export const GeographicCRS = {
 Internal: safe warning
 */
 function warn () {
-  var args = Array.prototype.slice.apply(arguments);
+  const args = Array.prototype.slice.apply(arguments);
 
   if (typeof console !== 'undefined' && console.warn) {
     console.warn.apply(console, args);
   }
 }
+
+export const hasHoles = (geojson) => geojson.coordinates.length > 1;
 
 /**
  * Returns the envelope surrounding a GeoJSON input.
@@ -46,24 +48,24 @@ function warn () {
  * @return {object} in the form { w, y, w, h }.
  */
 
-export function calculateEnvelope (geojson) {
-  var bounds = calculateBounds(geojson);
+export const calculateEnvelope = (geojson) => {
+  const bounds = calculateBounds(geojson);
   return {
     x: bounds[0],
     y: bounds[1],
     w: Math.abs(bounds[0] - bounds[2]),
     h: Math.abs(bounds[1] - bounds[3])
   };
-}
+};
 
 /*
   Calculate an bounding box for a geojson object
 */
-export function calculateBounds (geojson) {
+export const calculateBounds = (geojson) => {
   if (geojson.type) {
     switch (geojson.type) {
       case 'Point':
-        return [ geojson.coordinates[0], geojson.coordinates[1], geojson.coordinates[0], geojson.coordinates[1] ];
+        return [geojson.coordinates[0], geojson.coordinates[1], geojson.coordinates[0], geojson.coordinates[1]];
 
       case 'MultiPoint':
         return calculateBoundsFromArray(geojson.coordinates);
@@ -94,7 +96,7 @@ export function calculateBounds (geojson) {
     }
   }
   return null;
-}
+};
 
 /*
 Internal: Calculate an bounding box from an nested array of positions
@@ -110,17 +112,17 @@ Internal: Calculate an bounding box from an nested array of positions
   ]
 ]
 */
-function calculateBoundsFromNestedArrays (array) {
-  var x1 = null; var x2 = null; var y1 = null; var y2 = null;
+const calculateBoundsFromNestedArrays = (array) => {
+  let x1 = null; let x2 = null; let y1 = null; let y2 = null;
 
-  for (var i = 0; i < array.length; i++) {
-    var inner = array[i];
+  for (let i = 0; i < array.length; i++) {
+    const inner = array[i];
 
-    for (var j = 0; j < inner.length; j++) {
-      var lonlat = inner[j];
+    for (let j = 0; j < inner.length; j++) {
+      const lonlat = inner[j];
 
-      var lon = lonlat[0];
-      var lat = lonlat[1];
+      const lon = lonlat[0];
+      const lat = lonlat[1];
 
       if (x1 === null) {
         x1 = lon;
@@ -148,8 +150,8 @@ function calculateBoundsFromNestedArrays (array) {
     }
   }
 
-  return [ x1, y1, x2, y2 ];
-}
+  return [x1, y1, x2, y2];
+};
 
 /*
 Internal: Calculate a bounding box from an array of arrays of arrays
@@ -159,19 +161,21 @@ Internal: Calculate a bounding box from an array of arrays of arrays
   [ [lng, lat],[lng, lat],[lng, lat] ]
 ]
 */
-function calculateBoundsFromNestedArrayOfArrays (array) {
-  var x1 = null; var x2 = null; var y1 = null; var y2 = null;
+const calculateBoundsFromNestedArrayOfArrays = (array) => {
+  let x1 = null; let x2 = null; let y1 = null; let y2 = null;
 
-  for (var i = 0; i < array.length; i++) {
-    var inner = array[i];
+  for (let i = 0; i < array.length; i++) {
+    const inner = array[i];
 
-    for (var j = 0; j < inner.length; j++) {
-      var innerinner = inner[j];
-      for (var k = 0; k < innerinner.length; k++) {
-        var lonlat = innerinner[k];
+    // return calculateBoundsFromNestedArrays(inner); // more DRY?
+    for (let j = 0; j < inner.length; j++) {
+      const innerinner = inner[j];
 
-        var lon = lonlat[0];
-        var lat = lonlat[1];
+      for (let k = 0; k < innerinner.length; k++) {
+        const lonlat = innerinner[k];
+
+        const lon = lonlat[0];
+        const lat = lonlat[1];
 
         if (x1 === null) {
           x1 = lon;
@@ -201,7 +205,7 @@ function calculateBoundsFromNestedArrayOfArrays (array) {
   }
 
   return [x1, y1, x2, y2];
-}
+};
 
 /*
 Internal: Calculate a bounding box from an array of positions
@@ -209,13 +213,13 @@ Internal: Calculate a bounding box from an array of positions
   [lng, lat],[lng, lat],[lng, lat]
 ]
 */
-function calculateBoundsFromArray (array) {
-  var x1 = null; var x2 = null; var y1 = null; var y2 = null;
+const calculateBoundsFromArray = (array) => {
+  let x1 = null; let x2 = null; let y1 = null; let y2 = null;
 
-  for (var i = 0; i < array.length; i++) {
-    var lonlat = array[i];
-    var lon = lonlat[0];
-    var lat = lonlat[1];
+  for (let i = 0; i < array.length; i++) {
+    const lonlat = array[i];
+    const lon = lonlat[0];
+    const lat = lonlat[1];
 
     if (x1 === null) {
       x1 = lon;
@@ -242,57 +246,57 @@ function calculateBoundsFromArray (array) {
     }
   }
 
-  return [ x1, y1, x2, y2 ];
-}
+  return [x1, y1, x2, y2];
+};
 
 /*
 Internal: Calculate an bounding box for a feature collection
 */
-function calculateBoundsForFeatureCollection (featureCollection) {
-  var extents = []; var extent;
-  for (var i = featureCollection.features.length - 1; i >= 0; i--) {
-    extent = calculateBounds(featureCollection.features[i].geometry);
+const calculateBoundsForFeatureCollection = (featureCollection) => {
+  let extents = [];
+  for (let i = featureCollection.features.length - 1; i >= 0; i--) {
+    const extent = calculateBounds(featureCollection.features[i].geometry);
     extents.push([extent[0], extent[1]]);
     extents.push([extent[2], extent[3]]);
   }
 
   return calculateBoundsFromArray(extents);
-}
+};
 
 /*
 Internal: Calculate an bounding box for a geometry collection
 */
-function calculateBoundsForGeometryCollection (geometryCollection) {
-  var extents = []; var extent;
+export const calculateBoundsForGeometryCollection = (geometryCollection) => {
+  let extents = [];
 
-  for (var i = geometryCollection.geometries.length - 1; i >= 0; i--) {
-    extent = calculateBounds(geometryCollection.geometries[i]);
+  for (let i = geometryCollection.geometries.length - 1; i >= 0; i--) {
+    const extent = calculateBounds(geometryCollection.geometries[i]);
     extents.push([extent[0], extent[1]]);
     extents.push([extent[2], extent[3]]);
   }
 
   return calculateBoundsFromArray(extents);
-}
+};
 
 /*
 Internal: Convert radians to degrees. Used by spatial reference converters.
 */
-function radToDeg (rad) {
+const radToDeg = (rad) => {
   return rad * DegreesPerRadian;
-}
+};
 
 /*
 Internal: Convert degrees to radians. Used by spatial reference converters.
 */
-function degToRad (deg) {
+const degToRad = (deg) => {
   return deg * RadiansPerDegree;
-}
+};
 
 /*
 Internal: Loop over each array in a geojson object and apply a function to it. Used by spatial reference converters.
 */
-function eachPosition (coordinates, func) {
-  for (var i = 0; i < coordinates.length; i++) {
+const eachPosition = (coordinates, func) => {
+  for (let i = 0; i < coordinates.length; i++) {
     // we found a number so lets convert the pair
     if (typeof coordinates[i][0] === 'number') {
       coordinates[i] = func(coordinates[i]);
@@ -303,40 +307,40 @@ function eachPosition (coordinates, func) {
     }
   }
   return coordinates;
-}
+};
 
 /*
 Convert a GeoJSON Position object to Geographic (4326)
 */
-export function positionToGeographic (position) {
-  var x = position[0];
-  var y = position[1];
+export const positionToGeographic = (position) => {
+  const x = position[0];
+  const y = position[1];
   return [radToDeg(x / EarthRadius) - (Math.floor((radToDeg(x / EarthRadius) + 180) / 360) * 360), radToDeg((Math.PI / 2) - (2 * Math.atan(Math.exp(-1.0 * y / EarthRadius))))];
-}
+};
 
 /*
 Convert a GeoJSON Position object to Web Mercator (3857)
 */
-export function positionToMercator (position) {
-  var lng = position[0];
-  var lat = Math.max(Math.min(position[1], 89.99999), -89.99999);
+export const positionToMercator = (position) => {
+  const lng = position[0];
+  const lat = Math.max(Math.min(position[1], 89.99999), -89.99999);
   return [degToRad(lng) * EarthRadius, EarthRadius / 2.0 * Math.log((1.0 + Math.sin(degToRad(lat))) / (1.0 - Math.sin(degToRad(lat))))];
-}
+};
 
 /*
 Apply a function agaist all positions in a geojson object. Used by spatial reference converters.
 */
-function applyConverter (geojson, converter, noCrs) {
+const applyConverter = (geojson, converter, noCrs) => {
   if (geojson.type === 'Point') {
     geojson.coordinates = converter(geojson.coordinates);
   } else if (geojson.type === 'Feature') {
     geojson.geometry = applyConverter(geojson.geometry, converter, true);
   } else if (geojson.type === 'FeatureCollection') {
-    for (var f = 0; f < geojson.features.length; f++) {
+    for (let f = 0; f < geojson.features.length; f++) {
       geojson.features[f] = applyConverter(geojson.features[f], converter, true);
     }
   } else if (geojson.type === 'GeometryCollection') {
-    for (var g = 0; g < geojson.geometries.length; g++) {
+    for (let g = 0; g < geojson.geometries.length; g++) {
       geojson.geometries[g] = applyConverter(geojson.geometries[g], converter, true);
     }
   } else {
@@ -354,26 +358,26 @@ function applyConverter (geojson, converter, noCrs) {
   }
 
   return geojson;
-}
+};
 
 /*
 Convert a GeoJSON object to ESRI Web Mercator (3857)
 */
-export function toMercator (geojson) {
+export const toMercator = (geojson) => {
   return applyConverter(geojson, positionToMercator);
-}
+};
 
 /*
 Convert a GeoJSON object to Geographic coordinates (WSG84, 4326)
 */
-export function toGeographic (geojson) {
+export const toGeographic = (geojson) => {
   return applyConverter(geojson, positionToGeographic);
-}
+};
 
 /*
 Internal: used for sorting
 */
-function compSort (p1, p2) {
+const compSort = (p1, p2) => {
   if (p1[0] > p2[0]) {
     return -1;
   } else if (p1[0] < p2[0]) {
@@ -385,12 +389,12 @@ function compSort (p1, p2) {
   } else {
     return 0;
   }
-}
+};
 
 /*
   Internal: -1,0,1 comparison function
   */
-function cmp (a, b) {
+const cmp = (a, b) => {
   if (a < b) {
     return -1;
   } else if (a > b) {
@@ -398,40 +402,40 @@ function cmp (a, b) {
   } else {
     return 0;
   }
-}
+};
 
 /*
   Internal: used to determine turn
   */
-function turn (p, q, r) {
+const turn = (p, q, r) => {
   // Returns -1, 0, 1 if p,q,r forms a right, straight, or left turn.
   return cmp((q[0] - p[0]) * (r[1] - p[1]) - (r[0] - p[0]) * (q[1] - p[1]), 0);
-}
+};
 
 /*
   Internal: used to determine euclidean distance between two points
   */
-function euclideanDistance (p, q) {
+const euclideanDistance = (p, q) => {
   // Returns the squared Euclidean distance between p and q.
-  var dx = q[0] - p[0];
-  var dy = q[1] - p[1];
+  const dx = q[0] - p[0];
+  const dy = q[1] - p[1];
 
   return dx * dx + dy * dy;
-}
+};
 
-function nextHullPoint (points, p) {
+const nextHullPoint = (points, p) => {
   // Returns the next point on the convex hull in CCW from p.
-  var q = p;
-  for (var r in points) {
-    var t = turn(p, q, points[r]);
+  let q = p;
+  for (let r in points) {
+    const t = turn(p, q, points[r]);
     if (t === -1 || (t === 0 && euclideanDistance(p, points[r]) > euclideanDistance(p, q))) {
       q = points[r];
     }
   }
   return q;
-}
+};
 
-function coordinateConvexHull (points) {
+const coordinateConvexHull = (points) => {
   // implementation of the Jarvis March algorithm
   // adapted from http://tixxit.wordpress.com/2009/12/09/jarvis-march/
 
@@ -442,10 +446,10 @@ function coordinateConvexHull (points) {
   }
 
   // Returns the points on the convex hull of points in CCW order.
-  var hull = [points.sort(compSort)[0]];
+  let hull = [points.sort(compSort)[0]];
 
   for (var p = 0; p < hull.length; p++) {
-    var q = nextHullPoint(points, hull[p]);
+    const q = nextHullPoint(points, hull[p]);
 
     if (q !== hull[0]) {
       hull.push(q);
@@ -453,24 +457,24 @@ function coordinateConvexHull (points) {
   }
 
   return hull;
-}
+};
 
-export function convexHull (geojson) {
-  var freshCoordinates = [ ]; var i; var j;
+export const convexHull = (geojson) => {
+  let coordinates = []; let i; let j;
   if (geojson.type === 'Point') {
     return null;
   } else if (geojson.type === 'LineString' || geojson.type === 'MultiPoint') {
     if (geojson.coordinates && geojson.coordinates.length >= 3) {
-      freshCoordinates = geojson.coordinates;
+      coordinates = geojson.coordinates;
     } else {
       return null;
     }
   } else if (geojson.type === 'Polygon' || geojson.type === 'MultiLineString') {
     if (geojson.coordinates && geojson.coordinates.length > 0) {
       for (i = 0; i < geojson.coordinates.length; i++) {
-        freshCoordinates = freshCoordinates.concat(geojson.coordinates[i]);
+        coordinates = coordinates.concat(geojson.coordinates[i]);
       }
-      if (freshCoordinates.length < 3) {
+      if (coordinates.length < 3) {
         return null;
       }
     } else {
@@ -480,10 +484,10 @@ export function convexHull (geojson) {
     if (geojson.coordinates && geojson.coordinates.length > 0) {
       for (i = 0; i < geojson.coordinates.length; i++) {
         for (j = 0; j < geojson.coordinates[i].length; j++) {
-          freshCoordinates = freshCoordinates.concat(geojson.coordinates[i][j]);
+          coordinates = coordinates.concat(geojson.coordinates[i][j]);
         }
       }
-      if (freshCoordinates.length < 3) {
+      if (coordinates.length < 3) {
         return null;
       }
     } else {
@@ -495,21 +499,21 @@ export function convexHull (geojson) {
 
   return {
     type: 'Polygon',
-    coordinates: closedPolygon([coordinateConvexHull(freshCoordinates)])
+    coordinates: closedPolygon([coordinateConvexHull(coordinates)])
   };
-}
+};
 
-export function isConvex (points) {
-  var ltz;
+export const isConvex = (points) => {
+  let ltz;
 
   for (var i = 0; i < points.length - 3; i++) {
-    var p1 = points[i];
-    var p2 = points[i + 1];
-    var p3 = points[i + 2];
-    var v = [p2[0] - p1[0], p2[1] - p1[1]];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2];
+    const v = [p2[0] - p1[0], p2[1] - p1[1]];
 
     // p3.x * v.y - p3.y * v.x + v.x * p1.y - v.y * p1.x
-    var res = p3[0] * v[1] - p3[1] * v[0] + v[0] * p1[1] - v[1] * p1[0];
+    const res = p3[0] * v[1] - p3[1] * v[0] + v[0] * p1[1] - v[1] * p1[0];
 
     if (i === 0) {
       if (res < 0) {
@@ -525,15 +529,15 @@ export function isConvex (points) {
   }
 
   return true;
-}
+};
 
-export function polygonContainsPoint (polygon, point) {
+export const polygonContainsPoint = (polygon, point) => {
   if (polygon && polygon.length) {
     if (polygon.length === 1) { // polygon with no holes
       return coordinatesContainPoint(polygon[0], point);
     } else { // polygon with holes
       if (coordinatesContainPoint(polygon[0], point)) {
-        for (var i = 1; i < polygon.length; i++) {
+        for (let i = 1; i < polygon.length; i++) {
           if (coordinatesContainPoint(polygon[i], point)) {
             return false; // found in hole
           }
@@ -547,16 +551,18 @@ export function polygonContainsPoint (polygon, point) {
   } else {
     return false;
   }
-}
+};
+
+// to do: expose a close() method?
 
 /*
 Internal: Returns a copy of coordinates for a closed polygon
 */
-function closedPolygon (coordinates) {
-  var outer = [ ];
+const closedPolygon = (coordinates) => {
+  let outer = [];
 
-  for (var i = 0; i < coordinates.length; i++) {
-    var inner = coordinates[i].slice();
+  for (let i = 0; i < coordinates.length; i++) {
+    let inner = coordinates[i].slice();
     if (pointsEqual(inner[0], inner[inner.length - 1]) === false) {
       inner.push(inner[0]);
     }
@@ -565,21 +571,21 @@ function closedPolygon (coordinates) {
   }
 
   return outer;
-}
+};
 
-export function coordinatesEqual (a, b) {
+export const coordinatesEqual = (a, b) => {
   if (a.length !== b.length) {
     return false;
   }
 
-  var na = a.slice().sort(compSort);
-  var nb = b.slice().sort(compSort);
+  const na = a.slice().sort(compSort);
+  const nb = b.slice().sort(compSort);
 
-  for (var i = 0; i < na.length; i++) {
+  for (let i = 0; i < na.length; i++) {
     if (na[i].length !== nb[i].length) {
       return false;
     }
-    for (var j = 0; j < na.length; j++) {
+    for (let j = 0; j < na.length; j++) {
       if (na[i][j] !== nb[i][j]) {
         return false;
       }
@@ -587,14 +593,14 @@ export function coordinatesEqual (a, b) {
   }
 
   return true;
-}
+};
 
-export function contains (geoJSON, comparisonGeoJSON) {
+export const contains = (geoJSON, comparisonGeoJSON) => {
   return within(comparisonGeoJSON, geoJSON);
-}
+};
 
-export function within (geoJSON, comparisonGeoJSON) {
-  var coordinates, i, contains;
+export const within = (geoJSON, comparisonGeoJSON) => {
+  let coordinates, i, contains;
 
   // if we are passed a feature, use the polygon inside instead
   if (comparisonGeoJSON.type === 'Feature') {
@@ -612,7 +618,7 @@ export function within (geoJSON, comparisonGeoJSON) {
   if (geoJSON.type === 'MultiLineString') {
     if (comparisonGeoJSON.type === 'Point') {
       for (i = 0; i < geoJSON.coordinates.length; i++) {
-        var linestring = { type: 'LineString', coordinates: geoJSON.coordinates[i] };
+        const linestring = { type: 'LineString', coordinates: geoJSON.coordinates[i] };
 
         if (within(linestring, comparisonGeoJSON)) {
           return true;
@@ -654,11 +660,11 @@ export function within (geoJSON, comparisonGeoJSON) {
         return false;
       }
 
-    // point.within(polygon)
+      // point.within(polygon)
     } else if (comparisonGeoJSON.type === 'Point') {
       return polygonContainsPoint(geoJSON.coordinates, comparisonGeoJSON.coordinates);
 
-    // linestring/multipoint withing polygon
+      // linestring/multipoint withing polygon
     } else if (comparisonGeoJSON.type === 'LineString' || comparisonGeoJSON.type === 'MultiPoint') {
       if (!comparisonGeoJSON.coordinates || comparisonGeoJSON.coordinates.length === 0) {
         return false;
@@ -672,7 +678,7 @@ export function within (geoJSON, comparisonGeoJSON) {
 
       return true;
 
-    // multilinestring.within(polygon)
+      // multilinestring.within(polygon)
     } else if (comparisonGeoJSON.type === 'MultiLineString') {
       for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
         const ls = comparisonGeoJSON.coordinates[i];
@@ -685,7 +691,7 @@ export function within (geoJSON, comparisonGeoJSON) {
 
       return true;
 
-    // multipolygon.within(polygon)
+      // multipolygon.within(polygon)
     } else if (comparisonGeoJSON.type === 'MultiPolygon') {
       for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
         const p1 = { type: 'Polygon', coordinates: comparisonGeoJSON.coordinates[i] };
@@ -712,7 +718,7 @@ export function within (geoJSON, comparisonGeoJSON) {
       }
 
       return false;
-    // polygon.within(multipolygon)
+      // polygon.within(multipolygon)
     } else if (comparisonGeoJSON.type === 'Polygon') {
       for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
         if (geoJSON.coordinates[i].length === comparisonGeoJSON.coordinates.length) {
@@ -739,19 +745,19 @@ export function within (geoJSON, comparisonGeoJSON) {
         }
       }
 
-    // linestring.within(multipolygon), multipoint.within(multipolygon)
+      // linestring.within(multipolygon), multipoint.within(multipolygon)
     } else if (comparisonGeoJSON.type === 'LineString' || comparisonGeoJSON.type === 'MultiPoint') {
       for (i = 0; i < geoJSON.coordinates.length; i++) {
-        var p = { type: 'Polygon', coordinates: geoJSON.coordinates[i] };
+        const poly = { type: 'Polygon', coordinates: geoJSON.coordinates[i] };
 
-        if (within(p, comparisonGeoJSON)) {
+        if (within(poly, comparisonGeoJSON)) {
           return true;
         }
 
         return false;
       }
 
-    // multilinestring.within(multipolygon)
+      // multilinestring.within(multipolygon)
     } else if (comparisonGeoJSON.type === 'MultiLineString') {
       for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
         const lines = comparisonGeoJSON.coordinates[i];
@@ -763,10 +769,10 @@ export function within (geoJSON, comparisonGeoJSON) {
 
       return true;
 
-    // multipolygon.within(multipolygon)
+      // multipolygon.within(multipolygon)
     } else if (comparisonGeoJSON.type === 'MultiPolygon') {
       for (i = 0; i < geoJSON.coordinates.length; i++) {
-        var mpoly = { type: 'Polygon', coordinates: geoJSON.coordinates[i] };
+        const mpoly = { type: 'Polygon', coordinates: geoJSON.coordinates[i] };
 
         if (within(mpoly, comparisonGeoJSON) === false) {
           return false;
@@ -779,9 +785,9 @@ export function within (geoJSON, comparisonGeoJSON) {
 
   // default to false
   return false;
-}
+};
 
-export function intersects (geoJSON, comparisonGeoJSON) {
+export const intersects = (geoJSON, comparisonGeoJSON) => {
   // if we are passed a feature, use the polygon inside instead
   if (comparisonGeoJSON.type === 'Feature') {
     comparisonGeoJSON = comparisonGeoJSON.geometry;
@@ -792,7 +798,7 @@ export function intersects (geoJSON, comparisonGeoJSON) {
   }
 
   if (geoJSON.type !== 'Point' && geoJSON.type !== 'MultiPoint' &&
-      comparisonGeoJSON.type !== 'Point' && comparisonGeoJSON.type !== 'MultiPoint') {
+    comparisonGeoJSON.type !== 'Point' && comparisonGeoJSON.type !== 'MultiPoint') {
     return arraysIntersectArrays(geoJSON.coordinates, comparisonGeoJSON.coordinates);
   } else if (geoJSON.type === 'Feature') {
     // in the case of a Feature, use the internal geometry for intersection
@@ -802,27 +808,27 @@ export function intersects (geoJSON, comparisonGeoJSON) {
 
   warn('Type ' + geoJSON.type + ' to ' + comparisonGeoJSON.type + ' intersection is not supported by intersects');
   return false;
-}
+};
 
-function createCircle (center, radius, interpolate) {
-  var mercatorPosition = positionToMercator(center);
-  var steps = interpolate || 64;
-  var polygon = {
+const createCircle = (center, radius, interpolate) => {
+  const mercatorPosition = positionToMercator(center);
+  const steps = interpolate || 64;
+  const polygon = {
     type: 'Polygon',
     coordinates: [[]]
   };
   for (var i = 1; i <= steps; i++) {
-    var radians = i * (360 / steps) * Math.PI / 180;
+    const radians = i * (360 / steps) * Math.PI / 180;
     polygon.coordinates[0].push([mercatorPosition[0] + radius * Math.cos(radians), mercatorPosition[1] + radius * Math.sin(radians)]);
   }
   polygon.coordinates = closedPolygon(polygon.coordinates);
 
   return toGeographic(polygon);
-}
+};
 
-export function toCircle (center, radius, interpolate) {
-  var steps = interpolate || 64;
-  var rad = radius || 250;
+export const toCircle = (center, radius, interpolate) => {
+  const steps = interpolate || 64;
+  const rad = radius || 250;
 
   if (!center || center.length < 2 || !rad || !steps) {
     throw new Error('Terraformer: missing parameter for Terraformer.Circle');
@@ -837,4 +843,4 @@ export function toCircle (center, radius, interpolate) {
       steps: steps
     }
   };
-}
+};
