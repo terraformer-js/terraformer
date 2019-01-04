@@ -309,9 +309,373 @@ test('should calculate the envelope of a GeometryCollection.', function (t) {
   t.deepEqual(calculateEnvelope(GeoJSON.geometryCollections[0]), { x: -84.32281494140625, y: 33.73804486328907, w: 141.27281494140624, h: 37.271955136710936 });
 });
 
-// intersects
+// intersects MultiLineString
 
-// within
+test('should correctly determine intersection with a LineString', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.multiLineStrings[3], {
+    'type': 'LineString',
+    'coordinates': [
+      [ 0, 10 ], [ 15, 5 ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a MultiLineString', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.multiLineStrings[3], {
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 0, 10 ], [ 15, 5 ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a Polygon', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.multiLineStrings[3], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 0, 5 ], [ 10, 5 ], [ 10, 0 ], [ 0, 0 ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a MultiPolygon', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.multiLineStrings[3], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 0, 5 ], [ 10, 5 ], [ 10, 0 ], [ 0, 0 ] ] ]
+    ]
+  }), true);
+});
+
+// intersects Polygon
+
+test('should correctly determine intersection with itself', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.polygons[4], GeoJSON.polygons[4]), true);
+});
+
+test('should correctly determine intersection with a Polygon', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.polygons[4], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 1, 1 ], [ 11, 1 ], [ 11, 6 ], [ 1, 6 ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a MultiPolygon', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.polygons[4], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 1, 1 ], [ 11, 1 ], [ 11, 6 ], [ 1, 6 ] ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a MultiLineString', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.polygons[4], {
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 1, 1 ], [ 11, 1 ], [ 11, 6 ], [ 1, 6 ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a LineString', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.polygons[4], {
+    'type': 'LineString',
+    'coordinates': [
+      [ 1, 1 ], [ 11, 1 ], [ 11, 6 ], [ 1, 6 ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a MultiPolygon', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.polygons[4], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 1, 1 ], [ 11, 1 ], [ 11, 6 ], [ 1, 6 ] ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine intersection with a MultiPolygon in reverse', function (t) {
+  t.plan(1);
+  t.equal(intersects({
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 1, 1 ], [ 11, 1 ], [ 11, 6 ], [ 1, 6 ] ] ]
+    ]
+  }, GeoJSON.polygons[4]), true);
+});
+
+// intersects MultiPolygon
+
+test('should return false if two MultiPolygons do not intersect.', function (t) {
+  t.plan(1);
+  t.equal(intersects({
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 48.5, -122.5 ], [ 50, -123 ], [ 48.5, -122.5 ] ] ]
+    ]
+  }, {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ] ]
+    ]
+  }), false);
+});
+
+// intersects LineString
+
+test('should correctly determine intersection with a LineString.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'LineString',
+    'coordinates': [
+      [46, -121], [44, -124]
+    ]
+  }), true);
+});
+
+test('should know that parellel lines dont intersect.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'LineString',
+    'coordinates': [
+      [44,-121], [45, -122]
+    ]
+  }), false);
+});
+
+test('should know that a line cant intersect itself.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'LineString',
+    'coordinates': [
+      [45,-122], [46, -123]
+    ]
+  }), false);
+});
+
+test('should correctly determine intersection with a Polygon.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 45.5, -122.5 ], [ 47, -123 ], [ 45.5, -122.5 ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine lack of intersection with a Polygon.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 48.5, -122.5 ], [ 50, -123 ], [ 48.5, -122.5 ] ]
+    ]
+  }), false);
+});
+
+test('should correctly determine intersection with a MultiLineString.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 45.5, -122.5 ], [ 47, -123 ], [ 45.5, -122.5 ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine lack of intersection with a MultiLineString.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 48.5, -122.5 ], [ 50, -123 ], [ 48.5, -122.5 ] ]
+    ]
+  }), false);
+});
+
+test('should correctly determine intersection with a MultiPolygon.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ 45.5, -122.5 ], [ 47, -123 ], [ 45.5, -122.5 ] ]
+    ]
+  }), true);
+});
+
+test('should correctly determine lack of intersection with a MultiPolygon.', function (t) {
+  t.plan(1);
+  t.equal(intersects(GeoJSON.lineStrings[6], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 48.5, -122.5 ], [ 50, -123 ], [ 48.5, -122.5 ] ] ]
+    ]
+  }), false);
+});
+
+test('should correctly determine lack of intersection with a MultiPolygon in reverse.', function (t) {
+  t.plan(1);
+  t.equal(intersects({
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 48.5, -122.5 ], [ 50, -123 ], [ 48.5, -122.5 ] ] ]
+    ]
+  }, GeoJSON.lineStrings[6]), false);
+});
+
+// Point within
+
+test('should return true when inside a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]
+    ]
+  }), true);
+});
+
+test('should return false when not inside a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ]
+    ]
+  }), false);
+});
+
+test('should return true when its the same point.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'Point',
+    'coordinates': [ 10, 10 ]
+  }), true);
+});
+
+test('should return false when its not the same point.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'Point',
+    'coordinates': [ 11, 11 ]
+  }), false);
+});
+
+test('should return true when inside a MultiPolygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ] ], [ [ [ 5, 5 ], [ 15, 5 ], [ 15, 15 ], [ 5, 15 ], [ 5, 5 ] ] ]
+     ]
+  }), true);
+});
+
+test('should return false when not inside a MultiPolygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ] ], [ [ [ 15, 15 ], [ 25, 15 ], [ 25, 25 ], [ 15, 25 ], [ 15, 15 ] ] ]
+     ]
+  }), false);
+});
+
+test('should return false when inside the hole of a Polygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ], [ [ 9, 9 ], [ 9, 11 ], [ 11, 11 ], [ 11, 9 ], [ 9, 9 ] ]
+     ]
+  }), false);
+});
+
+test('should return true when not inside the hole of a Polygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ], [ [ 9, 9 ], [ 9, 9.5 ], [ 9.5, 9.5 ], [ 9.5, 9 ], [ 9, 9 ] ]
+     ]
+  }), true);
+});
+
+test('should return true when inside a Circle.', function (t) {
+  t.plan(1);
+  const circle = toCircle([ 10, 10 ], 50, 64);
+  t.equal(within(GeoJSON.points[3], circle), true);
+});
+
+// MultiPolygon within
+
+test('should return true if a linestring is within a multipolygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'LineString',
+    'coordinates': [
+      [ 6, 6 ], [ 6, 14 ]
+    ]
+  }, GeoJSON.multiPolygons[3]), true);
+});
+
+test('should return true if a multipoint is within a multipolygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiPoint',
+    'coordinates': [
+      [ 6, 6 ], [ 6, 14 ]
+    ]
+  }, GeoJSON.multiPolygons[3]), true);
+});
+
+test('should return true if a multilinestring is within a multipolygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 6, 6 ], [ 6, 14 ] ]
+    ]
+  }, GeoJSON.multiPolygons[3]), true);
+});
+
+test('should return false if part of a multilinestring is not within a multipolygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 6, 6 ], [ 6, 14 ] ], [ [ 1, 1 ], [ 1, 2 ] ]
+    ]
+  }, GeoJSON.multiPolygons[3]), false);
+});
+
+test('should return true if a multipolygon is within a multipolygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.multiPolygons[3], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 1, 1 ], [ 1, 40 ], [ 40, 40 ], [ 40, 1 ], [ 1, 1 ] ] ]
+    ]
+  }), true);
+});
+
+// more Point within
+
+// Polygon within
 
 // catch all
 

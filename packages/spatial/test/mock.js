@@ -11,6 +11,10 @@ export const GeoJSON = { // eslint-disable-line no-unused-vars
     {
       'type': 'Point',
       'coordinates': [100, 0]
+    },
+    {
+      'type': 'Point',
+      'coordinates': [10, 10]
     }
   ],
   multiPoints: [
@@ -55,6 +59,10 @@ export const GeoJSON = { // eslint-disable-line no-unused-vars
     {
       'type': 'LineString',
       'coordinates': [ [100, 0], [-45, 122], [80, -60] ]
+    },
+    {
+      'type': 'LineString',
+      'coordinates': [ [ 45, -122 ], [ 46, -123 ] ]
     }
   ],
   multiLineStrings: [
@@ -79,6 +87,12 @@ export const GeoJSON = { // eslint-disable-line no-unused-vars
       'coordinates': [
         [ [-105, 40], [-110, 45], [-115, 55] ],
         [ [-100, 40], [-105, 45], [-110, 55] ]
+      ]
+    },
+    {
+      'type': 'MultiLineString',
+      'coordinates': [
+        [ [ 0, 0 ], [ 10, 10 ] ], [ [ 5, 5 ], [ 15, 15 ] ]
       ]
     }
   ],
@@ -107,6 +121,12 @@ export const GeoJSON = { // eslint-disable-line no-unused-vars
       'coordinates': [
         [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
         [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
+      ]
+    },
+    {
+      'type': 'Polygon',
+      'coordinates': [
+        [ [ 0, 0 ], [ 10, 0 ], [ 10, 5 ], [ 0, 5 ] ]
       ]
     }
   ],
@@ -144,6 +164,12 @@ export const GeoJSON = { // eslint-disable-line no-unused-vars
           [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
           [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]
         ]
+      ]
+    },
+    {
+      'type': 'MultiPolygon',
+      'coordinates': [
+        [ [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ] ], [ [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ] ]
       ]
     }
   ],
