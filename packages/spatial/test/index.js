@@ -452,7 +452,7 @@ test('should know that parellel lines dont intersect.', function (t) {
   t.equal(intersects(GeoJSON.lineStrings[6], {
     'type': 'LineString',
     'coordinates': [
-      [44,-121], [45, -122]
+      [44, -121], [45, -122]
     ]
   }), false);
 });
@@ -462,7 +462,7 @@ test('should know that a line cant intersect itself.', function (t) {
   t.equal(intersects(GeoJSON.lineStrings[6], {
     'type': 'LineString',
     'coordinates': [
-      [45,-122], [46, -123]
+      [45, -122], [46, -123]
     ]
   }), false);
 });
@@ -581,7 +581,7 @@ test('should return true when inside a MultiPolygon.', function (t) {
     'type': 'MultiPolygon',
     'coordinates': [
       [ [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ] ], [ [ [ 5, 5 ], [ 15, 5 ], [ 15, 15 ], [ 5, 15 ], [ 5, 5 ] ] ]
-     ]
+    ]
   }), true);
 });
 
@@ -591,7 +591,7 @@ test('should return false when not inside a MultiPolygon.', function (t) {
     'type': 'MultiPolygon',
     'coordinates': [
       [ [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ] ], [ [ [ 15, 15 ], [ 25, 15 ], [ 25, 25 ], [ 15, 25 ], [ 15, 15 ] ] ]
-     ]
+    ]
   }), false);
 });
 
@@ -601,7 +601,7 @@ test('should return false when inside the hole of a Polygon.', function (t) {
     'type': 'Polygon',
     'coordinates': [
       [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ], [ [ 9, 9 ], [ 9, 11 ], [ 11, 11 ], [ 11, 9 ], [ 9, 9 ] ]
-     ]
+    ]
   }), false);
 });
 
@@ -611,7 +611,7 @@ test('should return true when not inside the hole of a Polygon.', function (t) {
     'type': 'Polygon',
     'coordinates': [
       [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ], [ [ 9, 9 ], [ 9, 9.5 ], [ 9.5, 9.5 ], [ 9.5, 9 ], [ 9, 9 ] ]
-     ]
+    ]
   }), true);
 });
 
