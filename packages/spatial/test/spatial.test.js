@@ -1,9 +1,6 @@
 import test from 'tape';
-import { GeoJSON } from './mock.js';
+import { GeoJSON } from './mock/geojson';
 import {
-  MercatorCRS,
-  toMercator,
-  toGeographic,
   toCircle,
   isConvex,
   convexHull,
@@ -13,13 +10,12 @@ import {
   intersects,
   contains,
   within,
-  hasHoles
+  hasHoles,
+  coordinatesEqual
 } from '../index';
 
 test('should exist', function (t) {
-  t.plan(11);
-  t.ok(toMercator);
-  t.ok(toGeographic);
+  t.plan(10);
   t.ok(toCircle);
   t.ok(isConvex);
   t.ok(convexHull);
@@ -29,25 +25,7 @@ test('should exist', function (t) {
   t.ok(contains);
   t.ok(within);
   t.ok(hasHoles);
-});
-
-// helper methods
-test('should reproject GeoJSON in WGS84 to Web Mercator', function (t) {
-  t.plan(2);
-  const mercator = toMercator(GeoJSON.points[2]);
-  t.deepEqual(mercator.coordinates, [11131949.079327168, 0]);
-  t.deepEqual(mercator.crs, MercatorCRS);
-});
-
-test('should reproject GeoJSON in Web Mercator to WGS84', function (t) {
-  t.plan(2);
-  const wgs = toGeographic({
-    'type': 'Point',
-    'coordinates': [ 11354588.06, 222684.20 ]
-  });
-  // HT http://www.jacklmoore.com/notes/rounding-in-javascript/
-  t.equal(Math.round(wgs.coordinates[0] + 'e8') + 'e-8', '10199999999e-8');
-  t.equal(Math.round(wgs.coordinates[1] + 'e8') + 'e-8', '199999992e-8');
+  t.ok(coordinatesEqual);
 });
 
 test('should create a circular GeoJSON polygon from an input point.', function (t) {
@@ -857,6 +835,68 @@ test('should return false if an empty linestring is within checked against a pol
 
 // catch all
 
+test('should return null for convexHull of empty Point.', function (t) {
+  t.plan(1);
+  t.equal(convexHull({
+    "type": "Point",
+    "coordinates": []
+  }), null);
+});
+
+test('should return null for convexHull of empty LineString.', function (t) {
+  t.plan(1);
+  t.equal(convexHull({
+    "type": "LineString",
+    "coordinates": []
+  }), null);
+});
+
+test('should return null for convexHull of empty Polygon.', function (t) {
+  t.plan(1);
+  t.equal(convexHull({
+    "type": "Polygon",
+    "coordinates": []
+  }), null);
+});
+
+test('should return null for convexHull of empty MultiPolygon.', function (t) {
+  t.plan(1);
+  t.equal(convexHull({
+    "type": "MultiPolygon",
+    "coordinates": []
+  }), null);
+});
+
+test('should return null for convexHull if a Feature has no geometry.', function (t) {
+  t.plan(1);
+  t.equal(convexHull({
+    type: "Feature",
+    geometry: {
+      type: "Polygon",
+      coordinates: []
+    }
+  }), null);
+});
+
+test('should throw an error for an unknown type in calculateBounds.', function (t) {
+  t.plan(1);
+  try {
+    calculateBounds({type: "foobar"});
+    t.fail('whoops!');
+  }
+  catch {
+    t.pass('great jorb!');
+  }
+});
+
+test('should return null when there is no geometry in a Feature in calculateBounds.', function (t) {
+  t.plan(1);
+  t.equal(calculateBounds({
+    type: "Feature",
+    geometry: null
+  }), null);
+});
+
 test('should return false when polygonContainsPoint is passed an empty polygon.', function (t) {
   t.plan(1);
   t.equal(polygonContainsPoint([], []), false);
@@ -881,4 +921,16 @@ test('should return false if a polygonContainsPoint is called and the point is o
   t.plan(1);
 
   t.equal(polygonContainsPoint([[1, 2], [2, 2], [2, 1], [1, 1], [1, 2]], [10, 10]), false);
+});
+
+test('should return false if coordinatesEqual are given non-equal lengths.', function (t) {
+  t.plan(1);
+
+  t.equal(coordinatesEqual([ [1, 2] ], [ [ 1, 2 ], [ 2, 3 ] ]), false);
+});
+
+test('should return false if coordinatesEqual coordinates are non-equal lengths.', function (t) {
+  t.plan(1);
+
+  t.equal(coordinatesEqual([ [1, 2] ], [ [ 1, 2, 3 ] ]), false);
 });
