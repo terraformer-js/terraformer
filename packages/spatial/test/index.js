@@ -675,7 +675,185 @@ test('should return true if a multipolygon is within a multipolygon.', function 
 
 // more Point within
 
+test('should return true if a point is within a multipoint.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[4], {
+    'type': 'MultiPoint',
+    'coordinates': [
+      [ 1, 1 ], [ 2, 2 ], [ 3, 3 ], [ 6, 6 ]
+    ]
+  }), true);
+});
+
+test('should return false if a point is within a multipoint with different length.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[4], {
+    'type': 'MultiPoint',
+    'coordinates': [
+      [ 1, 1, 1 ], [ 2, 2, 2 ], [ 3, 3, 3 ], [ 6, 6, 6 ]
+    ]
+  }), false);
+});
+
+test('should return true if a point is within a linestring.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[4], {
+    'type': 'LineString',
+    'coordinates': [
+      [ 1, 1 ], [ 2, 2 ], [ 3, 3 ], [ 6, 6 ]
+    ]
+  }), true);
+});
+
+test('should return true if a point is within a multilinestring.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[4], {
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 1, 1 ], [ 2, 2 ], [ 3, 3 ], [ 6, 6 ] ]
+    ]
+  }), true);
+});
+
 // Polygon within
+
+test('should return true if a polygon is within a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.polygons[5], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 3, 3 ], [ 3, 18 ], [ 18, 18 ], [ 18, 3 ], [ 3, 3 ] ]
+    ]
+  }), true);
+});
+
+test('should return false when a polygon is not within a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.polygons[5], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ]
+    ]
+  }), false);
+});
+
+test('should return true when within is passed the same polygon twice.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.polygons[5], {
+    'type': 'Polygon',
+    'coordinates': [
+      [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]
+    ]
+  }), true);
+});
+
+test('should return true if a polygon is within a multipolygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.polygons[5], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ] ], [ [ [ 3, 3 ], [ 18, 3 ], [ 18, 18 ], [ 3, 18 ], [ 3, 3 ] ] ]
+    ]
+  }), true);
+});
+
+test('should return false if a polygon is not within a multipolygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.polygons[5], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 25, 25 ], [ 25, 35 ], [ 35, 35 ], [ 35, 25 ], [ 25, 25 ] ] ], [ [ [ 15, 15 ], [ 25, 15 ], [ 25, 25 ], [ 15, 25 ], [ 15, 15 ] ] ]
+    ]
+  }), false);
+});
+
+test('should return true when one of the polygons is the same polygon.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.polygons[5], {
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ] ], [ [ [ 1, 1 ], [ 1, 2 ], [ 2, 1 ] ] ]
+    ]
+  }), true);
+});
+
+test('should return true if all of the points in a linestring are in the same polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'LineString',
+    'coordinates': [
+      [ 6, 6 ], [ 6, 14 ], [ 14, 14 ]
+    ]
+  }, GeoJSON.polygons[5]), true);
+});
+
+test('should return true if all of the points in a multipoint are in the same polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiPoint',
+    'coordinates': [
+      [ 6, 6 ], [ 6, 14 ], [ 14, 14 ]
+    ]
+  }, GeoJSON.polygons[5]), true);
+});
+
+test('should return false if one of the points in a linestring is outside the polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'LineString',
+    'coordinates': [
+      [ 6, 6 ], [ 6, 14 ], [ 16, 16 ]
+    ]
+  }, GeoJSON.polygons[5]), false);
+});
+
+test('should return false if one of the points in a multipoint is outside the polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiPoint',
+    'coordinates': [
+      [ 6, 6 ], [ 6, 14 ], [ 16, 16 ]
+    ]
+  }, GeoJSON.polygons[5]), false);
+});
+
+test('should return true if a multilinestring is within a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 6, 6 ], [ 6, 14 ] ]
+    ]
+  }, GeoJSON.polygons[5]), true);
+});
+
+test('should return false if a part of a multilinestring is not within a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiLineString',
+    'coordinates': [
+      [ [ 6, 6 ], [ 6, 14 ] ], [ [ 1, 1 ], [ 1, 2 ] ]
+    ]
+  }, GeoJSON.polygons[5]), false);
+});
+
+test('should return true if a multipolygon is within a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'MultiPolygon',
+    'coordinates': [
+      [ [ [ 6, 14 ], [ 14, 14 ], [ 14, 6 ], [ 6, 6 ], [ 6, 14 ] ] ]
+    ]
+  }, GeoJSON.polygons[5]), true);
+});
+
+test('should return false if an empty linestring is within checked against a polygon.', function (t) {
+  t.plan(1);
+  t.equal(within({
+    'type': 'LineString',
+    'coordinates': []
+  }, GeoJSON.polygons[5]), false);
+});
 
 // catch all
 

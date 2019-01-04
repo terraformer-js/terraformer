@@ -15,6 +15,10 @@ export const GeoJSON = { // eslint-disable-line no-unused-vars
     {
       'type': 'Point',
       'coordinates': [10, 10]
+    },
+    {
+      'type': 'Point',
+      'coordinates': [6, 6]
     }
   ],
   multiPoints: [
@@ -127,6 +131,12 @@ export const GeoJSON = { // eslint-disable-line no-unused-vars
       'type': 'Polygon',
       'coordinates': [
         [ [ 0, 0 ], [ 10, 0 ], [ 10, 5 ], [ 0, 5 ] ]
+      ]
+    },
+    {
+      'type': 'Polygon',
+      'coordinates': [
+        [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]
       ]
     }
   ],
