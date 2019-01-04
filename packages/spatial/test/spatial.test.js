@@ -838,41 +838,41 @@ test('should return false if an empty linestring is within checked against a pol
 test('should return null for convexHull of empty Point.', function (t) {
   t.plan(1);
   t.equal(convexHull({
-    "type": "Point",
-    "coordinates": []
+    'type': 'Point',
+    'coordinates': []
   }), null);
 });
 
 test('should return null for convexHull of empty LineString.', function (t) {
   t.plan(1);
   t.equal(convexHull({
-    "type": "LineString",
-    "coordinates": []
+    'type': 'LineString',
+    'coordinates': []
   }), null);
 });
 
 test('should return null for convexHull of empty Polygon.', function (t) {
   t.plan(1);
   t.equal(convexHull({
-    "type": "Polygon",
-    "coordinates": []
+    'type': 'Polygon',
+    'coordinates': []
   }), null);
 });
 
 test('should return null for convexHull of empty MultiPolygon.', function (t) {
   t.plan(1);
   t.equal(convexHull({
-    "type": "MultiPolygon",
-    "coordinates": []
+    'type': 'MultiPolygon',
+    'coordinates': []
   }), null);
 });
 
 test('should return null for convexHull if a Feature has no geometry.', function (t) {
   t.plan(1);
   t.equal(convexHull({
-    type: "Feature",
+    type: 'Feature',
     geometry: {
-      type: "Polygon",
+      type: 'Polygon',
       coordinates: []
     }
   }), null);
@@ -881,10 +881,9 @@ test('should return null for convexHull if a Feature has no geometry.', function
 test('should throw an error for an unknown type in calculateBounds.', function (t) {
   t.plan(1);
   try {
-    calculateBounds({type: "foobar"});
+    calculateBounds({ type: 'foobar' });
     t.fail('whoops!');
-  }
-  catch {
+  } catch (err) {
     t.pass('great jorb!');
   }
 });
@@ -892,7 +891,7 @@ test('should throw an error for an unknown type in calculateBounds.', function (
 test('should return null when there is no geometry in a Feature in calculateBounds.', function (t) {
   t.plan(1);
   t.equal(calculateBounds({
-    type: "Feature",
+    type: 'Feature',
     geometry: null
   }), null);
 });
