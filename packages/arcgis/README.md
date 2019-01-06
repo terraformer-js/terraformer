@@ -35,11 +35,15 @@ const geojson = arcgisToGeoJSON({
     }
   });
 
-// take GeoJSON and convert it to ArcGIS JSON
+>> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
+
+// parse GeoJSON and convert it to ArcGIS JSON
 const arcgis = geojsonToArcGIS({
   "type": "Point",
-  "coordinates": [45.5165, -122.6764]
+  "coordinates": [ -122.6764, 45.5165 ]
 });
+
+>> { "x":-122.6764, "y":45.5165, "spatialReference": { "wkid": 4326 } }
 ```
 
 ### Browser (from CDN)
