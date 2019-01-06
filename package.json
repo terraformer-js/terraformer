@@ -6,7 +6,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "jsdoc": "jsdoc packages/**/index.js",
+    "jsdoc": "jsdoc packages/**/index.js -c jsdoc.conf.js",
+    "docs:serve": "http-server & onchange -v 'packages/**/*.js' -- npm run jsdoc",
     "lint": "semistandard | snazzy",
     "test:node": "node test-helper.js",
     "test:browser": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run | faucet",
@@ -40,6 +41,7 @@
     "gh-release": "^3.4.0",
     "jsdoc": "^3.5.5",
     "lerna": "^2.8.0",
+    "onchange": "^5.2.0",
     "rollup": "^1.0.1",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^4.0.0",
