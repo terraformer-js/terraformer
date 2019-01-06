@@ -44,13 +44,13 @@ const arcgis = geojsonToArcGIS({
 
 ### Browser (from CDN)
 
-This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `TerraformerArcgis` namespace.
+This package is distributed as a [UMD](https://github.com/umdjs/umd) module and can also be used in AMD based systems or as a global under the `Terraformer` namespace.
 
 ```html
 <script src="https://unpkg.com/@terraformer/arcgis"></script>
 ```
 ```js
-TerraformerArcgis.arcgisToGeoJSON({
+Terraformer.arcgisToGeoJSON({
     "x":-122.6764,
     "y":45.5165,
     "spatialReference": {
@@ -62,10 +62,10 @@ TerraformerArcgis.arcgisToGeoJSON({
 ### Node.js
 
 ```js
-const TerraformerArcgis = require('@terraformer/arcgis');
+const Terraformer = require('@terraformer/arcgis');
 
-TerraformerArcgis.geojsonToArcGIS(/* ... */);
-TerraformerArcgis.arcgisToGeoJSON(/* ... */);
+Terraformer.geojsonToArcGIS(/* ... */);
+Terraformer.arcgisToGeoJSON(/* ... */);
 ```
 
 ## [Contributing](./CONTRIBUTING.md)

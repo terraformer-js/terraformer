@@ -21,9 +21,6 @@ const copyright = `/* @preserve
 * ${new Date().toString()}
 */`;
 
-// Terraformer, TerraformerArcgis, TerraformerWkt
-const globalNamespace = (truncatedName !== 'spatial') ? `Terraformer${truncatedName.charAt(0).toUpperCase() + truncatedName.slice(1)}` : `Terraformer`;
-
 export default {
   input: 'index.js', // resolved by our plugin
   plugins: [resolve(), json()],
@@ -31,7 +28,8 @@ export default {
     file: `./dist/${truncatedName}.umd.js`,
     banner: copyright,
     format: 'umd',
-    name: globalNamespace,
-    sourcemap: true
+    name: `Terraformer`,
+    sourcemap: true,
+    extend: true
   }
 };

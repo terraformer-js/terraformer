@@ -1,702 +1,16 @@
+
 import test from 'tape';
-import { arcgisToGeoJSON, geojsonToArcGIS } from '../index.js';
+import { arcgisToGeoJSON } from '../index.js';
 
 test('should exist', function (t) {
-  t.plan(2);
+  t.plan(1);
   t.ok(arcgisToGeoJSON);
-  t.ok(geojsonToArcGIS);
-});
-
-test('should convert a GeoJSON Point to an ArcGIS Point', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Point',
-    'coordinates': [-58.7109375, 47.4609375]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'x': -58.7109375,
-    'y': 47.4609375,
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON Null Island to an ArcGIS Point', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Point',
-    'coordinates': [0, 0]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'x': 0,
-    'y': 0,
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON LineString to an ArcGIS Polyline', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'LineString',
-    'coordinates': [
-      [21.4453125, -14.0625],
-      [33.3984375, -20.7421875],
-      [38.3203125, -24.609375]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'paths': [
-      [
-        [21.4453125, -14.0625],
-        [33.3984375, -20.7421875],
-        [38.3203125, -24.609375]
-      ]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON Polygon to an ArcGIS Polygon', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Polygon',
-    'coordinates': [
-      [
-        [41.8359375, 71.015625],
-        [56.953125, 33.75],
-        [21.796875, 36.5625],
-        [41.8359375, 71.015625]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'rings': [
-      [
-        [41.8359375, 71.015625],
-        [56.953125, 33.75],
-        [21.796875, 36.5625],
-        [41.8359375, 71.015625]
-      ]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON Polygon w/ a hole to an ArcGIS Polygon w/ 2 rings', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Polygon',
-    'coordinates': [
-      [
-        [100.0, 0.0],
-        [101.0, 0.0],
-        [101.0, 1.0],
-        [100.0, 1.0],
-        [100.0, 0.0]
-      ],
-      [
-        [100.2, 0.2],
-        [100.8, 0.2],
-        [100.8, 0.8],
-        [100.2, 0.8],
-        [100.2, 0.2]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'rings': [
-      [ [100, 0], [100, 1], [101, 1], [101, 0], [100, 0] ],
-      [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should strip invalid rings when converting a GeoJSON Polygon to and ArcGIS Polygon', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Polygon',
-    'coordinates': [
-      [
-        [100.0, 0.0],
-        [101.0, 0.0],
-        [101.0, 1.0],
-        [100.0, 1.0],
-        [100.0, 0.0]
-      ],
-      [
-        [100.2, 0.2],
-        [100.8, 0.2],
-        [100.2, 0.2]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'rings': [
-      [ [100, 0], [100, 1], [101, 1], [101, 0], [100, 0] ]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should close ring when converting a GeoJSON Polygon w/ a hole to an ArcGIS Polygon', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Polygon',
-    'coordinates': [
-      [
-        [100.0, 0.0],
-        [101.0, 0.0],
-        [101.0, 1.0],
-        [100.0, 1.0]
-      ],
-      [
-        [100.2, 0.2],
-        [100.8, 0.2],
-        [100.8, 0.8],
-        [100.2, 0.8]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'rings': [
-      [ [100, 0], [100, 1], [101, 1], [101, 0], [100, 0] ],
-      [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'MultiPoint',
-    'coordinates': [
-      [41.8359375, 71.015625],
-      [56.953125, 33.75],
-      [21.796875, 36.5625]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'points': [
-      [41.8359375, 71.015625],
-      [56.953125, 33.75],
-      [21.796875, 36.5625]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'MultiLineString',
-    'coordinates': [
-      [
-        [41.8359375, 71.015625],
-        [56.953125, 33.75]
-      ],
-      [
-        [21.796875, 36.5625],
-        [47.8359375, 71.015625]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'paths': [
-      [
-        [41.8359375, 71.015625],
-        [56.953125, 33.75]
-      ],
-      [
-        [21.796875, 36.5625],
-        [47.8359375, 71.015625]
-      ]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'MultiPolygon',
-    'coordinates': [
-      [
-        [ [102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0] ]
-      ],
-      [
-        [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'rings': [
-      [ [102, 2], [102, 3], [103, 3], [103, 2], [102, 2] ],
-      [ [100, 0], [100, 1], [101, 1], [101, 0], [100, 0] ]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  });
-});
-
-test('should convert a GeoJSON MultiPolygon w/ holes to an ArcGIS Polygon', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'MultiPolygon',
-    'coordinates': [
-      [
-        [ [102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0] ]
-      ],
-      [
-        [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
-        [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-  t.deepEqual(output, {
-    'spatialReference': {
-      'wkid': 4326
-    },
-    'rings': [
-      [
-        [102, 2],
-        [102, 3],
-        [103, 3],
-        [103, 2],
-        [102, 2]
-      ],
-      [
-        [100.2, 0.2],
-        [100.8, 0.2],
-        [100.8, 0.8],
-        [100.2, 0.8],
-        [100.2, 0.2] ],
-      [
-        [100, 0],
-        [100, 1],
-        [101, 1],
-        [101, 0],
-        [100, 0]
-      ]
-    ]
-  });
-});
-
-test('should close rings when converting a GeoJSON MultiPolygon w/ holes to an ArcGIS Polygon', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'MultiPolygon',
-    'coordinates': [
-      [
-        [ [102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0] ]
-      ],
-      [
-        [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0] ],
-        [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8] ]
-      ]
-    ]
-  };
-
-  var output = geojsonToArcGIS(input);
-  t.deepEqual(output, {
-    'spatialReference': {
-      'wkid': 4326
-    },
-    'rings': [
-      [
-        [102, 2],
-        [102, 3],
-        [103, 3],
-        [103, 2],
-        [102, 2]
-      ],
-      [
-        [100.2, 0.2],
-        [100.8, 0.2],
-        [100.8, 0.8],
-        [100.2, 0.8],
-        [100.2, 0.2]
-      ],
-      [
-        [100, 0],
-        [100, 1],
-        [101, 1],
-        [101, 0],
-        [100, 0]
-      ]
-    ]
-  });
-});
-
-test('should convert a GeoJSON Feature into an ArcGIS Feature', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Feature',
-    'id': 'foo',
-    'geometry': {
-      'type': 'Polygon',
-      'coordinates': [
-        [
-          [41.8359375, 71.015625],
-          [56.953125, 33.75],
-          [21.796875, 36.5625],
-          [41.8359375, 71.015625]
-        ]
-      ]
-    },
-    'properties': {
-      'foo': 'bar'
-    }
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'geometry': {
-      'rings': [
-        [
-          [41.8359375, 71.015625],
-          [56.953125, 33.75],
-          [21.796875, 36.5625],
-          [41.8359375, 71.015625]
-        ]
-      ],
-      'spatialReference': {
-        'wkid': 4326
-      }
-    },
-    'attributes': {
-      'foo': 'bar',
-      'OBJECTID': 'foo'
-    }
-  });
-});
-
-test('should convert a GeoJSON Feature into an ArcGIS Feature w/ a custom id', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Feature',
-    'id': 'foo',
-    'geometry': {
-      'type': 'Polygon',
-      'coordinates': [
-        [ [41.8359375, 71.015625],
-          [56.953125, 33.75],
-          [21.796875, 36.5625],
-          [41.8359375, 71.015625] ]
-      ]
-    },
-    'properties': {
-      'foo': 'bar'
-    }
-  };
-
-  var output = geojsonToArcGIS(input, 'myId');
-
-  t.deepEqual(output, {
-    'geometry': {
-      'rings': [
-        [
-          [41.8359375, 71.015625],
-          [56.953125, 33.75],
-          [21.796875, 36.5625],
-          [41.8359375, 71.015625]
-        ]
-      ],
-      'spatialReference': {
-        'wkid': 4326
-      }
-    },
-    'attributes': {
-      'foo': 'bar',
-      'myId': 'foo'
-    }
-  });
-});
-
-test('should allow converting a GeoJSON Feature to an ArcGIS Feature with no properties or geometry', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'Feature',
-    'id': 'foo',
-    'geometry': null,
-    'properties': null
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, {
-    'attributes': {
-      'OBJECTID': 'foo'
-    }
-  });
-});
-
-test('should convert a GeoJSON FeatureCollection into an array of ArcGIS Feature JSON', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'FeatureCollection',
-    'features': [{
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Point',
-        'coordinates': [102.0, 0.5]
-      },
-      'properties': {
-        'prop0': 'value0'
-      }
-    }, {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'LineString',
-        'coordinates': [
-          [102.0, 0.0],
-          [103.0, 1.0],
-          [104.0, 0.0],
-          [105.0, 1.0]
-        ]
-      },
-      'properties': {
-        'prop0': 'value0'
-      }
-    }, {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': [
-          [ [100.0, 0.0],
-            [101.0, 0.0],
-            [101.0, 1.0],
-            [100.0, 1.0],
-            [100.0, 0.0] ]
-        ]
-      },
-      'properties': {
-        'prop0': 'value0'
-      }
-    }]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, [{
-    'geometry': {
-      'x': 102,
-      'y': 0.5,
-      'spatialReference': {
-        'wkid': 4326
-      }
-    },
-    'attributes': {
-      'prop0': 'value0'
-    }
-  }, {
-    'geometry': {
-      'paths': [
-        [[102, 0],
-          [103, 1],
-          [104, 0],
-          [105, 1]]
-      ],
-      'spatialReference': {
-        'wkid': 4326
-      }
-    },
-    'attributes': {
-      'prop0': 'value0'
-    }
-  }, {
-    'geometry': {
-      'rings': [
-        [ [100, 0],
-          [100, 1],
-          [101, 1],
-          [101, 0],
-          [100, 0] ]
-      ],
-      'spatialReference': {
-        'wkid': 4326
-      }
-    },
-    'attributes': {
-      'prop0': 'value0'
-    }
-  }]);
-});
-
-test('should convert a GeoJSON GeometryCollection into an array of ArcGIS Geometries', function (t) {
-  t.plan(1);
-
-  var input = {
-    'type': 'GeometryCollection',
-    'geometries': [{
-      'type': 'Polygon',
-      'coordinates': [[[-95, 43], [-95, 50], [-90, 50], [-91, 42], [-95, 43]]]
-    }, {
-      'type': 'LineString',
-      'coordinates': [[-89, 42], [-89, 50], [-80, 50], [-80, 42]]
-    }, {
-      'type': 'Point',
-      'coordinates': [-94, 46]
-    }]
-  };
-
-  var output = geojsonToArcGIS(input);
-
-  t.deepEqual(output, [{
-    'rings': [
-      [[-95, 43],
-        [-95, 50],
-        [-90, 50],
-        [-91, 42],
-        [-95, 43]]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  }, {
-    'paths': [
-      [[-89, 42],
-        [-89, 50],
-        [-80, 50],
-        [-80, 42]]
-    ],
-    'spatialReference': {
-      'wkid': 4326
-    }
-  }, {
-    'x': -94,
-    'y': 46,
-    'spatialReference': {
-      'wkid': 4326
-    }
-  }]);
-});
-
-test('should not modify the original GeoJSON object', function (t) {
-  t.plan(1);
-
-  var geojson = {
-    'type': 'FeatureCollection',
-    'features': [{
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Point',
-        'coordinates': [102.0, 0.5]
-      },
-      'properties': {
-        'prop0': 'value0'
-      }
-    }, {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'LineString',
-        'coordinates': [
-          [102.0, 0.0],
-          [103.0, 1.0],
-          [104.0, 0.0],
-          [105.0, 1.0]
-        ]
-      },
-      'properties': {
-        'prop0': 'value0'
-      }
-    }, {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': [
-          [ [100.0, 0.0],
-            [101.0, 0.0],
-            [101.0, 1.0],
-            [100.0, 1.0],
-            [100.0, 0.0] ]
-        ]
-      },
-      'properties': {
-        'prop0': 'value0'
-      }
-    }]
-  };
-
-  const original = JSON.stringify(geojson);
-
-  geojsonToArcGIS(geojson);
-
-  t.deepEqual(original, JSON.stringify(geojson));
 });
 
 test('should parse an ArcGIS Point in a GeoJSON Point', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'x': -66.796875,
     'y': 20.0390625,
     'spatialReference': {
@@ -712,7 +26,7 @@ test('should parse an ArcGIS Point in a GeoJSON Point', function (t) {
 test('should parse an ArcGIS Point in a GeoJSON Point and include z values', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'x': -66.796875,
     'y': 20.0390625,
     'z': 1,
@@ -729,7 +43,7 @@ test('should parse an ArcGIS Point in a GeoJSON Point and include z values', fun
 test('should parse an ArcGIS Null Island in a GeoJSON Point', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'x': 0,
     'y': 0,
     'spatialReference': {
@@ -745,7 +59,7 @@ test('should parse an ArcGIS Null Island in a GeoJSON Point', function (t) {
 test('should not pass along geometry when nothing valid is encountered in input', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'geometry': {
       'x': 'NaN',
       'y': 'NaN'
@@ -764,7 +78,7 @@ test('should not pass along geometry when nothing valid is encountered in input'
 test('should parse an ArcGIS Polyline in a GeoJSON LineString', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'paths': [
       [ [6.6796875, 47.8125],
         [-65.390625, 52.3828125],
@@ -787,7 +101,7 @@ test('should parse an ArcGIS Polyline in a GeoJSON LineString', function (t) {
 test('should parse an ArcGIS Polyline in a GeoJSON LineString and include z values', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'paths': [
       [ [6.6796875, 47.8125, 1],
         [-65.390625, 52.3828125, 1],
@@ -810,7 +124,7 @@ test('should parse an ArcGIS Polyline in a GeoJSON LineString and include z valu
 test('should parse an ArcGIS Polygon in a GeoJSON Polygon', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'rings': [
       [
         [41.8359375, 71.015625],
@@ -841,7 +155,7 @@ test('should parse an ArcGIS Polygon in a GeoJSON Polygon', function (t) {
 test('should parse an ArcGIS Polygon in a GeoJSON Polygon and include z values', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'rings': [
       [
         [41.8359375, 71.015625, 1],
@@ -872,7 +186,7 @@ test('should parse an ArcGIS Polygon in a GeoJSON Polygon and include z values',
 test('should close rings when parsing an ArcGIS Polygon in a GeoJSON Polygon', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'rings': [
       [
         [41.8359375, 71.015625],
@@ -902,7 +216,7 @@ test('should close rings when parsing an ArcGIS Polygon in a GeoJSON Polygon', f
 test('should parse an ArcGIS Multipoint in a GeoJSON MultiPoint', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'points': [
       [41.8359375, 71.015625],
       [56.953125, 33.75],
@@ -925,7 +239,7 @@ test('should parse an ArcGIS Multipoint in a GeoJSON MultiPoint', function (t) {
 test('should parse an ArcGIS Polyline in a GeoJSON MultiLineString', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'paths': [
       [
         [41.8359375, 71.015625],
@@ -958,7 +272,7 @@ test('should parse an ArcGIS Polyline in a GeoJSON MultiLineString', function (t
 test('should parse an ArcGIS Polygon in a GeoJSON MultiPolygon', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'rings': [
       [
         [-122.63, 45.52],
@@ -1014,7 +328,7 @@ test('should parse an ArcGIS Polygon in a GeoJSON MultiPolygon', function (t) {
 test('should strip invalid rings when converting ArcGIS Polygons to GeoJSON', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'rings': [
       [
         [-122.63, 45.52],
@@ -1055,7 +369,7 @@ test('should strip invalid rings when converting ArcGIS Polygons to GeoJSON', fu
 test('should properly close rings when converting an ArcGIS Polygon in a GeoJSON MultiPolygon', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'rings': [
       [
         [-122.63, 45.52],
@@ -1106,7 +420,7 @@ test('should properly close rings when converting an ArcGIS Polygon in a GeoJSON
 test('should parse an ArcGIS MultiPolygon with holes to a GeoJSON MultiPolygon', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'type': 'Polygon',
     'rings': [
       [
@@ -1163,7 +477,7 @@ test('should parse an ArcGIS MultiPolygon with holes to a GeoJSON MultiPolygon',
 test('should still parse holes outside the outer rings', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'rings': [
       [ [-122.45, 45.63], [-122.45, 45.68], [-122.39, 45.68], [-122.39, 45.63], [-122.45, 45.63] ],
       [ [-122.46, 45.64], [-122.4, 45.64], [-122.4, 45.66], [-122.46, 45.66], [-122.46, 45.64] ]
@@ -1183,7 +497,7 @@ test('should still parse holes outside the outer rings', function (t) {
 test('should parse an ArcGIS Feature into a GeoJSON Feature', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'geometry': {
       'rings': [
         [ [41.8359375, 71.015625],
@@ -1215,7 +529,7 @@ test('should parse an ArcGIS Feature into a GeoJSON Feature', function (t) {
 test('should convert ArcGIS JSON with an array of ArcGIS Features into a GeoJSON FeatureCollection', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'displayFieldName': 'prop0',
     'fieldAliases': { 'prop0': 'prop0' },
     'geometryType': 'esriGeometryPolygon',
@@ -1340,7 +654,7 @@ test('should convert ArcGIS JSON with an array of ArcGIS Features into a GeoJSON
 test('should parse an ArcGIS Feature w/ OBJECTID into a GeoJSON Feature', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'geometry': {
       'rings': [
         [ [41.8359375, 71.015625],
@@ -1365,7 +679,7 @@ test('should parse an ArcGIS Feature w/ OBJECTID into a GeoJSON Feature', functi
 test('should parse an ArcGIS Feature w/ FID into a GeoJSON Feature', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'geometry': {
       'rings': [
         [ [41.8359375, 71.015625],
@@ -1390,7 +704,7 @@ test('should parse an ArcGIS Feature w/ FID into a GeoJSON Feature', function (t
 test('should parse an ArcGIS Feature w/ a custom id into a GeoJSON Feature', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'geometry': {
       'rings': [
         [ [41.8359375, 71.015625],
@@ -1415,7 +729,7 @@ test('should parse an ArcGIS Feature w/ a custom id into a GeoJSON Feature', fun
 test('should parse an ArcGIS Feature w/ empty attributes into a GeoJSON Feature', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'geometry': {
       'rings': [
         [ [41.8359375, 71.015625],
@@ -1447,7 +761,7 @@ test('should parse an ArcGIS Feature w/ empty attributes into a GeoJSON Feature'
 test('should parse an ArcGIS Feature w/ no attributes into a GeoJSON Feature', function (t) {
   t.plan(3);
 
-  var input = {
+  const input = {
     'geometry': {
       'rings': [
         [
@@ -1480,7 +794,7 @@ test('should parse an ArcGIS Feature w/ no attributes into a GeoJSON Feature', f
 test('should parse an ArcGIS Feature w/ no geometry into a GeoJSON Feature', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'attributes': {
       'foo': 'bar'
     }
@@ -1495,7 +809,7 @@ test('should parse an ArcGIS Feature w/ no geometry into a GeoJSON Feature', fun
 test('should not allow GeoJSON Feature with id field that is not string or number', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'geometry': {
       'x': -66.796875,
       'y': 20.0390625,
@@ -1520,7 +834,7 @@ test('should not allow GeoJSON Feature with id field that is not string or numbe
 test('should use a custom field value and not OBJECTID for an id when both are present', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'geometry': {
       'x': -66.796875,
       'y': 20.0390625,
@@ -1543,7 +857,7 @@ test('should use a custom field value and not OBJECTID for an id when both are p
 test('should not allow GeoJSON Feature with id: undefined', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'geometry': {
       'x': -66.796875,
       'y': 20.0390625,
@@ -1566,7 +880,7 @@ test('should not allow GeoJSON Feature with id: undefined', function (t) {
 test('should log warning when converting SRID other than 4326 without CRS attribute', function (t) {
   t.plan(3);
 
-  var input = {
+  const input = {
     'x': 392917.31,
     'y': 298521.34,
     'spatialReference': {
@@ -1591,7 +905,7 @@ test('should log warning when converting SRID other than 4326 without CRS attrib
 test('should not modify the original ArcGIS Geometry', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'geometry': {
       'rings': [
         [
@@ -1620,7 +934,7 @@ test('should not modify the original ArcGIS Geometry', function (t) {
 test('should parse an ArcGIS Extent into a Terraformer GeoJSON Polygon', function (t) {
   t.plan(2);
 
-  var input = {
+  const input = {
     'xmax': -35.5078125,
     'ymax': 41.244772343082076,
     'xmin': -13.7109375,
