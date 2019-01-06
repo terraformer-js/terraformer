@@ -1,8 +1,6 @@
 /* Copyright (c) 2012-2019 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
-/** @module @terraformer/common */
-
 const isNumber = (n) => !isNaN(parseFloat(n)) && isFinite(n);
 
 const edgeIntersectsEdge = (a1, a2, b1, b2) => {
