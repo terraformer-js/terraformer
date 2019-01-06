@@ -28,13 +28,13 @@ test('should project a GeoJSON Point in WGS84 to Web Mercator', function (t) {
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON LineString to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'MultiPoint',
     'coordinates': [ [-122, 45], [100, 0], [45, 62] ]
   };
@@ -49,13 +49,13 @@ test('should project a GeoJSON LineString to Web Mercator.', function (t) {
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON LineString to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'LineString',
     'coordinates': [ [-122, 45], [100, 0], [45, 62] ]
   };
@@ -70,13 +70,13 @@ test('should project a GeoJSON LineString to Web Mercator.', function (t) {
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON MultiLineString to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'MultiLineString',
     'coordinates': [
       [ [41.8359375, 71.015625], [56.953125, 33.75] ],
@@ -97,13 +97,13 @@ test('should project a GeoJSON MultiLineString to Web Mercator.', function (t) {
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON Polygon to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'Polygon',
     'coordinates': [
       [ [41.8359375, 71.015625], [56.953125, 33.75], [21.796875, 36.5625], [41.8359375, 71.015625] ]
@@ -120,13 +120,13 @@ test('should project a GeoJSON Polygon to Web Mercator.', function (t) {
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON MultiPolygon to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'MultiPolygon',
     'coordinates': [
       [
@@ -149,13 +149,13 @@ test('should project a GeoJSON MultiPolygon to Web Mercator.', function (t) {
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON Feature to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'Feature',
     'id': 'foo',
     'geometry': {
@@ -184,13 +184,13 @@ test('should project a GeoJSON Feature to Web Mercator.', function (t) {
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON FeatureCollection to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'FeatureCollection',
     'features': [
       {
@@ -249,14 +249,14 @@ test('should project a GeoJSON FeatureCollection to Web Mercator.', function (t)
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 //
 test('should project a GeoJSON GeometryCollection to Web Mercator.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'GeometryCollection',
     'geometries': [
       {
@@ -287,13 +287,13 @@ test('should project a GeoJSON GeometryCollection to Web Mercator.', function (t
       }
     }
   };
-  const output = toMercator(input);
-  t.deepEqual(output, expectedOutput);
+  toMercator(input);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON Point to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'Point',
     'coordinates': [-13656274.38035172, 5703203.67194997]
   };
@@ -302,12 +302,12 @@ test('should project a GeoJSON Point to WGS84.', function (t) {
     'coordinates': [-122.67639999999798, 45.516499999999255]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON MultiPoint to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'MultiPoint',
     'coordinates': [ [-13656274.380351715, 5703203.671949966], [11131949.079327168, 0], [-13619241.057432571, 6261718.09354067] ]
   };
@@ -316,12 +316,12 @@ test('should project a GeoJSON MultiPoint to WGS84.', function (t) {
     'coordinates': [ [ -122.67639999999793, 45.51649999999923 ], [ 99.99999999999831, 0 ], [ -122.34372399999793, 48.92247999999917 ] ]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON LineString to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'LineString',
     'coordinates': [ [743579.411158182, 6075718.008992066], [-7279251.077653782, 6869641.046935855], [-5831228.013819427, 5242073.5675988225] ]
   };
@@ -330,12 +330,12 @@ test('should project a GeoJSON LineString to WGS84.', function (t) {
     'coordinates': [ [ 6.679687499999886, 47.8124999999992 ], [ -65.3906249999989, 52.38281249999911 ], [ -52.38281249999912, 42.53906249999928 ] ]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON MultiLineString to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'MultiLineString',
     'coordinates': [
       [ [41.8359375, 71.015625], [56.953125, 33.75] ],
@@ -349,12 +349,12 @@ test('should project a GeoJSON MultiLineString to WGS84.', function (t) {
     ]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON Polygon to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'Polygon',
     'coordinates': [
       [ [41.8359375, 71.015625], [56.953125, 33.75], [21.796875, 36.5625], [41.8359375, 71.015625] ]
@@ -367,12 +367,12 @@ test('should project a GeoJSON Polygon to WGS84.', function (t) {
     ]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON MultiPolygon to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'MultiPolygon',
     'coordinates': [
       [
@@ -396,12 +396,12 @@ test('should project a GeoJSON MultiPolygon to WGS84.', function (t) {
     ]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON Feature to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'Feature',
     'id': 'foo',
     'geometry': {
@@ -424,12 +424,12 @@ test('should project a GeoJSON Feature to WGS84.', function (t) {
     }
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON FeatureCollection to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'FeatureCollection',
     'features': [
       {
@@ -482,12 +482,12 @@ test('should project a GeoJSON FeatureCollection to WGS84.', function (t) {
     ]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });
 
 test('should project a GeoJSON GeometryCollection to WGS84.', function (t) {
   t.plan(1);
-  var input = {
+  const input = {
     'type': 'GeometryCollection',
     'geometries': [
       {
@@ -512,5 +512,5 @@ test('should project a GeoJSON GeometryCollection to WGS84.', function (t) {
     ]
   };
   const output = toGeographic(input);
-  t.deepEqual(output, expectedOutput);
+  t.deepEqual(input, expectedOutput);
 });

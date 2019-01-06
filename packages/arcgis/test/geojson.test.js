@@ -9,7 +9,7 @@ test('should exist', function (t) {
 test('should convert a GeoJSON Point to an ArcGIS Point', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Point',
     'coordinates': [-58.7109375, 47.4609375]
   };
@@ -28,7 +28,7 @@ test('should convert a GeoJSON Point to an ArcGIS Point', function (t) {
 test('should convert a GeoJSON Null Island to an ArcGIS Point', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Point',
     'coordinates': [0, 0]
   };
@@ -47,7 +47,7 @@ test('should convert a GeoJSON Null Island to an ArcGIS Point', function (t) {
 test('should convert a GeoJSON LineString to an ArcGIS Polyline', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'LineString',
     'coordinates': [
       [21.4453125, -14.0625],
@@ -75,7 +75,7 @@ test('should convert a GeoJSON LineString to an ArcGIS Polyline', function (t) {
 test('should convert a GeoJSON Polygon to an ArcGIS Polygon', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Polygon',
     'coordinates': [
       [
@@ -107,7 +107,7 @@ test('should convert a GeoJSON Polygon to an ArcGIS Polygon', function (t) {
 test('should convert a GeoJSON Polygon w/ a hole to an ArcGIS Polygon w/ 2 rings', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Polygon',
     'coordinates': [
       [
@@ -143,7 +143,7 @@ test('should convert a GeoJSON Polygon w/ a hole to an ArcGIS Polygon w/ 2 rings
 test('should strip invalid rings when converting a GeoJSON Polygon to and ArcGIS Polygon', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Polygon',
     'coordinates': [
       [
@@ -176,7 +176,7 @@ test('should strip invalid rings when converting a GeoJSON Polygon to and ArcGIS
 test('should close ring when converting a GeoJSON Polygon w/ a hole to an ArcGIS Polygon', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Polygon',
     'coordinates': [
       [
@@ -210,7 +210,7 @@ test('should close ring when converting a GeoJSON Polygon w/ a hole to an ArcGIS
 test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'MultiPoint',
     'coordinates': [
       [41.8359375, 71.015625],
@@ -236,7 +236,7 @@ test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint', function (t)
 test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'MultiLineString',
     'coordinates': [
       [
@@ -272,7 +272,7 @@ test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline', function 
 test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'MultiPolygon',
     'coordinates': [
       [
@@ -300,7 +300,7 @@ test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon', function (t) 
 test('should convert a GeoJSON MultiPolygon w/ holes to an ArcGIS Polygon', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'MultiPolygon',
     'coordinates': [
       [
@@ -346,7 +346,7 @@ test('should convert a GeoJSON MultiPolygon w/ holes to an ArcGIS Polygon', func
 test('should close rings when converting a GeoJSON MultiPolygon w/ holes to an ArcGIS Polygon', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'MultiPolygon',
     'coordinates': [
       [
@@ -393,7 +393,7 @@ test('should close rings when converting a GeoJSON MultiPolygon w/ holes to an A
 test('should convert a GeoJSON Feature into an ArcGIS Feature', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Feature',
     'id': 'foo',
     'geometry': {
@@ -438,7 +438,7 @@ test('should convert a GeoJSON Feature into an ArcGIS Feature', function (t) {
 test('should convert a GeoJSON Feature into an ArcGIS Feature w/ a custom id', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Feature',
     'id': 'foo',
     'geometry': {
@@ -481,7 +481,7 @@ test('should convert a GeoJSON Feature into an ArcGIS Feature w/ a custom id', f
 test('should allow converting a GeoJSON Feature to an ArcGIS Feature with no properties or geometry', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'Feature',
     'id': 'foo',
     'geometry': null,
@@ -500,7 +500,7 @@ test('should allow converting a GeoJSON Feature to an ArcGIS Feature with no pro
 test('should convert a GeoJSON FeatureCollection into an array of ArcGIS Feature JSON', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'FeatureCollection',
     'features': [{
       'type': 'Feature',
@@ -593,7 +593,7 @@ test('should convert a GeoJSON FeatureCollection into an array of ArcGIS Feature
 test('should convert a GeoJSON GeometryCollection into an array of ArcGIS Geometries', function (t) {
   t.plan(1);
 
-  var input = {
+  const input = {
     'type': 'GeometryCollection',
     'geometries': [{
       'type': 'Polygon',
