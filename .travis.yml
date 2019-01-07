@@ -9,14 +9,8 @@ cache:
     - node_modules
 before_script:
 - npm run bootstrap
-addons:
-  apt:
-    packages:
-      - xvfb
-install:
-  - export DISPLAY=':99.0'
-  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-  - npm install
+before_deploy:
+- npm run jsdoc
 deploy:
   provider: pages
   skip_cleanup: true
@@ -29,3 +23,5 @@ deploy:
 branches:
   only:
     - master
+addons:
+  chrome: stable
