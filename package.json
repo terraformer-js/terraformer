@@ -10,8 +10,11 @@
     "docs:serve": "http-server & onchange -v 'packages/**/*.js' -- npm run jsdoc",
     "lint": "semistandard | snazzy",
     "test:node": "node test-helper.js",
-    "test:browser": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run | faucet",
-    "test": "npm run lint && npm run test:browser && npm run test:node",
+    "test:electron": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run | faucet",
+    "test:chrome": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run --browser chrome | faucet",
+    "test:firefox": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run --browser firefox | faucet",
+    "test": "npm run lint && npm run test:node",
+    "test:ci": "npm run lint && npm run test:node && npm run test:chrome && npm run test:firefox",
     "release": "./release.sh"
   },
   "repository": {
@@ -47,7 +50,6 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "semistandard": "*",
     "snazzy": "^8.0.0",
-    "tape": "^4.0.0",
-    "tape-run": "^5.0.0"
+    "tape": "^4.0.0"
   }
 }

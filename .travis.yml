@@ -3,6 +3,7 @@ notifications:
   email: false
 node_js:
   - 'node'
+  - 'lts/*'
 sudo: false
 cache:
   directories:
@@ -11,7 +12,10 @@ install:
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 before_script:
+- npm install tape-run
 - npm run bootstrap
+script:
+- npm run test:ci
 before_deploy:
 - npm run jsdoc
 deploy:
@@ -30,3 +34,5 @@ addons:
   apt:
     packages:
       - xvfb
+  chrome: stable
+  firefox: latest
