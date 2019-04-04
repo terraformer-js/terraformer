@@ -13,9 +13,11 @@
     "test:electron": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run | faucet",
     "test:chrome": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run --browser chrome | faucet",
     "test:firefox": "browserify packages/**/test/*.js -t [ babelify --presets [ @babel/preset-env ] ] --debug | tape-run --browser firefox | faucet",
+    "pretest:ci": "npm run build",
     "test": "npm run lint && npm run test:node",
-    "test:ci": "npm run lint && npm run test:node && npm run test:chrome && npm run test:firefox",
-    "release": "./release.sh"
+    "test:ci": "npm run lint && npm run test:node && npm run test:electron",
+    "release": "./release.sh",
+    "postinstall": "npm run bootstrap"
   },
   "repository": {
     "type": "git",

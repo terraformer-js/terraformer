@@ -15,7 +15,7 @@
 
 ## Install
 
-```
+```shell
 npm install @terraformer/arcgis
 ```
 

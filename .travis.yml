@@ -5,17 +5,14 @@ node_js:
   - 'node'
   - 'lts/*'
 sudo: false
-cache:
-  directories:
-    - node_modules
-install:
-  - export DISPLAY=':99.0'
-  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+cache: npm
 before_script:
-- npm install tape-run
-- npm run bootstrap
+  - npm install tape-run
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 script:
-- npm run test:ci
+  - npm run test:ci
 before_deploy:
 - npm run jsdoc
 deploy:
@@ -31,8 +28,8 @@ branches:
   only:
     - master
 addons:
+  chrome: stable
+  firefox: latest
   apt:
     packages:
       - xvfb
-  chrome: stable
-  firefox: latest
