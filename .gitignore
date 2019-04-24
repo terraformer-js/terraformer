@@ -95,3 +95,6 @@ packages/**/.source.**.html
 
 # jsdoc
 out/*
+
+# created by jison
+packages/wkt/index.js

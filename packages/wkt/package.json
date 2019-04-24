@@ -1,0 +1,47 @@
+{
+  "name": "@terraformer/wkt",
+  "description": "Tools to convert WKT geometries to GeoJSON geometries and vica-versa.",
+  "version": "2.0.0",
+  "author": "Jerry Sievert <code@legitimatesounding.com> (http://legitimatesounding.com)",
+  "bugs": {
+    "url": "https://github.com/terraformer-js/terraformer/issues"
+  },
+  "contributors": [
+    "John Gravois <john@esri.com>"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "jison": "GabrielRatener/jison"
+  },
+  "files": [
+    "index.js",
+    "dist/wkt.umd.js.map"
+  ],
+  "homepage": "https://github.com/terraformer-js/terraformer",
+  "keywords": [
+    "wkt",
+    "convert",
+    "geo",
+    "geojson",
+    "geometry"
+  ],
+  "license": "MIT",
+  "main": "dist/wkt.umd.js",
+  "unpkg": "dist/wkt.umd.js",
+  "module": "index.js",
+  "jspm": {
+    "main": "index.js",
+    "registry": "npm",
+    "format": "es6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terraformer-js/terraformer"
+  },
+  "scripts": {
+    "build:module": "node build-esm.js",
+    "prebuild": "npm run build:module",
+    "build": "npm run build:module && rollup -c ../../rollup.config.js",
+    "prepare": "npm run build"
+  }
+}

@@ -19,7 +19,7 @@ See the [@terraformer](https://terraformer-js.github.io/terraformer/module-@terr
 
 * **[`@terraformer/spatial`](./packages/spatial/)** - Spatial predicates for [GeoJSON](https://tools.ietf.org/html/rfc7946).
 * **[`@terraformer/arcgis`](./packages/arcgis/)**  -  Convert ArcGIS JSON geometries to GeoJSON geometries and vice versa.
-* **`@terraformer/wkt`** - coming soon
+* **[`@terraformer/wkt`](./packages/wkt/)** - Convert WKT geometries to GeoJSON geometries and vice versa.
 
 ## Contributing
 
