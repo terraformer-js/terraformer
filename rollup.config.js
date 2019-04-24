@@ -4,8 +4,8 @@ import json from 'rollup-plugin-json';
 const path = require('path');
 
 /**
- * Since Rollup runs inside each package we can just get the current
- * package we are bundling.
+ * Since Rollup runs inside each package
+ * we can just get the current package we are bundling.
  */
 const pkg = require(path.join(process.cwd(), 'package.json'));
 

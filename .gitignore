@@ -94,7 +94,7 @@ demos/test/*
 packages/**/.source.**.html
 
 # jsdoc
-out/*
+docs/*
 
 # created by jison
 packages/wkt/index.js
