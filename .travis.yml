@@ -2,8 +2,8 @@ language: node_js
 notifications:
   email: false
 node_js:
-  - 'node'
   - 'lts/*'
+  # - 'node' will add back when https://github.com/hegemonic/requizzle/issues/5 is resolved
 sudo: false
 cache: npm
 before_script:
@@ -22,7 +22,7 @@ deploy:
   keep-history: true
   on:
     branch: master
-  local-dir: out
+  local-dir: docs
   target_branch: gh-pages
 branches:
   only:
