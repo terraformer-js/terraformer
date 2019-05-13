@@ -3,7 +3,7 @@ notifications:
   email: false
 node_js:
   - 'lts/*'
-  # - 'node' will add back when https://github.com/hegemonic/requizzle/issues/5 is resolved
+  - 'node'
 sudo: false
 cache: npm
 before_script:

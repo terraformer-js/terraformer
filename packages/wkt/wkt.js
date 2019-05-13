@@ -299,10 +299,12 @@ const multiPolygonToWKTMultiPolygon = (geojson) => {
  * ```js
  * import { geojsonToWKT } from "@terraformer/wkt"
  *
- * geojsonToWKT({
+ * const geojsonPoint = {
  *   "type": "Point",
  *   "coordinates": [-122.6764, 45.5165]
- * })
+ * }
+ *
+ * geojsonToWKT(geojsonPoint)
  *
  * >> "POINT (-122.6764, 45.5165)"
  * ```
