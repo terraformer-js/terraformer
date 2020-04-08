@@ -6,13 +6,8 @@ node_js:
   - 'node'
 sudo: false
 cache: npm
-before_script:
-  - npm install tape-run
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
 script:
-  - npm run test:ci
+  - npm run test
 before_deploy:
 - npm run jsdoc
 deploy:
@@ -27,9 +22,3 @@ deploy:
 branches:
   only:
     - master
-addons:
-  chrome: stable
-  firefox: latest
-  apt:
-    packages:
-      - xvfb

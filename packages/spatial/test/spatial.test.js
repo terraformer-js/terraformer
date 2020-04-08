@@ -1,5 +1,8 @@
 import test from 'tape';
 import { GeoJSON } from './mock/geojson';
+
+import { coordinatesEqual, hasHoles } from '../util';
+
 import {
   toCircle,
   isConvex,
@@ -9,9 +12,7 @@ import {
   polygonContainsPoint,
   intersects,
   contains,
-  within,
-  hasHoles,
-  coordinatesEqual
+  within
 } from '../index';
 
 test('should exist', function (t) {
