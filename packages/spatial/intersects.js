@@ -11,7 +11,7 @@ export const intersects = (geoJSON, comparisonGeoJSON) => {
     comparisonGeoJSON = comparisonGeoJSON.geometry;
   }
 
-  if (within(geoJSON, comparisonGeoJSON) || within(geoJSON, comparisonGeoJSON)) {
+  if (within(geoJSON, comparisonGeoJSON) || within(comparisonGeoJSON, geoJSON)) {
     return true;
   }
 
