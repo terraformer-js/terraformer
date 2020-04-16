@@ -99,5 +99,5 @@ docs/*
 # created by jison
 packages/wkt/src/index.js
 
-# for foolin around
-test.js
+#
+.vscode/
