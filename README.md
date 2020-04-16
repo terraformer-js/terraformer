@@ -22,7 +22,5 @@
 ## Contributing
 
 ```shell
-npm install
-npm run bootstrap
-npm test
+npm install && npm test
 ```

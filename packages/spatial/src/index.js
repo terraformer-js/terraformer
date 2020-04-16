@@ -4,16 +4,13 @@
 /** @module Terraformer */
 
 import {
-  coordinatesContainPoint
-} from '@terraformer/common';
-
-import {
   applyConverter
 } from './util';
 
 import { calculateBounds } from './bounds';
 
-import { positionToGeographic, positionToMercator } from './position';
+import { positionToMercator } from './position';
+
 export {
   /**
    * Calculate the bounding box of the input.
@@ -108,29 +105,7 @@ export {
  * >> { type: "Point", coordinates: [ -13580978, 5621521 ], crs }
  * ```
  */
-export const toMercator = (geojson) => {
-  return applyConverter(geojson, positionToMercator);
-};
-
-/**
- * Reproject Web Mercator GeoJSON to WGS84 (Lat/Long).
- * @function
- * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
- * @return {object} GeoJSON
- * ```js
- * import { toGeographic } from "@terraformer/spatial"
- *
- * toGeographic({
- *   type: "Point",
- *   coordinates: [ -13580978, 5621521 ]
- * })
- *
- * >> { type: "Point", coordinates: [ 45, 60 ] }
- * ```
- */
-export const toGeographic = (geojson) => {
-  return applyConverter(geojson, positionToGeographic);
-};
+export const toMercator = (geojson) => applyConverter(geojson, positionToMercator);
 
 export {
   /**
@@ -179,45 +154,28 @@ export {
   isConvex
 } from './convex';
 
-/**
- * Accepts the geometry of a polygon and point and returns `true` if the point falls within the polygon.
- * @function
- * @param {Object} GeoJSON - [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6) coordinates.
- * @param {Object} GeoJSON - [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) coordinates.
- * @return {Boolean} Yes/No
- * ```js
- * import { polygonContainsPoint } from "@terraformer/spatial"
- *
- * polygonContainsPoint(
- *   [
- *     [1, 2], [2, 2], [2, 1], [1, 1], [1, 2]
- *   ],
- *   [10, 10]
- * )
- *
- * >> false
- * ```
- */
-export const polygonContainsPoint = (polygon, point) => {
-  if (polygon && polygon.length) {
-    if (polygon.length === 1) { // polygon with no holes
-      return coordinatesContainPoint(polygon[0], point);
-    } else { // polygon with holes
-      if (coordinatesContainPoint(polygon[0], point)) {
-        for (let i = 1; i < polygon.length; i++) {
-          if (coordinatesContainPoint(polygon[i], point)) {
-            return false; // found in hole
-          }
-        }
-        return true;
-      } else {
-        return false;
-      }
-    }
-  } else {
-    return false;
-  }
-};
+export {
+  /**
+   * Accepts the geometry of a polygon and point and returns `true` if the point falls within the polygon.
+   * @function
+   * @param {Object} GeoJSON - [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6) coordinates.
+   * @param {Object} GeoJSON - [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) coordinates.
+   * @return {Boolean} Yes/No
+   * ```js
+   * import { polygonContainsPoint } from "@terraformer/spatial"
+   *
+   * polygonContainsPoint(
+   *   [
+   *     [1, 2], [2, 2], [2, 1], [1, 1], [1, 2]
+   *   ],
+   *   [10, 10]
+   * )
+   *
+   * >> false
+   * ```
+   */
+  polygonContainsPoint
+} from './polygon';
 
 // to do: expose a close() method?
 
@@ -317,5 +275,22 @@ export {
    * >> { type: "Feature", geometry: { type: "Polygon"}, coordinates: [...] }
    * ```
    */
-  toCircle
+  toCircle,
+  /**
+   * Reproject Web Mercator GeoJSON to WGS84 (Lat/Long).
+   * @function
+   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+   * @return {object} GeoJSON
+   * ```js
+   * import { toGeographic } from "@terraformer/spatial"
+   *
+   * toGeographic({
+   *   type: "Point",
+   *   coordinates: [ -13580978, 5621521 ]
+   * })
+   *
+   * >> { type: "Point", coordinates: [ 45, 60 ] }
+   * ```
+   */
+  toGeographic
 } from './circle';

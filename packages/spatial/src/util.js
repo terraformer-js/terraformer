@@ -1,8 +1,6 @@
 import { pointsEqual } from '@terraformer/common';
 
 import {
-  DEGREES_PER_RADIAN,
-  RADIANS_PER_DEGREE,
   MercatorCRS
 } from './constants';
 
@@ -123,20 +121,6 @@ export function warn () {
 }
 
 export const hasHoles = (geojson) => geojson.coordinates.length > 1;
-
-/*
-Internal: Convert radians to degrees. Used by spatial reference converters.
-*/
-export const radToDeg = (rad) => {
-  return rad * DEGREES_PER_RADIAN;
-};
-
-/*
-Internal: Convert degrees to radians. Used by spatial reference converters.
-*/
-export const degToRad = (deg) => {
-  return deg * RADIANS_PER_DEGREE;
-};
 
 /*
 Internal: Loop over each array in a geojson object and apply a function to it. Used by spatial reference converters.

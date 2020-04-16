@@ -30,7 +30,6 @@ npm install @terraformer/spatial
     * [.calculateEnvelope(GeoJSON)](#module_Terraformer.calculateEnvelope) ⇒ <code>Object</code>
     * [.positionToGeographic(CoordinatePair)](#module_Terraformer.positionToGeographic) ⇒ <code>Array.&lt;Number, Number&gt;</code>
     * [.toMercator(GeoJSON)](#module_Terraformer.toMercator) ⇒ <code>object</code>
-    * [.toGeographic(GeoJSON)](#module_Terraformer.toGeographic) ⇒ <code>object</code>
     * [.convexHull(GeoJSON)](#module_Terraformer.convexHull) ⇒ <code>Array.&lt;Coordinates&gt;</code>
     * [.polygonContainsPoint(GeoJSON, GeoJSON)](#module_Terraformer.polygonContainsPoint) ⇒ <code>Boolean</code>
     * [.within(GeoJSON, GeoJSON)](#module_Terraformer.within) ⇒ <code>Boolean</code>
@@ -121,28 +120,6 @@ toMercator({
 | --- | --- | --- |
 | GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
 
-<a name="module_Terraformer.toGeographic"></a>
-
-### Terraformer.toGeographic(GeoJSON) ⇒ <code>object</code>
-Reproject Web Mercator GeoJSON to WGS84 (Lat/Long).
-
-**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>object</code> - GeoJSON
-```js
-import { toGeographic } from "@terraformer/spatial"
-
-toGeographic({
-  type: "Point",
-  coordinates: [ -13580978, 5621521 ]
-})
-
->> { type: "Point", coordinates: [ 45, 60 ] }
-```  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
-
 <a name="module_Terraformer.convexHull"></a>
 
 ### Terraformer.convexHull(GeoJSON) ⇒ <code>Array.&lt;Coordinates&gt;</code>
@@ -182,6 +159,15 @@ Accepts the geometry of a polygon and point and returns `true` if the point fall
 **Returns**: <code>Boolean</code> - Yes/No
 ```js
 import { polygonContainsPoint } from "@terraformer/spatial"
+
+polygonContainsPoint(
+  [
+    [1, 2], [2, 2], [2, 1], [1, 1], [1, 2]
+  ],
+  [10, 10]
+)
+
+>> false
 ```  
 
 | Param | Type | Description |

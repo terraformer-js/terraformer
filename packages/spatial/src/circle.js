@@ -1,9 +1,10 @@
-import { closedPolygon } from './util';
+import { applyConverter, closedPolygon } from './util';
 
 import {
-  positionToMercator,
-  toGeographic
-} from './index';
+  positionToGeographic, positionToMercator
+} from './position';
+
+export const toGeographic = (geojson) => applyConverter(geojson, positionToGeographic);
 
 export const toCircle = (center, radius, interpolate) => {
   const steps = interpolate || 64;

@@ -5,7 +5,7 @@ import {
 
 import { closedPolygon, coordinatesEqual } from './util';
 
-import { polygonContainsPoint } from './index';
+import { polygonContainsPoint } from './polygon';
 
 export const within = (geoJSON, comparisonGeoJSON) => {
   let coordinates, i, contains;

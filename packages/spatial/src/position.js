@@ -1,11 +1,18 @@
 import {
-  degToRad,
-  radToDeg
-} from './util';
-
-import {
-  EARTH_RADIUS
+  EARTH_RADIUS,
+  DEGREES_PER_RADIAN,
+  RADIANS_PER_DEGREE
 } from './constants';
+
+/*
+Internal: Convert radians to degrees. Used by spatial reference converters.
+*/
+export const radToDeg = (rad) => rad * DEGREES_PER_RADIAN;
+
+/*
+Internal: Convert degrees to radians. Used by spatial reference converters.
+*/
+export const degToRad = (deg) => deg * RADIANS_PER_DEGREE;
 
 export const positionToGeographic = (position) => {
   const x = position[0];
