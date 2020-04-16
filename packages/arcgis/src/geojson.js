@@ -49,23 +49,6 @@ const flattenMultiPolygonRings = (rings) => {
   return output;
 };
 
-/**
- * Converts [GeoJSON](https://tools.ietf.org/html/rfc7946) into ArcGIS JSON.
- * @function
- * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
- * @param {string} [idAttribute] - When converting GeoJSON features, the id will be set as the OBJECTID unless another fieldname is supplied.
- * @return {object} ArcGIS JSON.
- * ```js
- * import { geojsonToArcGIS } from "@terraformer/arcgis"
- *
- * geojsonToArcGIS({
- *   "type": "Point",
- *   "coordinates": [45.5165, -122.6764]
- * })
- *
- * >> { "x":-122.6764, "y":45.5165, "spatialReference": { "wkid": 4326 } }
- * ```
- */
 export const geojsonToArcGIS = (geojson, idAttribute) => {
   idAttribute = idAttribute || 'OBJECTID';
   var spatialReference = { wkid: 4326 };

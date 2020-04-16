@@ -3,7 +3,7 @@ import test from 'tape';
 import {
   toMercator,
   toGeographic
-} from '../index';
+} from '../src/index';
 
 test('should exist', function (t) {
   t.plan(2);

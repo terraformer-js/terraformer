@@ -11,7 +11,7 @@
 [standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/semistandard
 
-> Tools to convert ArcGIS JSON geometries to GeoJSON geometries and vice versa.
+> Convert ArcGIS JSON geometries to GeoJSON geometries and vice versa.
 
 ## Install
 
@@ -70,6 +70,17 @@ const Terraformer = require('@terraformer/arcgis');
 
 Terraformer.geojsonToArcGIS(/* ... */);
 Terraformer.arcgisToGeoJSON(/* ... */);
+```
+
+### ES module in the browser
+
+```html
+<script type='module'>
+  import { arcgisToGeoJSON } from 'https://unpkg.com/@terraformer/arcgis?module';
+
+  // look ma, no build step!
+  arcgisToGeoJSON(/* ... */);
+</script>
 ```
 
 ## [Contributing](./CONTRIBUTING.md)

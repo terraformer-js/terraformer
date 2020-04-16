@@ -6,7 +6,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "jsdoc": "jsdoc packages/**/index.js -d ./docs -c conf.js",
+    "jsdoc": "jsdoc packages/**/src/index.js -d ./docs -c conf.js",
     "docs:serve": "npm run jsdoc && http-server & onchange -v 'packages/**/*.js' -- npm run jsdoc",
     "lint": "semistandard | snazzy",
     "test:node": "node test-helper.js",

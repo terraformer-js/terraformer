@@ -46,3 +46,22 @@ const input = {
 
 Terraformer.isConvex(input.coordinates[0]); // true
 ```
+
+### Node.js
+
+```js
+const Terraformer = require('@terraformer/spatial');
+
+Terraformer.isConvex(/* ... */);
+```
+
+### ES module in the browser
+
+```html
+<script type='module'>
+  import { isConvex } from 'https://unpkg.com/@terraformer/spatial?module';
+
+  // look ma, no build step!
+  isConvex(/* ... */);
+</script>
+```

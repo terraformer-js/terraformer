@@ -1,5 +1,5 @@
 import test from 'tape';
-import { geojsonToArcGIS } from '../index.js';
+import { geojsonToArcGIS } from '../src/index.js';
 
 test('should exist', function (t) {
   t.plan(1);

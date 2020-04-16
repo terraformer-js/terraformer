@@ -1,6 +1,6 @@
 
 import test from 'tape';
-import { wktToGeoJSON } from '../index.js';
+import { wktToGeoJSON } from '../src/index.js';
 
 test('should exist', function (t) {
   t.plan(1);

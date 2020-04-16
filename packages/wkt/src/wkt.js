@@ -1,6 +1,6 @@
 /* global parser */ // via jison
 
-/* Copyright (c) 2012-2019 Environmental Systems Research Institute, Inc.
+/* Copyright (c) 2012-2020 Environmental Systems Research Institute, Inc.
  * MIT */
 
 /** @module @terraformer/wkt */

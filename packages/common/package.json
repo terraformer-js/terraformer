@@ -7,7 +7,7 @@
     "url": "https://github.com/terraformer-js/terraformer/issues"
   },
   "contributors": [
-    "John Gravois <john@esri.com>"
+    "John Gravois <john@bikebbq.com>"
   ],
   "files": [ "index.js" ],
   "homepage": "https://github.com/terraformer-js/terraformer",
@@ -21,6 +21,8 @@
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
+  "unpkg": "index.js",
+  "jsdelivr": "index.js",
   "jspm": {
     "main": "index.js",
     "registry": "npm",

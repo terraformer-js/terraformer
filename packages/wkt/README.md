@@ -27,7 +27,7 @@ npm install @terraformer/wkt
 import { wktToGeoJSON, geojsonToWKT } from '@terraformer/wkt';
 
 // parse WKT and convert to GeoJSON
-const geojson = wktToGeoJSON("POINT (-122.6764, 45.5165)");
+const geojson = wktToGeoJSON("POINT (-122.6764 45.5165)");
 
 >> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
 
@@ -37,7 +37,7 @@ const wkt = geojsonToWKT({
   "coordinates": [ -122.6764, 45.5165 ]
 });
 
->> "POINT (-122.6764, 45.5165)"
+>> "POINT (-122.6764 45.5165)"
 ```
 
 ### Browser (from CDN)
@@ -48,7 +48,7 @@ This package is distributed as a [UMD](https://github.com/umdjs/umd) module and 
 <script src="https://unpkg.com/@terraformer/wkt"></script>
 ```
 ```js
-Terraformer.wktToGeoJSON("POINT (-122.6764, 45.5165)");
+Terraformer.wktToGeoJSON("POINT (-122.6764 45.5165)");
 ```
 
 ### Node.js
@@ -58,6 +58,17 @@ const Terraformer = require('@terraformer/wkt');
 
 Terraformer.geojsonToWKT(/* ... */);
 Terraformer.wktToGeoJSON(/* ... */);
+```
+
+### ES module in the browser
+
+```html
+<script type='module'>
+  import { wktToGeoJSON } from 'https://unpkg.com/@terraformer/wkt?module';
+
+  // look ma, no build step!
+  wktToGeoJSON(/* ... */);
+</script>
 ```
 
 ## [Contributing](./CONTRIBUTING.md)

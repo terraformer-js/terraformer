@@ -1,20 +1,19 @@
 {
   "name": "@terraformer/arcgis",
-  "description": "Tools to convert ArcGIS JSON geometries to GeoJSON geometries and vica-versa.",
+  "description": "Convert ArcGIS JSON geometries to GeoJSON geometries and vica-versa.",
   "version": "2.0.0",
   "author": "Patrick Arlt <patrick.arlt@gmail.com>",
   "bugs": {
     "url": "https://github.com/terraformer-js/terraformer/issues"
   },
   "contributors": [
-    "John Gravois <john@esri.com>"
+    "John Gravois <john@bikebbq.com>"
   ],
   "dependencies": {
     "@terraformer/common": "2.0.0"
   },
   "files": [
-    "index.js",
-    "dist/arcgis.umd.js.map"
+    "dist/**"
   ],
   "homepage": "https://github.com/terraformer-js/terraformer",
   "keywords": [
@@ -25,20 +24,16 @@
     "geometry"
   ],
   "license": "MIT",
-  "main": "dist/arcgis.umd.js",
-  "unpkg": "dist/arcgis.umd.js",
-  "module": "index.js",
-  "jspm": {
-    "main": "index.js",
-    "registry": "npm",
-    "format": "es6"
-  },
+  "main": "dist/t-arcgis.umd.js",
+  "unpkg": "dist/t-arcgis.umd.js",
+  "jsdelivr": "dist/t-arcgis.umd.js",
+  "module": "dist/t-arcgis.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/terraformer-js/terraformer"
   },
   "scripts": {
-    "build": "rollup -c ../../rollup.config.js",
+    "build": "rollup -c ../../rollup.umd.config.js && rollup -c ../../rollup.esm.config.js",
     "prepare": "npm run build"
   }
 }

@@ -1,7 +1,7 @@
 import test from 'tape';
 import { GeoJSON } from './mock/geojson';
 
-import { coordinatesEqual, hasHoles } from '../util';
+import { coordinatesEqual, hasHoles } from '../src/util';
 
 import {
   toCircle,
@@ -13,7 +13,7 @@ import {
   intersects,
   contains,
   within
-} from '../index';
+} from '../src/index';
 
 test('should exist', function (t) {
   t.plan(10);

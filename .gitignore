@@ -97,4 +97,7 @@ packages/**/.source.**.html
 docs/*
 
 # created by jison
-packages/wkt/index.js
+packages/wkt/src/index.js
+
+# for foolin around
+test.js

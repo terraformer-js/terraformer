@@ -1,8 +1,8 @@
 var fs = require('fs');
 var jison = require('jison');
 
-var grammar = fs.readFileSync('./wkt.yy', 'utf8');
-var wrapper = fs.readFileSync('./wkt.js', 'utf8');
+var grammar = fs.readFileSync('./src/wkt.yy', 'utf8');
+var wrapper = fs.readFileSync('./src/wkt.js', 'utf8');
 
 var Parser = jison.Parser;
 var parser = new Parser(grammar);
@@ -11,4 +11,4 @@ var parser = new Parser(grammar);
 var parserSource = parser.generate({ moduleType: 'es' });
 
 wrapper = wrapper.replace('\'SOURCE\';', parserSource);
-fs.writeFileSync('./index.js', wrapper, 'utf8');
+fs.writeFileSync('./src/index.js', wrapper, 'utf8');

@@ -9,14 +9,14 @@
   "contributors": [
     "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
     "Jerry Sievert <code@legitimatesounding.com> (http://legitimatesounding.com)",
-    "John Gravois <john@esri.com>"
+    "John Gravois <john@bikebbq.com>"
   ],
   "dependencies": {
     "@terraformer/common": "2.0.0"
   },
   "files": [
-    "index.js",
-    "dist/spatial.umd.js.map"
+    "src/**",
+    "dist/umd.js.map"
   ],
   "homepage": "https://github.com/terraformer-js/terraformer",
   "keywords": [
@@ -27,20 +27,16 @@
     "geometry"
   ],
   "license": "MIT",
-  "main": "dist/spatial.umd.js",
-  "unpkg": "dist/spatial.umd.js",
-  "module": "index.js",
-  "jspm": {
-    "main": "index.js",
-    "registry": "npm",
-    "format": "es6"
-  },
+  "main": "dist/t-spatial.umd.js",
+  "unpkg": "dist/t-spatial.umd.js",
+  "jsdelivr": "dist/t-spatial.umd.js",
+  "module": "dist/t-spatial.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/terraformer-js/terraformer"
   },
   "scripts": {
-    "build": "rollup -c ../../rollup.config.js",
+    "build": "rollup -c ../../rollup.umd.config.js && rollup -c ../../rollup.esm.config.js",
     "prepare": "npm run build"
   }
 }

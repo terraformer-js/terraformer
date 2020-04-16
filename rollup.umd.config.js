@@ -9,27 +9,26 @@ const path = require('path');
  */
 const pkg = require(path.join(process.cwd(), 'package.json'));
 
-/**
- * and dig out its name.
- */
-const { name } = pkg;
-const truncatedName = name.replace('@terraformer/', '');
-
 const copyright = `/* @preserve
 * ${pkg.name} - v${pkg.version} - ${pkg.license}
 * Copyright (c) 2012-${new Date().getFullYear()} Environmental Systems Research Institute, Inc.
 * ${new Date().toString()}
 */`;
 
+/**
+ * and dig out its name.
+ */
+const { name } = pkg;
+const sanitizedName = name.replace('@terraformer/', 't-');
+
 export default {
-  input: 'index.js', // resolved by our plugin
+  input: 'src/index.js', // resolved by our plugin
   plugins: [resolve(), json()],
   output: {
-    file: `./dist/${truncatedName}.umd.js`,
+    file: `./dist/${sanitizedName}.umd.js`,
     banner: copyright,
     format: 'umd',
     name: `Terraformer`,
-    sourcemap: true,
     extend: true
   }
 };

@@ -1,6 +1,6 @@
 
 import test from 'tape';
-import { arcgisToGeoJSON } from '../index.js';
+import { arcgisToGeoJSON } from '../src/index.js';
 
 test('should exist', function (t) {
   t.plan(1);
