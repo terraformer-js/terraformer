@@ -20,8 +20,7 @@ for (var i = 0; i < packages.length; i++) {
     // use babel to transpile the source and pass each test to the Node.js CLI
     exec(`babel-node ${packages[i]}/test/${tests[j]} [ babelify --presets @babel/preset-env ] | faucet`, function (err, res) {
       console.log(res);
-      if (err) {}
-      // throw Error(err);
+      if (err) throw Error(err);
     });
   }
 }
