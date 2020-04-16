@@ -1,7 +1,7 @@
 /* Copyright (c) 2012-2019 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
-/** @module @terraformer/arcgis */
+/** @module Terraformer */
 
 // we intentionally dont export the helper functions
 

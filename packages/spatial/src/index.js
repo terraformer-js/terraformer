@@ -1,7 +1,7 @@
 /* Copyright (c) 2012-2019 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
-/** @module @terraformer/spatial */
+/** @module Terraformer */
 
 import {
   coordinatesContainPoint
@@ -162,7 +162,7 @@ export {
    * Determine whether input GeoJSON has a [convex](https://en.wikipedia.org/wiki/Convex_set) shape.
    * @function
    * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
-   * @return {Boolean}
+   * @return {Boolean} Yes/No
    * ```js
    * import { isConvex } from "@terraformer/spatial"
    *
@@ -173,7 +173,8 @@ export {
    *   ]
    * })
    *
-   * >> true
+   * >>
+   * true
    * ```
    */
   isConvex
@@ -184,18 +185,9 @@ export {
  * @function
  * @param {Object} GeoJSON - [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6) coordinates.
  * @param {Object} GeoJSON - [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) coordinates.
- * @return {Boolean}
+ * @return {Boolean} Yes/No
  * ```js
  * import { polygonContainsPoint } from "@terraformer/spatial"
- *
- * polygonContainsPoint(
- *   [
- *     [1, 2], [2, 2], [2, 1], [1, 1], [1, 2]
- *   ],
- *   [10, 10]
- * )
- *
- * >> false
  * ```
  */
 export const polygonContainsPoint = (polygon, point) => {
@@ -227,7 +219,7 @@ export {
    * @function
    * @param {Object} GeoJSON - [GeoJSON](https://tools.ietf.org/html) that may be within the second input.
    * @param {Object} GeoJSON - [GeoJSON](https://tools.ietf.org/html/rfc7946#section-3.1.2) that may contain the first input.
-   * @return {Boolean}
+   * @return {Boolean} Yes/No
    * ```js
    * import { within } from "@terraformer/spatial"
    *
@@ -254,7 +246,7 @@ export {
    * @function
    * @param {Object} GeoJSON - [GeoJSON](https://tools.ietf.org/html) that may contain the second input.
    * @param {Object} GeoJSON - [GeoJSON](https://tools.ietf.org/html/rfc7946#section-3.1.2) that may be contained by the first input.
-   * @return {Boolean}
+   * @return {Boolean} Yes/No
    * ```js
    * import { contains } from "@terraformer/spatial"
    *
@@ -280,7 +272,7 @@ export {
    * @function
    * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
    * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
-   * @return {Boolean}
+   * @return {Boolean} Yes/No
    * ```js
    * import { intersects } from "@terraformer/spatial"
    *
@@ -308,7 +300,7 @@ export {
    * @param {Array<Number,Number>} CoordinatePair - A GeoJSON Coordinate in `[x,y]` format.
    * @param {Number} [Radius=250] - The radius of the circle (in meters).
    * @param {Number} [Steps=64] - The number of sides the output polygon will contain.
-   * @return {GeoJSON}
+   * @return {object} GeoJSON
    * ```js
    * import { toCircle } from "@terraformer/spatial"
    *

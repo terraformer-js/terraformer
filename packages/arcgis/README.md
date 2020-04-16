@@ -19,32 +19,68 @@
 npm install @terraformer/arcgis
 ```
 
-## Usage
+## API Reference
 
-### ES Module
+<a name="module_Terraformer"></a>
 
+## Terraformer
+
+* [Terraformer](#module_Terraformer)
+    * [.arcgisToGeoJSON(JSON, [idAttribute])](#module_Terraformer.arcgisToGeoJSON) ⇒ <code>object</code>
+    * [.geojsonToArcGIS(GeoJSON, [idAttribute])](#module_Terraformer.geojsonToArcGIS) ⇒ <code>object</code>
+
+<a name="module_Terraformer.arcgisToGeoJSON"></a>
+
+### Terraformer.arcgisToGeoJSON(JSON, [idAttribute]) ⇒ <code>object</code>
+Converts [ArcGIS JSON](https://developers.arcgis.com/documentation/core-concepts/features-and-geometries/) into GeoJSON.
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>object</code> - GeoJSON.
 ```js
-import { arcgisToGeoJSON, geojsonToArcGIS } from '@terraformer/arcgis';
+import { arcgisToGeoJSON } from "@terraformer/arcgis"
 
-// parse ArcGIS JSON, convert it to GeoJSON
-const geojson = arcgisToGeoJSON({
-    "x":-122.6764,
-    "y":45.5165,
-    "spatialReference": {
-      "wkid": 4326
-    }
-  });
-
->> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
-
-// parse GeoJSON and convert it to ArcGIS JSON
-const arcgis = geojsonToArcGIS({
-  "type": "Point",
-  "coordinates": [ -122.6764, 45.5165 ]
+arcgisToGeoJSON({
+  "x":-122.6764,
+  "y":45.5165,
+  "spatialReference": {
+    "wkid": 4326
+  }
 });
 
+>> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
+```  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| JSON | <code>object</code> | The input ArcGIS geometry, feature or feature collection. |
+| [idAttribute] | <code>string</code> | When converting an ArcGIS Feature its attributes will contain the ID of the feature. If something other than OBJECTID or FID stores the ID, you should pass through the fieldname explicitly. |
+
+<a name="module_Terraformer.geojsonToArcGIS"></a>
+
+### Terraformer.geojsonToArcGIS(GeoJSON, [idAttribute]) ⇒ <code>object</code>
+Converts [GeoJSON](https://tools.ietf.org/html/rfc7946) into ArcGIS JSON.
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>object</code> - ArcGIS JSON.
+```js
+import { geojsonToArcGIS } from "@terraformer/arcgis"
+
+geojsonToArcGIS({
+  "type": "Point",
+  "coordinates": [45.5165, -122.6764]
+})
+
 >> { "x":-122.6764, "y":45.5165, "spatialReference": { "wkid": 4326 } }
-```
+```  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
+| [idAttribute] | <code>string</code> | When converting GeoJSON features, the id will be set as the OBJECTID unless another fieldname is supplied. |
+
+* * *
+
+## Usage
 
 ### Browser (from CDN)
 
@@ -54,13 +90,7 @@ This package is distributed as a [UMD](https://github.com/umdjs/umd) module and 
 <script src="https://unpkg.com/@terraformer/arcgis"></script>
 ```
 ```js
-Terraformer.arcgisToGeoJSON({
-    "x":-122.6764,
-    "y":45.5165,
-    "spatialReference": {
-      "wkid": 4326
-    }
-});
+Terraformer.arcgisToGeoJSON(/* ... */);
 ```
 
 ### Node.js
@@ -69,7 +99,6 @@ Terraformer.arcgisToGeoJSON({
 const Terraformer = require('@terraformer/arcgis');
 
 Terraformer.geojsonToArcGIS(/* ... */);
-Terraformer.arcgisToGeoJSON(/* ... */);
 ```
 
 ### ES module in the browser
@@ -90,3 +119,5 @@ Terraformer.arcgisToGeoJSON(/* ... */);
 | Project | Language | Status | Maintainer |
 | - | - | - | - |
 | [`arcgis2geojson`](https://github.com/chris48s/arcgis2geojson/) | Python | Incomplete | [@chris48s](https://github.com/chris48s) |
+
+## [LICENSE](https://raw.githubusercontent.com/terraformer-js/terraformer/master/LICENSE)

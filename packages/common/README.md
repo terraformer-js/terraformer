@@ -13,6 +13,6 @@
 
 > Shared Terraformer utility methods.
 
-See our website [@terraformer](http://terraformer.io) for more information.
+## [Contributing](./CONTRIBUTING.md)
 
-
+## [LICENSE](https://raw.githubusercontent.com/terraformer-js/terraformer/master/LICENSE)

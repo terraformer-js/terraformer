@@ -23,11 +23,6 @@
   "module": "index.js",
   "unpkg": "index.js",
   "jsdelivr": "index.js",
-  "jspm": {
-    "main": "index.js",
-    "registry": "npm",
-    "format": "es6"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/terraformer-js/terraformer"
