@@ -173,8 +173,7 @@ export {
    *   ]
    * })
    *
-   * >>
-   * true
+   * >> true
    * ```
    */
   isConvex
@@ -188,6 +187,15 @@ export {
  * @return {Boolean} Yes/No
  * ```js
  * import { polygonContainsPoint } from "@terraformer/spatial"
+ *
+ * polygonContainsPoint(
+ *   [
+ *     [1, 2], [2, 2], [2, 1], [1, 1], [1, 2]
+ *   ],
+ *   [10, 10]
+ * )
+ *
+ * >> false
  * ```
  */
 export const polygonContainsPoint = (polygon, point) => {
