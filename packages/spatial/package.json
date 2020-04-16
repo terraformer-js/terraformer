@@ -12,7 +12,7 @@
     "John Gravois <john@bikebbq.com>"
   ],
   "dependencies": {
-    "@terraformer/common": "2.0.0"
+    "@terraformer/common": "^2.0.0"
   },
   "files": [
     "src/**",

@@ -9,7 +9,6 @@
   "contributors": [
     "John Gravois <john@bikebbq.com>"
   ],
-  "dependencies": {},
   "devDependencies": {
     "jison": "GabrielRatener/jison"
   },
