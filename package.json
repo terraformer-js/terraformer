@@ -1,5 +1,6 @@
 {
   "name": "terraformer",
+  "private": true,
   "version": "2.0.0",
   "description": "A geographic toolkit for dealing with geometry, geography, formats, and building geodatabases",
   "main": "index.js",
