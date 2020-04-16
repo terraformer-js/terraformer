@@ -30,5 +30,8 @@
   "scripts": {},
   "browserify": {
     "transform": [["babelify", { "presets": ["@babel/preset-env"] }]]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
