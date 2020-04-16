@@ -16,7 +16,7 @@
     "pretest:ci": "npm run build",
     "test": "npm run lint && npm run test:node",
     "test:ci": "npm run lint && npm run test:node && npm run test:electron",
-    "release": "lerna publish",
+    "release": "npm run doc && lerna publish",
     "postinstall": "npm run bootstrap"
   },
   "repository": {

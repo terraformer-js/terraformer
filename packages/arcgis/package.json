@@ -35,7 +35,7 @@
   "scripts": {
     "build": "rollup -c ../../rollup.umd.config.js && rollup -c ../../rollup.esm.config.js",
     "doc": "jsdoc2md --files src/index.js --template README.hbs > README.md",
-    "prepare": "npm run build && npm run doc"
+    "prepare": "npm run build"
   },
   "publishConfig": {
     "access": "public"
