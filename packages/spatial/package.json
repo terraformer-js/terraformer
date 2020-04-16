@@ -15,8 +15,7 @@
     "@terraformer/common": "^2.0.0"
   },
   "files": [
-    "src/**",
-    "dist/umd.js.map"
+    "dist/**"
   ],
   "homepage": "https://github.com/terraformer-js/terraformer",
   "keywords": [
