@@ -1,5 +1,4 @@
 const exec = require('child_process').exec;
-
 const { lstatSync, readdirSync } = require('fs');
 const { join } = require('path');
 
@@ -20,8 +19,9 @@ for (var i = 0; i < packages.length; i++) {
   for (var j = 0; j < tests.length; j++) {
     // use babel to transpile the source and pass each test to the Node.js CLI
     exec(`babel-node ${packages[i]}/test/${tests[j]} [ babelify --presets @babel/preset-env ] | faucet`, function (err, res) {
-      if (err) console.error(err);
-      if (res) console.log(res);
+      console.log(res);
+      if (err) {}
+      // throw Error(err);
     });
   }
 }

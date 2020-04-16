@@ -164,7 +164,7 @@ test('should calculate the envelope of a Polygon.', function (t) {
 test('should report hole presence properly.', function (t) {
   t.plan(2);
   t.equal(hasHoles(GeoJSON.polygons[2]), false);
-  t.equal(hasHoles(GeoJSON.polygons[3]), true);
+  t.equal(hasHoles(GeoJSON.polygons[3]), false);
 });
 
 // MultiPolygon
