@@ -1,7 +1,7 @@
 {
   "name": "@terraformer/spatial",
   "description": "Spatial predicates for GeoJSON.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Patrick Arlt <patrick.arlt@gmail.com>",
   "bugs": {
     "url": "https://github.com/terraformer-js/terraformer/issues"
