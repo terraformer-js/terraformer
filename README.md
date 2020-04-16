@@ -13,8 +13,6 @@
 
 > A geographic toolkit for dealing with geometry, geography, formats, and building geodatabases.
 
-See the [@terraformer](https://terraformer-js.github.io/terraformer/module-@terraformer_spatial.html) website for more information.
-
 ## Packages
 
 * **[`@terraformer/spatial`](./packages/spatial/)** - Spatial predicates for [GeoJSON](https://tools.ietf.org/html/rfc7946).

@@ -3,7 +3,7 @@
 /* Copyright (c) 2012-2020 Environmental Systems Research Institute, Inc.
  * MIT */
 
-/** @module @terraformer/wkt */
+/** @module Terraformer */
 
 'SOURCE';
 
@@ -96,7 +96,7 @@ PolygonList.prototype.toJSON = function () {
  * ```js
  * import { wktToGeoJSON } from "@terraformer/wkt"
  *
- * wktToGeoJSON("POINT (-122.6764, 45.5165)");
+ * wktToGeoJSON("POINT (-122.6764 45.5165)");
  *
  * >> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
  * ```
@@ -306,7 +306,7 @@ const multiPolygonToWKTMultiPolygon = (geojson) => {
  *
  * geojsonToWKT(geojsonPoint)
  *
- * >> "POINT (-122.6764, 45.5165)"
+ * >> "POINT (-122.6764 45.5165)"
  * ```
  */
 export const geojsonToWKT = (geojson) => {

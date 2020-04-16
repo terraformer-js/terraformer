@@ -10,20 +10,6 @@ before_script:
   - npm install tape-run
 script:
   - npm run test:ci
-before_deploy:
-- npm run jsdoc
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: "$GITHUB_TOKEN"
-  keep-history: true
-  on:
-    branch: master
-  local-dir: docs
-  target_branch: gh-pages
-branches:
-  only:
-    - master
 services:
   - xvfb
 addons:

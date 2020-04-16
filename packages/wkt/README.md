@@ -19,26 +19,63 @@
 npm install @terraformer/wkt
 ```
 
-## Usage
+## API Reference
 
-### ES Module
+<a name="module_Terraformer"></a>
+
+## Terraformer
+
+* [Terraformer](#module_Terraformer)
+    * [.wktToGeoJSON(WKT)](#module_Terraformer.wktToGeoJSON) ⇒ <code>object</code>
+    * [.geojsonToWKT(GeoJSON)](#module_Terraformer.geojsonToWKT) ⇒ <code>string</code>
+
+<a name="module_Terraformer.wktToGeoJSON"></a>
+
+### Terraformer.wktToGeoJSON(WKT) ⇒ <code>object</code>
+Converts a [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) geometry into a GeoJSON geometry.
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>object</code> - GeoJSON.
 
 ```js
-import { wktToGeoJSON, geojsonToWKT } from '@terraformer/wkt';
+import { wktToGeoJSON } from "@terraformer/wkt"
 
-// parse WKT and convert to GeoJSON
-const geojson = wktToGeoJSON("POINT (-122.6764 45.5165)");
+wktToGeoJSON("POINT (-122.6764 45.5165)");
 
 >> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
+```  
 
-// parse GeoJSON and convert it to ArcGIS JSON
-const wkt = geojsonToWKT({
+| Param | Type | Description |
+| --- | --- | --- |
+| WKT | <code>string</code> | The input WKT geometry. |
+
+<a name="module_Terraformer.geojsonToWKT"></a>
+
+### Terraformer.geojsonToWKT(GeoJSON) ⇒ <code>string</code>
+Converts a GeoJSON geometry or GeometryCollection into a [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) string.
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>string</code> - WKT.
+```js
+import { geojsonToWKT } from "@terraformer/wkt"
+
+const geojsonPoint = {
   "type": "Point",
-  "coordinates": [ -122.6764, 45.5165 ]
-});
+  "coordinates": [-122.6764, 45.5165]
+}
+
+geojsonToWKT(geojsonPoint)
 
 >> "POINT (-122.6764 45.5165)"
-```
+```  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| GeoJSON | <code>object</code> | The input GeoJSON geometry or GeometryCollection. |
+
+* * *
+
+## Usage
 
 ### Browser (from CDN)
 
@@ -72,3 +109,5 @@ Terraformer.wktToGeoJSON(/* ... */);
 ```
 
 ## [Contributing](./CONTRIBUTING.md)
+
+## [LICENSE](https://raw.githubusercontent.com/terraformer-js/terraformer/master/LICENSE)
