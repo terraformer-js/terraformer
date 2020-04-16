@@ -6,8 +6,10 @@ node_js:
   - 'node'
 sudo: false
 cache: npm
+before_script:
+  - npm install tape-run
 script:
-  - npm run test
+  - npm run test:ci
 before_deploy:
 - npm run jsdoc
 deploy:
@@ -22,3 +24,8 @@ deploy:
 branches:
   only:
     - master
+services:
+  - xvfb
+addons:
+  chrome: stable
+  firefox: latest
