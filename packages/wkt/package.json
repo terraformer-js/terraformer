@@ -13,8 +13,7 @@
     "jison": "GabrielRatener/jison"
   },
   "files": [
-    "index.js",
-    "dist/umd.js.map"
+    "dist/**"
   ],
   "homepage": "https://github.com/terraformer-js/terraformer",
   "keywords": [
