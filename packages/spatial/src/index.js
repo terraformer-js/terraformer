@@ -15,7 +15,7 @@ export {
   /**
    * Calculate the bounding box of the input.
    * @function
-   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
    * @return {Array.<Number>} [ xmin, ymin, xmax, ymax ].
    * ```js
    * import { calculateBounds } from "@terraformer/spatial"
@@ -39,7 +39,7 @@ export {
 /**
  * Calculate the envelope surrounding the input.
  * @function
- * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+ * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
  * @return {Object} Object in the form { x, y, w, h }.
  * ```js
  * import { calculateEnvelope } from "@terraformer/spatial"
@@ -92,7 +92,7 @@ export {
 /**
  * Reproject WGS84 (Lat/Lng) GeoJSON to Web Mercator.
  * @function
- * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+ * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
  * @return {object} GeoJSON
  * ```js
  * import { toMercator } from "@terraformer/spatial"
@@ -111,15 +111,15 @@ export {
   /**
    * Calculate the [convex hull](https://en.wikipedia.org/wiki/Convex_hull) of GeoJSON input.
    * @function
-   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
    * @return {Array.<Coordinates>} An array of GeoJSON coordinates representing the convex hull of the input GeoJSON.
    * ```js
    * import { convexHull } from "@terraformer/spatial"
    *
    * convexHull({
-   *   'type': 'LineString',
-   *   'coordinates': [
-   *     [100, 0], [-45, 122], [80, -60]
+   *   type: "LineString",
+   *   coordinates: [
+   *     [ 100, 0 ], [ -45, 122 ], [ 80, -60 ]
    *   ]
    * })
    *
@@ -127,7 +127,7 @@ export {
    * {
    *   type: "Polygon",
    *   coordinates: [
-   *     [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ]
+   *     [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
    *   ]
    * }
    * ```
@@ -136,7 +136,7 @@ export {
   /**
    * Determine whether input GeoJSON has a [convex](https://en.wikipedia.org/wiki/Convex_set) shape.
    * @function
-   * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+   * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
    * @return {Boolean} Yes/No
    * ```js
    * import { isConvex } from "@terraformer/spatial"
@@ -144,7 +144,7 @@ export {
    * isConvex({
    *   type: "Polygon",
    *   coordinates: [
-   *     [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ]
+   *     [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
    *   ]
    * })
    *
@@ -166,9 +166,9 @@ export {
    *
    * polygonContainsPoint(
    *   [
-   *     [1, 2], [2, 2], [2, 1], [1, 1], [1, 2]
+   *     [ [ 1, 2 ], [ 2, 2 ], [ 2, 1 ], [ 1, 1 ], [ 1, 2 ] ]
    *   ],
-   *   [10, 10]
+   *   [ 10, 10 ]
    * )
    *
    * >> false
@@ -236,8 +236,8 @@ export {
   /**
    * Returns `true` if the two input GeoJSON objects intersect one another.
    * @function
-   * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
-   * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+   * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
+   * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
    * @return {Boolean} Yes/No
    * ```js
    * import { intersects } from "@terraformer/spatial"
@@ -279,7 +279,7 @@ export {
   /**
    * Reproject Web Mercator GeoJSON to WGS84 (Lat/Long).
    * @function
-   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
    * @return {object} GeoJSON
    * ```js
    * import { toGeographic } from "@terraformer/spatial"
