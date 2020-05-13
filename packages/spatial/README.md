@@ -57,7 +57,7 @@ calculateBounds({
 
 | Param | Type | Description |
 | --- | --- | --- |
-| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 <a name="module_Terraformer.calculateEnvelope"></a>
 
@@ -79,7 +79,7 @@ calculateEnvelope({
 
 | Param | Type | Description |
 | --- | --- | --- |
-| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 <a name="module_Terraformer.positionToGeographic"></a>
 
@@ -118,7 +118,7 @@ toMercator({
 
 | Param | Type | Description |
 | --- | --- | --- |
-| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 <a name="module_Terraformer.convexHull"></a>
 
@@ -131,9 +131,9 @@ Calculate the [convex hull](https://en.wikipedia.org/wiki/Convex_hull) of GeoJSO
 import { convexHull } from "@terraformer/spatial"
 
 convexHull({
-  'type': 'LineString',
-  'coordinates': [
-    [100, 0], [-45, 122], [80, -60]
+  type: "LineString",
+  coordinates: [
+    [ 100, 0 ], [ -45, 122 ], [ 80, -60 ]
   ]
 })
 
@@ -141,14 +141,14 @@ convexHull({
 {
   type: "Polygon",
   coordinates: [
-    [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ]
+    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
   ]
 }
 ```  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 <a name="module_Terraformer.polygonContainsPoint"></a>
 
@@ -162,9 +162,9 @@ import { polygonContainsPoint } from "@terraformer/spatial"
 
 polygonContainsPoint(
   [
-    [1, 2], [2, 2], [2, 1], [1, 1], [1, 2]
+    [ [ 1, 2 ], [ 2, 2 ], [ 2, 1 ], [ 1, 1 ], [ 1, 2 ] ]
   ],
-  [10, 10]
+  [ 10, 10 ]
 )
 
 >> false
@@ -258,8 +258,8 @@ intersects({
 
 | Param | Type | Description |
 | --- | --- | --- |
-| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
-| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
+| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
+| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 <a name="module_Terraformer.toCircle"></a>
 
