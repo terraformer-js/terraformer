@@ -101,7 +101,7 @@ export {
    * ```
    */
   positionToMercator
-} from './position'
+} from './position';
 
 /**
  * Reproject WGS84 (Lat/Lng) GeoJSON to Web Mercator.
@@ -149,8 +149,8 @@ export {
   convexHull
 } from './convex';
 
- export {
-   /**
+export {
+  /**
    * Determine whether input GeoJSON has a [convex](https://en.wikipedia.org/wiki/Convex_set) shape.
    * @function
    * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
