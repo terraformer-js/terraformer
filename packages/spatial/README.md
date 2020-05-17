@@ -26,6 +26,8 @@ npm install @terraformer/spatial
 ## Terraformer
 
 * [Terraformer](#module_Terraformer)
+    * [.MercatorCRS](#module_Terraformer.MercatorCRS)
+    * [.GeographicCRS](#module_Terraformer.GeographicCRS)
     * [.calculateBounds(GeoJSON)](#module_Terraformer.calculateBounds) ⇒ <code>Array.&lt;Number&gt;</code>
     * [.calculateEnvelope(GeoJSON)](#module_Terraformer.calculateEnvelope) ⇒ <code>Object</code>
     * [.positionToGeographic(CoordinatePair)](#module_Terraformer.positionToGeographic) ⇒ <code>Array.&lt;Number, Number&gt;</code>
@@ -37,6 +39,18 @@ npm install @terraformer/spatial
     * [.intersects(GeoJSON, GeoJSON)](#module_Terraformer.intersects) ⇒ <code>Boolean</code>
     * [.toCircle(CoordinatePair, [Radius], [Steps])](#module_Terraformer.toCircle) ⇒ <code>object</code>
 
+<a name="module_Terraformer.MercatorCRS"></a>
+
+### Terraformer.MercatorCRS
+WKID [3857](https://epsg.io/3857)
+
+**Kind**: static constant of [<code>Terraformer</code>](#module_Terraformer)  
+<a name="module_Terraformer.GeographicCRS"></a>
+
+### Terraformer.GeographicCRS
+WKID [4326](https://epsg.io/4326)
+
+**Kind**: static constant of [<code>Terraformer</code>](#module_Terraformer)  
 <a name="module_Terraformer.calculateBounds"></a>
 
 ### Terraformer.calculateBounds(GeoJSON) ⇒ <code>Array.&lt;Number&gt;</code>
