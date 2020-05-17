@@ -227,22 +227,24 @@ test('should calculate the envelope of a MultiPolygon.', function (t) {
 
 // circle?
 
-test('should calculate the bounds of a Polygon.', function (t) {
+test.only('should calculate the bounds of a Circle.', function (t) {
   t.plan(4);
   const circle = toCircle([-122, 45], 1000, 128);
-  t.equal(Math.round(calculateBounds(circle)[0] + 'e8') + 'e-8', '-12200898315e-8');
-  t.equal(Math.round(calculateBounds(circle)[1] + 'e8') + 'e-8', '4499364760e-8');
-  t.equal(Math.round(calculateBounds(circle)[2] + 'e8') + 'e-8', '-12199101685e-8');
-  t.equal(Math.round(calculateBounds(circle)[3] + 'e8') + 'e-8', '4500635170e-8');
+  console.log(JSON.stringify(calculateBounds(circle)));
+  t.equal(calculateBounds(circle)[0], -122.01268281715086);
+  t.equal(calculateBounds(circle)[1], 44.99100166654031);
+  t.equal(calculateBounds(circle)[2], -121.98731718284914);
+  t.equal(calculateBounds(circle)[3], 45.00899831922144);
 });
 
-test('should calculate the envelope of a Polygon.', function (t) {
+test('should calculate the envelope of a Circle.', function (t) {
   t.plan(4);
   const circle = toCircle([-122, 45], 1000, 128);
-  t.equal(Math.round(calculateEnvelope(circle).x + 'e8') + 'e-8', '-12200898315e-8');
-  t.equal(Math.round(calculateEnvelope(circle).y + 'e8') + 'e-8', '4499364760e-8');
-  t.equal(Math.round(calculateEnvelope(circle).w + 'e8') + 'e-8', '1796631e-8');
-  t.equal(Math.round(calculateEnvelope(circle).h + 'e8') + 'e-8', '1270410e-8');
+  console.log(JSON.stringify(calculateEnvelope(circle)));
+  t.equal(calculateEnvelope(circle).x, -122.01268281715086);
+  t.equal(calculateEnvelope(circle).y, 44.99100166654031);
+  t.equal(calculateEnvelope(circle).w, 0.02536563430172123);
+  t.equal(calculateEnvelope(circle).h, 0.017996652681127046);
 });
 
 // feature
