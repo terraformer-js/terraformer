@@ -31,8 +31,10 @@ npm install @terraformer/spatial
     * [.calculateBounds(GeoJSON)](#module_Terraformer.calculateBounds) ⇒ <code>Array.&lt;Number&gt;</code>
     * [.calculateEnvelope(GeoJSON)](#module_Terraformer.calculateEnvelope) ⇒ <code>Object</code>
     * [.positionToGeographic(CoordinatePair)](#module_Terraformer.positionToGeographic) ⇒ <code>Array.&lt;Number, Number&gt;</code>
+    * [.positionToMercator(CoordinatePair)](#module_Terraformer.positionToMercator) ⇒ <code>Array.&lt;Number, Number&gt;</code>
     * [.toMercator(GeoJSON)](#module_Terraformer.toMercator) ⇒ <code>object</code>
     * [.convexHull(GeoJSON)](#module_Terraformer.convexHull) ⇒ <code>Array.&lt;Coordinates&gt;</code>
+    * [.isConvex(GeoJSON)](#module_Terraformer.isConvex) ⇒ <code>Boolean</code>
     * [.polygonContainsPoint(GeoJSON, GeoJSON)](#module_Terraformer.polygonContainsPoint) ⇒ <code>Boolean</code>
     * [.within(GeoJSON, GeoJSON)](#module_Terraformer.within) ⇒ <code>Boolean</code>
     * [.contains(GeoJSON, GeoJSON)](#module_Terraformer.contains) ⇒ <code>Boolean</code>
@@ -112,6 +114,23 @@ positionToGeographic([ -13580978, 5621521 ]) // [ 45, 60  ]
 | --- | --- | --- |
 | CoordinatePair | <code>Array.&lt;Number, Number&gt;</code> | An X,Y position. |
 
+<a name="module_Terraformer.positionToMercator"></a>
+
+### Terraformer.positionToMercator(CoordinatePair) ⇒ <code>Array.&lt;Number, Number&gt;</code>
+Reprojects the passed Coordinate pair to web mercator (3857) spatial reference.
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>Array.&lt;Number, Number&gt;</code> - CoordinatePair.
+```js
+import { positionToGeographic } from "@terraformer/spatial"
+
+positionToMercator([ 45, 60 ]) // [ -13580978, 5621521  ]
+```  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| CoordinatePair | <code>Array.&lt;Number, Number&gt;</code> | An X,Y position. |
+
 <a name="module_Terraformer.toMercator"></a>
 
 ### Terraformer.toMercator(GeoJSON) ⇒ <code>object</code>
@@ -163,6 +182,30 @@ convexHull({
 | Param | Type | Description |
 | --- | --- | --- |
 | GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
+
+<a name="module_Terraformer.isConvex"></a>
+
+### Terraformer.isConvex(GeoJSON) ⇒ <code>Boolean</code>
+Determine whether input GeoJSON has a [convex](https://en.wikipedia.org/wiki/Convex_set) shape.
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>Boolean</code> - Yes/No
+```js
+import { isConvex } from "@terraformer/spatial"
+
+isConvex({
+  type: "Polygon",
+  coordinates: [
+    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
+  ]
+})
+
+>> true
+```  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 <a name="module_Terraformer.polygonContainsPoint"></a>
 
