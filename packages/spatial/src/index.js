@@ -32,7 +32,18 @@ export {
 } from './bounds';
 
 export {
-  MercatorCRS,
+  /**
+   * WKID [3857](https://epsg.io/3857)
+   * @constant
+   */
+  MercatorCRS
+} from './constants';
+
+export {
+  /**
+   * WKID [4326](https://epsg.io/4326)
+   * @constant
+   */
   GeographicCRS
 } from './constants';
 
@@ -74,7 +85,10 @@ export {
    * positionToGeographic([ -13580978, 5621521 ]) // [ 45, 60  ]
    * ```
    */
-  positionToGeographic,
+  positionToGeographic
+} from './position';
+
+export {
   /**
    * Reprojects the passed Coordinate pair to web mercator (3857) spatial reference.
    * @function
@@ -87,7 +101,7 @@ export {
    * ```
    */
   positionToMercator
-} from './position';
+} from './position'
 
 /**
  * Reproject WGS84 (Lat/Lng) GeoJSON to Web Mercator.
@@ -132,8 +146,11 @@ export {
    * }
    * ```
    */
-  convexHull,
-  /**
+  convexHull
+} from './convex';
+
+ export {
+   /**
    * Determine whether input GeoJSON has a [convex](https://en.wikipedia.org/wiki/Convex_set) shape.
    * @function
    * @param {Object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
