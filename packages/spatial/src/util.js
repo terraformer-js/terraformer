@@ -58,7 +58,7 @@ const euclideanDistance = (p, q) => {
 const nextHullPoint = (points, p) => {
   // Returns the next point on the convex hull in CCW from p.
   let q = p;
-  for (let r in points) {
+  for (const r in points) {
     const t = turn(p, q, points[r]);
     if (t === -1 || (t === 0 && euclideanDistance(p, points[r]) > euclideanDistance(p, q))) {
       q = points[r];
@@ -78,7 +78,7 @@ export const coordinateConvexHull = (points) => {
   }
 
   // Returns the points on the convex hull of points in CCW order.
-  let hull = [points.sort(compSort)[0]];
+  const hull = [points.sort(compSort)[0]];
 
   for (var p = 0; p < hull.length; p++) {
     const q = nextHullPoint(points, hull[p]);
@@ -95,10 +95,10 @@ export const coordinateConvexHull = (points) => {
 Internal: Returns a copy of coordinates for a closed polygon
 */
 export const closedPolygon = (coordinates) => {
-  let outer = [];
+  const outer = [];
 
   for (let i = 0; i < coordinates.length; i++) {
-    let inner = coordinates[i].slice();
+    const inner = coordinates[i].slice();
     if (pointsEqual(inner[0], inner[inner.length - 1]) === false) {
       inner.push(inner[0]);
     }

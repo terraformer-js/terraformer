@@ -90,8 +90,8 @@ export const within = (geoJSON, comparisonGeoJSON) => {
     } else if (geoJSON.type === 'MultiLineString') {
       for (i = 0; i < geoJSON.coordinates.length; i++) {
         const ls = {
-          'type': 'LineString',
-          'coordinates': geoJSON.coordinates[i]
+          type: 'LineString',
+          coordinates: geoJSON.coordinates[i]
         };
         if (within(ls, comparisonGeoJSON) === false) {
           contains++;
@@ -170,7 +170,7 @@ export const within = (geoJSON, comparisonGeoJSON) => {
       // multilinestring.within(multipolygon)
     } else if (geoJSON.type === 'MultiLineString') {
       for (i = 0; i < geoJSON.coordinates.length; i++) {
-        const ls = { 'type': 'LineString', 'coordinates': geoJSON.coordinates[i] };
+        const ls = { type: 'LineString', coordinates: geoJSON.coordinates[i] };
 
         if (within(ls, comparisonGeoJSON) === false) {
           return false;

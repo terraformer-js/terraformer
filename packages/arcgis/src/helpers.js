@@ -75,7 +75,8 @@ export const flattenMultiPolygonRings = (rings) => {
 export const shallowClone = (obj) => {
   var target = {};
   for (var i in obj) {
-    if (obj.hasOwnProperty(i)) {
+    // both arcgis attributes and geojson props are just hardcoded keys
+    if (obj.hasOwnProperty(i)) { // eslint-disable-line no-prototype-builtins
       target[i] = obj[i];
     }
   }

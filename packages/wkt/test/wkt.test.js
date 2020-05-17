@@ -16,7 +16,7 @@ test('should parse a WKT POINT', function (t) {
 
   t.deepEqual(output, {
     type: 'Point',
-    coordinates: [ 30, 10 ]
+    coordinates: [30, 10]
   });
 });
 
@@ -29,7 +29,7 @@ test('should parse an empty WKT POINT', function (t) {
 
   t.deepEqual(output, {
     type: 'Point',
-    coordinates: [ ]
+    coordinates: []
   });
 });
 
@@ -43,7 +43,7 @@ test('should parse a POINT with a Z coordinate', function (t) {
   t.deepEqual(output, {
     properties: { z: true },
     type: 'Point',
-    coordinates: [ 30, 10, 20 ]
+    coordinates: [30, 10, 20]
   });
 });
 
@@ -57,7 +57,7 @@ test('should parse a POINT with a M coordinate', function (t) {
   t.deepEqual(output, {
     properties: { m: true },
     type: 'Point',
-    coordinates: [ 30, 10, 20 ]
+    coordinates: [30, 10, 20]
   });
 });
 
@@ -74,7 +74,7 @@ test('should parse a POINT with a Z and M coordinate', function (t) {
       z: true
     },
     type: 'Point',
-    coordinates: [ 30, 10, 20, 15 ]
+    coordinates: [30, 10, 20, 15]
   });
 });
 
@@ -87,7 +87,7 @@ test('should parse a POINT with scientific notation coordinates', function (t) {
 
   t.deepEqual(output, {
     type: 'Point',
-    coordinates: [ 30, 10, 20, 15 ]
+    coordinates: [30, 10, 20, 15]
   });
 });
 
@@ -100,7 +100,7 @@ test('should parse a LINESTRING', function (t) {
 
   t.deepEqual(output, {
     type: 'LineString',
-    coordinates: [ [30, 10], [10, 30], [40, 40] ]
+    coordinates: [[30, 10], [10, 30], [40, 40]]
   });
 });
 
@@ -113,7 +113,7 @@ test('should parse an EMPTY LINESTRING', function (t) {
 
   t.deepEqual(output, {
     type: 'LineString',
-    coordinates: [ ]
+    coordinates: []
   });
 });
 
@@ -129,7 +129,7 @@ test('should parse a LINESTRING with a Z coordinate', function (t) {
     properties: {
       z: true
     },
-    coordinates: [ [30, 10, 5], [10, 30, 15], [40, 40, 25] ]
+    coordinates: [[30, 10, 5], [10, 30, 15], [40, 40, 25]]
   });
 });
 
@@ -145,7 +145,7 @@ test('should parse a LINESTRING with an M coordinate', function (t) {
     properties: {
       m: true
     },
-    coordinates: [ [30, 10, 5], [10, 30, 15], [40, 40, 25] ]
+    coordinates: [[30, 10, 5], [10, 30, 15], [40, 40, 25]]
   });
 });
 
@@ -162,7 +162,7 @@ test('should parse a LINESTRING with Z and M coordinates', function (t) {
       z: true,
       m: true
     },
-    coordinates: [ [30, 10, 5, 2], [10, 30, 15, 8], [40, 40, 25, 16] ]
+    coordinates: [[30, 10, 5, 2], [10, 30, 15, 8], [40, 40, 25, 16]]
   });
 });
 
@@ -175,7 +175,7 @@ test('should parse a POLYGON', function (t) {
 
   t.deepEqual(output, {
     type: 'Polygon',
-    coordinates: [ [ [30, 10], [10, 20], [20, 40], [40, 40], [30, 10] ] ]
+    coordinates: [[[30, 10], [10, 20], [20, 40], [40, 40], [30, 10]]]
   });
 });
 
@@ -188,7 +188,7 @@ test('should parse an empty POLYGON', function (t) {
 
   t.deepEqual(output, {
     type: 'Polygon',
-    coordinates: [ ]
+    coordinates: []
   });
 });
 
@@ -204,7 +204,7 @@ test('should parse a POLYGON with a Z coordinate', function (t) {
     properties: {
       z: true
     },
-    coordinates: [ [ [30, 10, 4], [10, 20, 6], [20, 40, 8], [40, 40, 1], [30, 10, 3] ] ]
+    coordinates: [[[30, 10, 4], [10, 20, 6], [20, 40, 8], [40, 40, 1], [30, 10, 3]]]
   });
 });
 
@@ -220,7 +220,7 @@ test('should parse a POLYGON with an M coordinate', function (t) {
     properties: {
       m: true
     },
-    coordinates: [ [ [30, 10, 4], [10, 20, 6], [20, 40, 8], [40, 40, 1], [30, 10, 3] ] ]
+    coordinates: [[[30, 10, 4], [10, 20, 6], [20, 40, 8], [40, 40, 1], [30, 10, 3]]]
   });
 });
 
@@ -237,7 +237,7 @@ test('should parse a POLYGON with a Z and M coordinate', function (t) {
       m: true,
       z: true
     },
-    coordinates: [ [ [30, 10, 4, 1], [10, 20, 6, 3], [20, 40, 8, 5], [40, 40, 1, 7], [30, 10, 3, 9] ] ]
+    coordinates: [[[30, 10, 4, 1], [10, 20, 6, 3], [20, 40, 8, 5], [40, 40, 1, 7], [30, 10, 3, 9]]]
   });
 });
 
@@ -251,8 +251,8 @@ test('should parse a POLYGON with a hole', function (t) {
   t.deepEqual(output, {
     type: 'Polygon',
     coordinates: [
-      [ [35, 10], [10, 20], [15, 40], [45, 45], [35, 10] ],
-      [ [20, 30], [35, 35], [30, 20], [20, 30] ]
+      [[35, 10], [10, 20], [15, 40], [45, 45], [35, 10]],
+      [[20, 30], [35, 35], [30, 20], [20, 30]]
     ]
   });
 });
@@ -281,7 +281,7 @@ test('should parse an EMPTY MULTIPOINT', function (t) {
 
   t.deepEqual(output, {
     type: 'MultiPoint',
-    coordinates: [ ]
+    coordinates: []
   });
 });
 
@@ -297,7 +297,7 @@ test('should parse a MULTIPOINT with a Z coordinate', function (t) {
     properties: {
       z: true
     },
-    coordinates: [ [10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4] ]
+    coordinates: [[10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4]]
   });
 });
 
@@ -313,7 +313,7 @@ test('should parse a MULTIPOINT with an M coordinate', function (t) {
     properties: {
       m: true
     },
-    coordinates: [ [10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4] ]
+    coordinates: [[10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4]]
   });
 });
 
@@ -330,7 +330,7 @@ test('should parse a MULTIPOINT with a Z and M coordinate', function (t) {
       m: true,
       z: true
     },
-    coordinates: [ [10, 40, 1, 8], [40, 30, 2, 9], [20, 20, 3, 8], [30, 10, 4, 9] ]
+    coordinates: [[10, 40, 1, 8], [40, 30, 2, 9], [20, 20, 3, 8], [30, 10, 4, 9]]
   });
 });
 
@@ -343,7 +343,7 @@ test('should parse a MULTIPOINT with alternate syntax', function (t) {
 
   t.deepEqual(output, {
     type: 'MultiPoint',
-    coordinates: [ [10, 40], [40, 30], [20, 20], [30, 10] ]
+    coordinates: [[10, 40], [40, 30], [20, 20], [30, 10]]
   });
 });
 
@@ -359,7 +359,7 @@ test('should parse a MULTIPOINT with alternate syntax and Z coordinates', functi
     properties: {
       z: true
     },
-    coordinates: [ [10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4] ]
+    coordinates: [[10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4]]
   });
 });
 
@@ -375,7 +375,7 @@ test('should parse a MULTIPOINT with alternate syntax and M coordinates', functi
     properties: {
       m: true
     },
-    coordinates: [ [10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4] ]
+    coordinates: [[10, 40, 1], [40, 30, 2], [20, 20, 3], [30, 10, 4]]
   });
 });
 
@@ -392,7 +392,7 @@ test('should parse a MULTIPOINT with alternate syntax and Z and M coordinates', 
       m: true,
       z: true
     },
-    coordinates: [ [10, 40, 1, 2], [40, 30, 2, 3], [20, 20, 3, 4], [30, 10, 4, 5] ]
+    coordinates: [[10, 40, 1, 2], [40, 30, 2, 3], [20, 20, 3, 4], [30, 10, 4, 5]]
   });
 });
 
@@ -405,8 +405,8 @@ test('should parse a MULTILINESTRING with alternate syntax', function (t) {
 
   t.deepEqual(output, {
     type: 'MultiLineString',
-    coordinates: [ [ [10, 10], [20, 20], [10, 40] ],
-      [ [40, 40], [30, 30], [40, 20], [30, 10] ] ]
+    coordinates: [[[10, 10], [20, 20], [10, 40]],
+      [[40, 40], [30, 30], [40, 20], [30, 10]]]
   });
 });
 
@@ -419,7 +419,7 @@ test('should parse a MULTILINESTRING with alternate syntax', function (t) {
 
   t.deepEqual(output, {
     type: 'MultiLineString',
-    coordinates: [ ]
+    coordinates: []
   });
 });
 
@@ -436,8 +436,8 @@ test('should parse a MULTILINESTRING with alternate syntax and Z coordinates', f
       z: true
     },
     coordinates: [
-      [ [10, 10, 10], [20, 20, 20], [10, 40, 30] ],
-      [ [40, 40, 30], [30, 30, 20], [40, 20, 10], [30, 10, 10] ]
+      [[10, 10, 10], [20, 20, 20], [10, 40, 30]],
+      [[40, 40, 30], [30, 30, 20], [40, 20, 10], [30, 10, 10]]
     ]
   });
 });
@@ -455,8 +455,8 @@ test('should parse a MULTILINESTRING with alternate syntax and M coordinates', f
       m: true
     },
     coordinates: [
-      [ [10, 10, 10], [20, 20, 20], [10, 40, 30] ],
-      [ [40, 40, 30], [30, 30, 20], [40, 20, 10], [30, 10, 10] ]
+      [[10, 10, 10], [20, 20, 20], [10, 40, 30]],
+      [[40, 40, 30], [30, 30, 20], [40, 20, 10], [30, 10, 10]]
     ]
   });
 });
@@ -475,8 +475,8 @@ test('should parse a MULTILINESTRING with alternate syntax and Z and M coordinat
       m: true
     },
     coordinates: [
-      [ [10, 10, 10, 5], [20, 20, 20, 4], [10, 40, 30, 3] ],
-      [ [40, 40, 30, 2], [30, 30, 20, 1], [40, 20, 10, 2], [30, 10, 10, 3] ]
+      [[10, 10, 10, 5], [20, 20, 20, 4], [10, 40, 30, 3]],
+      [[40, 40, 30, 2], [30, 30, 20, 1], [40, 20, 10, 2], [30, 10, 10, 3]]
     ]
   });
 });
@@ -492,10 +492,10 @@ test('should parse a MULTIPOLYGON', function (t) {
     type: 'MultiPolygon',
     coordinates: [
       [
-        [ [30, 20], [10, 40], [45, 40], [30, 20] ]
+        [[30, 20], [10, 40], [45, 40], [30, 20]]
       ],
       [
-        [ [15, 5], [40, 10], [10, 20], [5, 10], [15, 5] ]
+        [[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]
       ]
     ]
   });
@@ -510,7 +510,7 @@ test('should parse an empty MULTIPOLYGON', function (t) {
 
   t.deepEqual(output, {
     type: 'MultiPolygon',
-    coordinates: [ ]
+    coordinates: []
   });
 });
 
@@ -528,10 +528,10 @@ test('should parse a MULTIPOLYGON with a Z coordinate', function (t) {
     },
     coordinates: [
       [
-        [ [30, 20, 1], [10, 40, 2], [45, 40, 3], [30, 20, 4] ]
+        [[30, 20, 1], [10, 40, 2], [45, 40, 3], [30, 20, 4]]
       ],
       [
-        [ [15, 5], [40, 10], [10, 20], [5, 10], [15, 5] ]
+        [[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]
       ]
     ]
   });
@@ -551,10 +551,10 @@ test('should parse a MULTIPOLYGON with a M coordinate', function (t) {
     },
     coordinates: [
       [
-        [ [30, 20, 1], [10, 40, 2], [45, 40, 3], [30, 20, 4] ]
+        [[30, 20, 1], [10, 40, 2], [45, 40, 3], [30, 20, 4]]
       ],
       [
-        [ [15, 5], [40, 10], [10, 20], [5, 10], [15, 5] ]
+        [[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]
       ]
     ]
   });
@@ -575,10 +575,10 @@ test('should parse a MULTIPOLYGON with a Z and M coordinate', function (t) {
     },
     coordinates: [
       [
-        [ [30, 20, 1, 0], [10, 40, 2, 1], [45, 40, 3, 2], [30, 20, 4, 3] ]
+        [[30, 20, 1, 0], [10, 40, 2, 1], [45, 40, 3, 2], [30, 20, 4, 3]]
       ],
       [
-        [ [15, 5], [40, 10], [10, 20], [5, 10], [15, 5] ]
+        [[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]
       ]
     ]
   });
@@ -595,11 +595,11 @@ test('should parse a MULTIPOLYGON with a hole', function (t) {
     type: 'MultiPolygon',
     coordinates: [
       [
-        [ [40, 40], [20, 45], [45, 30], [40, 40] ]
+        [[40, 40], [20, 45], [45, 30], [40, 40]]
       ],
       [
-        [ [20, 35], [45, 20], [30, 5], [10, 10], [10, 30], [20, 35] ],
-        [ [30, 20], [20, 25], [20, 15], [30, 20] ]
+        [[20, 35], [45, 20], [30, 5], [10, 10], [10, 30], [20, 35]],
+        [[30, 20], [20, 25], [20, 15], [30, 20]]
       ]
     ]
   });
