@@ -38,7 +38,7 @@ const convertRingsToGeoJSON = (rings) => {
     }
     // is this ring an outer ring? is it clockwise?
     if (ringIsClockwise(ring)) {
-      var polygon = [ ring.slice().reverse() ]; // wind outer rings counterclockwise for RFC 7946 compliance
+      var polygon = [ring.slice().reverse()]; // wind outer rings counterclockwise for RFC 7946 compliance
       outerRings.push(polygon); // push to outer rings
     } else {
       holes.push(ring.slice().reverse()); // wind inner rings clockwise for RFC 7946 compliance

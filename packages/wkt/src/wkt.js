@@ -8,7 +8,7 @@
 'SOURCE';
 
 function PointArray (point) {
-  this.data = [ point ];
+  this.data = [point];
   this.type = 'PointArray';
 }
 
@@ -32,7 +32,7 @@ function Ring (point) {
 }
 
 Ring.prototype.toJSON = function () {
-  var data = [ ];
+  var data = [];
 
   for (var i = 0; i < this.data.data.length; i++) {
     data.push(this.data.data[i]);
@@ -42,7 +42,7 @@ Ring.prototype.toJSON = function () {
 };
 
 function RingList (ring) {
-  this.data = [ ring ];
+  this.data = [ring];
   this.type = 'RingList';
 }
 
@@ -53,7 +53,7 @@ RingList.prototype.addRing = function (ring) {
 };
 
 RingList.prototype.toJSON = function () {
-  var data = [ ];
+  var data = [];
 
   for (var i = 0; i < this.data.length; i++) {
     data.push(this.data[i].toJSON());
@@ -67,7 +67,7 @@ RingList.prototype.toJSON = function () {
 };
 
 function PolygonList (polygon) {
-  this.data = [ polygon ];
+  this.data = [polygon];
   this.type = 'PolygonList';
 }
 
@@ -78,10 +78,10 @@ PolygonList.prototype.addPolygon = function (polygon) {
 };
 
 PolygonList.prototype.toJSON = function () {
-  var data = [ ];
+  var data = [];
 
   for (var i = 0; i < this.data.length; i++) {
-    data = data.concat([ this.data[i].toJSON() ]);
+    data = data.concat([this.data[i].toJSON()]);
   }
 
   return data;
@@ -114,7 +114,7 @@ export const wktToGeoJSON = (element) => {
 };
 
 const arrayToRing = (arr) => {
-  let parts = [ ];
+  const parts = [];
   let ret = '';
 
   for (var i = 0; i < arr.length; i++) {
@@ -191,7 +191,7 @@ const polygonToWKTPolygon = (geojson) => {
   }
 
   ret += '(';
-  var parts = [ ];
+  var parts = [];
   for (var i = 0; i < geojson.coordinates.length; i++) {
     parts.push(arrayToRing(geojson.coordinates[i]));
   }
@@ -242,7 +242,7 @@ const multiLineStringToWKTMultiLineString = (geojson) => {
   }
 
   ret += '(';
-  let parts = [ ];
+  const parts = [];
   for (var i = 0; i < geojson.coordinates.length; i++) {
     parts.push(arrayToRing(geojson.coordinates[i]));
   }
@@ -271,10 +271,10 @@ const multiPolygonToWKTMultiPolygon = (geojson) => {
   }
 
   ret += '(';
-  var inner = [ ];
+  var inner = [];
   for (var c = 0; c < geojson.coordinates.length; c++) {
     var it = '(';
-    var parts = [ ];
+    var parts = [];
     for (var i = 0; i < geojson.coordinates[c].length; i++) {
       parts.push(arrayToRing(geojson.coordinates[c][i]));
     }
@@ -325,7 +325,7 @@ export const geojsonToWKT = (geojson) => {
       return multiPolygonToWKTMultiPolygon(geojson);
     case 'GeometryCollection':
       var ret = 'GEOMETRYCOLLECTION';
-      var parts = [ ];
+      var parts = [];
       for (let i = 0; i < geojson.geometries.length; i++) {
         parts.push(geojsonToWKT(geojson.geometries[i]));
       }

@@ -28,7 +28,7 @@ export default {
     file: `./dist/${sanitizedName}.umd.js`,
     banner: copyright,
     format: 'umd',
-    name: `Terraformer`,
+    name: 'Terraformer',
     extend: true
   }
 };

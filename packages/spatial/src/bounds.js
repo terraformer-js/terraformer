@@ -153,7 +153,7 @@ const calculateBoundsFromArray = (array) => {
 Internal: Calculate an bounding box for a feature collection
 */
 const calculateBoundsForFeatureCollection = (featureCollection) => {
-  let extents = [];
+  const extents = [];
   for (let i = featureCollection.features.length - 1; i >= 0; i--) {
     const extent = calculateBounds(featureCollection.features[i].geometry);
     extents.push([extent[0], extent[1]]);
@@ -167,7 +167,7 @@ const calculateBoundsForFeatureCollection = (featureCollection) => {
 Internal: Calculate an bounding box for a geometry collection
 */
 const calculateBoundsForGeometryCollection = (geometryCollection) => {
-  let extents = [];
+  const extents = [];
 
   for (let i = geometryCollection.geometries.length - 1; i >= 0; i--) {
     const extent = calculateBounds(geometryCollection.geometries[i]);
