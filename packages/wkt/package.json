@@ -36,10 +36,10 @@
     "build:module": "node build-esm.js",
     "prebuild": "npm run build:module",
     "build": "rollup -c ../../rollup.umd.config.js && rollup -c ../../rollup.esm.config.js",
-    "doc": "jsdoc2md --files src/index.js --template README.hbs > README.md",
-    "prepare": "npm run build"
+    "doc": "jsdoc2md --files src/index.js --template README.hbs > README.md"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "8fb60ae0c5a13fb7f31fc29d028d889b22091bfa"
 }
