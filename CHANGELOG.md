@@ -5,6 +5,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.6] - 2020-05-18
+
+### Fixed
+
+* all UMD and ESM files are now transpiled to make them safe to use in older browsers.
+
+## [2.0.5] - 2020-05-17
+
+### Fixed
+
+* `@terraformer/spatial`
+  * `toCircle()` now returns polygons of equal area, regardless of their latitude
+
+* All packages are now standalone.
+
 ## 2.0.0 - 2020-04-15
 
 ### Changed
@@ -16,4 +31,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * All packages are now standalone.
 
+[2.0.6]: https://github.com/terraformer-js/terraformer/compare/v2.0.5...v2.0.6
+[2.0.5]: https://github.com/terraformer-js/terraformer/compare/v2.0.0...v2.0.5
 [Unreleased]: https://github.com/terraformer-js/terraformer/compare/v2.0.0...HEAD
