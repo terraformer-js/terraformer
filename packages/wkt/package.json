@@ -1,7 +1,7 @@
 {
   "name": "@terraformer/wkt",
   "description": "Tools to convert WKT geometries to GeoJSON geometries and vica-versa.",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "author": "Jerry Sievert <code@legitimatesounding.com> (http://legitimatesounding.com)",
   "bugs": {
     "url": "https://github.com/terraformer-js/terraformer/issues"
