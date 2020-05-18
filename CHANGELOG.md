@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [2.0.6] - 2020-05-18
+## [2.0.7] - 2020-05-18
 
 ### Fixed
 
@@ -31,6 +31,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * All packages are now standalone.
 
-[2.0.6]: https://github.com/terraformer-js/terraformer/compare/v2.0.5...v2.0.6
+[2.0.7]: https://github.com/terraformer-js/terraformer/compare/v2.0.5...v2.0.7
 [2.0.5]: https://github.com/terraformer-js/terraformer/compare/v2.0.0...v2.0.5
 [Unreleased]: https://github.com/terraformer-js/terraformer/compare/v2.0.0...HEAD
