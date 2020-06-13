@@ -27,7 +27,9 @@ export default {
   plugins: [
     resolve(),
     json(),
-    babel({ presets: ['@babel/preset-env'] })
+    babel({
+      rootMode: 'upward'
+    })
   ],
   output: {
     file: `./dist/${sanitizedName}.umd.js`,
