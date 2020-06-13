@@ -18,8 +18,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * `@terraformer/spatial`
   * `toCircle()` now returns polygons of equal area, regardless of their latitude
 
-* All packages are now standalone.
-
 ## 2.0.0 - 2020-04-15
 
 ### Changed

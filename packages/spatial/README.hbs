@@ -63,6 +63,14 @@ Terraformer.isConvex(/* ... */);
 </script>
 ```
 
+## FAQ
+
+<details>
+  <summary>What's the difference between this project and <a href="https://turfjs.org">Turf.js</a>?</summary>
+
+  Both libraries work with GeoJSON and share many similar functions. Turf.js relies on JSTS, and some folks have [found it to be slower](https://github.com/Esri/terraformer/issues/268#issuecomment-196413416). In the past Turf.js did not include predicates like 'within', 'contains' and 'intersects', but that no longer appears to be the case.
+</details>
+
 ## [Contributing](./CONTRIBUTING.md)
 
 ## [LICENSE](https://raw.githubusercontent.com/terraformer-js/terraformer/master/LICENSE)
