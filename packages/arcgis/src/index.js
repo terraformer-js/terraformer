@@ -33,7 +33,7 @@ export {
   /**
    * Converts [GeoJSON](https://tools.ietf.org/html/rfc7946) into ArcGIS JSON.
    * @function
-   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection.
+   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
    * @param {string} [idAttribute] - When converting GeoJSON features, the id will be set as the OBJECTID unless another fieldname is supplied.
    * @return {object} ArcGIS JSON.
    * ```js
