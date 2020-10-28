@@ -75,7 +75,7 @@ geojsonToArcGIS({
 
 | Param | Type | Description |
 | --- | --- | --- |
-| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or ReatureCollection. |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 | [idAttribute] | <code>string</code> | When converting GeoJSON features, the id will be set as the OBJECTID unless another fieldname is supplied. |
 
 * * *
