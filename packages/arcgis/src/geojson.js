@@ -59,26 +59,44 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
     case 'Point':
       result.x = geojson.coordinates[0];
       result.y = geojson.coordinates[1];
+      if (geojson.coordinates[2]) {
+          result.z = geojson.coordinates[2]
+      }
       result.spatialReference = spatialReference;
       break;
     case 'MultiPoint':
       result.points = geojson.coordinates.slice(0);
+      if (geojson.coordinates[0][2]) {
+          result.hasZ = true
+      }
       result.spatialReference = spatialReference;
       break;
     case 'LineString':
       result.paths = [geojson.coordinates.slice(0)];
+      if (geojson.coordinates[0][0][2]) {
+          result.hasZ = true
+      }
       result.spatialReference = spatialReference;
       break;
     case 'MultiLineString':
       result.paths = geojson.coordinates.slice(0);
+      if (geojson.coordinates[0][0][2]) {
+          result.hasZ = true
+      }
       result.spatialReference = spatialReference;
       break;
     case 'Polygon':
       result.rings = orientRings(geojson.coordinates.slice(0));
+      if (geojson.coordinates[0][0][2]) {
+          result.hasZ = true
+      }
       result.spatialReference = spatialReference;
       break;
     case 'MultiPolygon':
       result.rings = flattenMultiPolygonRings(geojson.coordinates.slice(0));
+      if (geojson.coordinates[0][0][2]) {
+          result.hasZ = true
+      }
       result.spatialReference = spatialReference;
       break;
     case 'Feature':
