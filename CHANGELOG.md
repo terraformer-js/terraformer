@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.1.0] - 2021-07-22
+
+### Added
+
+* added support for Z values when converting GeoJSON to ArcGIS Geometries.
+
 ## [2.0.7] - 2020-05-18
 
 ### Fixed
@@ -29,6 +35,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * All packages are now standalone.
 
+[2.1.0]: https://github.com/terraformer-js/terraformer/compare/v2.0.7...v2.1.0
 [2.0.7]: https://github.com/terraformer-js/terraformer/compare/v2.0.5...v2.0.7
 [2.0.5]: https://github.com/terraformer-js/terraformer/compare/v2.0.0...v2.0.5
 [Unreleased]: https://github.com/terraformer-js/terraformer/compare/v2.0.0...HEAD
