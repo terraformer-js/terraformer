@@ -73,7 +73,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
       break;
     case 'LineString':
       result.paths = [geojson.coordinates.slice(0)];
-      if (geojson.coordinates[0][0][2]) {
+      if (geojson.coordinates[0][2]) {
           result.hasZ = true
       }
       result.spatialReference = spatialReference;
@@ -94,7 +94,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
       break;
     case 'MultiPolygon':
       result.rings = flattenMultiPolygonRings(geojson.coordinates.slice(0));
-      if (geojson.coordinates[0][0][2]) {
+      if (geojson.coordinates[0][0][0][2]) {
           result.hasZ = true
       }
       result.spatialReference = spatialReference;
