@@ -25,7 +25,6 @@ test('should convert a GeoJSON Point to an ArcGIS Point', function (t) {
   });
 });
 
-
 test('should convert a GeoJSON Point to an ArcGIS Point and include z values', function (t) {
   t.plan(1);
 
@@ -45,8 +44,6 @@ test('should convert a GeoJSON Point to an ArcGIS Point and include z values', f
     }
   });
 });
-
-
 
 test('should convert a GeoJSON Null Island to an ArcGIS Point', function (t) {
   t.plan(1);
@@ -123,7 +120,6 @@ test('should convert a GeoJSON LineString to an ArcGIS Polyline and include z va
     }
   });
 });
-
 
 test('should convert a GeoJSON Polygon to an ArcGIS Polygon', function (t) {
   t.plan(1);
@@ -339,6 +335,7 @@ test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint and include z 
       [56.953125, 33.75, 15],
       [21.796875, 36.5625, 12]
     ],
+    hasZ: true,
     spatialReference: {
       wkid: 4326
     }
@@ -411,6 +408,7 @@ test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline and include
         [47.8359375, 71.015625, 10]
       ]
     ],
+    hasZ: true,
     spatialReference: {
       wkid: 4326
     }
@@ -467,6 +465,7 @@ test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon and include z v
       [[102, 2, 10], [102, 3, 10], [103, 3, 10], [103, 2, 10], [102, 2, 10]],
       [[100, 0, 15], [100, 1, 15], [101, 1, 15], [101, 0, 15], [100, 0, 15]]
     ],
+    hasZ: true,
     spatialReference: {
       wkid: 4326
     }
