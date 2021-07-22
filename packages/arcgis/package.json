@@ -1,7 +1,7 @@
 {
   "name": "@terraformer/arcgis",
   "description": "Convert ArcGIS JSON geometries to GeoJSON geometries and vica-versa.",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "author": "Patrick Arlt <patrick.arlt@gmail.com>",
   "bugs": {
     "url": "https://github.com/terraformer-js/terraformer/issues"
