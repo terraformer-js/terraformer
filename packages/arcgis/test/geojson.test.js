@@ -25,6 +25,29 @@ test('should convert a GeoJSON Point to an ArcGIS Point', function (t) {
   });
 });
 
+
+test('should convert a GeoJSON Point to an ArcGIS Point and include z values', function (t) {
+  t.plan(1);
+
+  const input = {
+    type: 'Point',
+    coordinates: [-58.7109375, 47.4609375, 10]
+  };
+
+  var output = geojsonToArcGIS(input);
+
+  t.deepEqual(output, {
+    x: -58.7109375,
+    y: 47.4609375,
+    z: 10,
+    spatialReference: {
+      wkid: 4326
+    }
+  });
+});
+
+
+
 test('should convert a GeoJSON Null Island to an ArcGIS Point', function (t) {
   t.plan(1);
 
@@ -72,6 +95,36 @@ test('should convert a GeoJSON LineString to an ArcGIS Polyline', function (t) {
   });
 });
 
+test('should convert a GeoJSON LineString to an ArcGIS Polyline and include z values', function (t) {
+  t.plan(1);
+
+  const input = {
+    type: 'LineString',
+    coordinates: [
+      [21.4453125, -14.0625, 10],
+      [33.3984375, -20.7421875, 15],
+      [38.3203125, -24.609375, 12]
+    ]
+  };
+
+  var output = geojsonToArcGIS(input);
+
+  t.deepEqual(output, {
+    paths: [
+      [
+        [21.4453125, -14.0625, 10],
+        [33.3984375, -20.7421875, 15],
+        [38.3203125, -24.609375, 12]
+      ]
+    ],
+    hasZ: true,
+    spatialReference: {
+      wkid: 4326
+    }
+  });
+});
+
+
 test('should convert a GeoJSON Polygon to an ArcGIS Polygon', function (t) {
   t.plan(1);
 
@@ -98,6 +151,39 @@ test('should convert a GeoJSON Polygon to an ArcGIS Polygon', function (t) {
         [41.8359375, 71.015625]
       ]
     ],
+    spatialReference: {
+      wkid: 4326
+    }
+  });
+});
+
+test('should convert a GeoJSON Polygon to an ArcGIS Polygon and include z values', function (t) {
+  t.plan(1);
+
+  const input = {
+    type: 'Polygon',
+    coordinates: [
+      [
+        [41.8359375, 71.015625, 10],
+        [56.953125, 33.75, 15],
+        [21.796875, 36.5625, 12],
+        [41.8359375, 71.015625, 10]
+      ]
+    ]
+  };
+
+  var output = geojsonToArcGIS(input);
+
+  t.deepEqual(output, {
+    rings: [
+      [
+        [41.8359375, 71.015625, 10],
+        [56.953125, 33.75, 15],
+        [21.796875, 36.5625, 12],
+        [41.8359375, 71.015625, 10]
+      ]
+    ],
+    hasZ: true,
     spatialReference: {
       wkid: 4326
     }
@@ -233,6 +319,32 @@ test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint', function (t)
   });
 });
 
+test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint and include z values', function (t) {
+  t.plan(1);
+
+  const input = {
+    type: 'MultiPoint',
+    coordinates: [
+      [41.8359375, 71.015625, 10],
+      [56.953125, 33.75, 15],
+      [21.796875, 36.5625, 12]
+    ]
+  };
+
+  var output = geojsonToArcGIS(input);
+
+  t.deepEqual(output, {
+    points: [
+      [41.8359375, 71.015625, 10],
+      [56.953125, 33.75, 15],
+      [21.796875, 36.5625, 12]
+    ],
+    spatialReference: {
+      wkid: 4326
+    }
+  });
+});
+
 test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline', function (t) {
   t.plan(1);
 
@@ -269,6 +381,42 @@ test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline', function 
   });
 });
 
+test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline and include z values', function (t) {
+  t.plan(1);
+
+  const input = {
+    type: 'MultiLineString',
+    coordinates: [
+      [
+        [41.8359375, 71.015625, 10],
+        [56.953125, 33.75, 15]
+      ],
+      [
+        [21.796875, 36.5625, 12],
+        [47.8359375, 71.015625, 10]
+      ]
+    ]
+  };
+
+  var output = geojsonToArcGIS(input);
+
+  t.deepEqual(output, {
+    paths: [
+      [
+        [41.8359375, 71.015625, 10],
+        [56.953125, 33.75, 15]
+      ],
+      [
+        [21.796875, 36.5625, 12],
+        [47.8359375, 71.015625, 10]
+      ]
+    ],
+    spatialReference: {
+      wkid: 4326
+    }
+  });
+});
+
 test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon', function (t) {
   t.plan(1);
 
@@ -290,6 +438,34 @@ test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon', function (t) 
     rings: [
       [[102, 2], [102, 3], [103, 3], [103, 2], [102, 2]],
       [[100, 0], [100, 1], [101, 1], [101, 0], [100, 0]]
+    ],
+    spatialReference: {
+      wkid: 4326
+    }
+  });
+});
+
+test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon and include z values', function (t) {
+  t.plan(1);
+
+  const input = {
+    type: 'MultiPolygon',
+    coordinates: [
+      [
+        [[102.0, 2.0, 10], [103.0, 2.0, 10], [103.0, 3.0, 10], [102.0, 3.0, 10], [102.0, 2.0, 10]]
+      ],
+      [
+        [[100.0, 0.0, 15], [101.0, 0.0, 15], [101.0, 1.0, 15], [100.0, 1.0, 15], [100.0, 0.0, 15]]
+      ]
+    ]
+  };
+
+  var output = geojsonToArcGIS(input);
+
+  t.deepEqual(output, {
+    rings: [
+      [[102, 2, 10], [102, 3, 10], [103, 3, 10], [103, 2, 10], [102, 2, 10]],
+      [[100, 0, 15], [100, 1, 15], [101, 1, 15], [101, 0, 15], [100, 0, 15]]
     ],
     spatialReference: {
       wkid: 4326
