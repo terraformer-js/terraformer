@@ -195,7 +195,7 @@ export const arcgisToGeoJSON = (arcgis, idAttribute) => {
   }
 
   // try setting the graphics symbol as "foreign member"
-  if (arcgis.symbol){
+  if (arcgis.symbol) {
     try {
       geojson.symbol = arcgis.symbol;
     } catch (err) {
