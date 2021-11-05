@@ -194,6 +194,15 @@ export const arcgisToGeoJSON = (arcgis, idAttribute) => {
     geojson.geometry = null;
   }
 
+  // try setting the graphics symbol as "foreign member"
+  if(arcgis.symbol){
+    try{
+      geojson.symbol = arcgis.symbol;
+    }catch(err){
+      console.warn(err)
+    }
+  }
+
   if (
     arcgis.spatialReference &&
     arcgis.spatialReference.wkid &&
