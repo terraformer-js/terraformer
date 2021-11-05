@@ -57,5 +57,8 @@
     "semistandard": "^14.2.0",
     "snazzy": "^8.0.0",
     "tape": "^4.0.0"
+  },
+  "dependencies": {
+    "arcgis": "^1.0.2"
   }
 }
