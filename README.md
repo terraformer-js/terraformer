@@ -125,6 +125,14 @@
   ```
 </details>
 
+<details>
+  <summary>What about <code>terraformer-geostore</code>?</summary>
+
+  This repo does **not** include a port of https://github.com/Esri/terraformer-geostore and there is no plan to tackle it in the future.
+  
+  Since <code>terraformer-geostore</code> ingests plain ol' [GeoJSON}(https://tools.ietf.org/html/rfc7946), you're welcome to keep on using the original code.
+</details>
+
 ## Contributing
 
 ```shell
