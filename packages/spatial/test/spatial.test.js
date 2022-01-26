@@ -228,7 +228,7 @@ test('should calculate the envelope of a MultiPolygon.', function (t) {
 
 // circle?
 
-test.only('should calculate the bounds of a Circle.', function (t) {
+test('should calculate the bounds of a Circle.', function (t) {
   t.plan(4);
   const circle = toCircle([-122, 45], 1000, 128);
   console.log(JSON.stringify(calculateBounds(circle)));
