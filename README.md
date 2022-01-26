@@ -6,8 +6,8 @@
 
 [npm-image]: https://img.shields.io/npm/v/@terraformer/arcgis.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/@terraformer/arcgis
-[travis-image]: https://img.shields.io/travis/com/terraformer-js/terraformer/master.svg?style=flat-square
-[travis-url]: https://travis-ci.com/terraformer-js/terraformer
+[travis-image]: https://app.travis-ci.com/terraformer-js/terraformer.svg?branch=main
+[travis-url]: https://app.travis-ci.com/terraformer-js/terraformer
 [standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/semistandard
 
