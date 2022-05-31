@@ -45,6 +45,26 @@ test('should convert a GeoJSON Point to an ArcGIS Point and include z values', f
   });
 });
 
+test('should convert a GeoJSON Point to an ArcGIS Point and include a z value of 0', function (t) {
+  t.plan(1);
+
+  const input = {
+    type: 'Point',
+    coordinates: [-58.7109375, 47.4609375, 0]
+  };
+
+  var output = geojsonToArcGIS(input);
+
+  t.deepEqual(output, {
+    x: -58.7109375,
+    y: 47.4609375,
+    z: 0,
+    spatialReference: {
+      wkid: 4326
+    }
+  });
+});
+
 test('should convert a GeoJSON Null Island to an ArcGIS Point', function (t) {
   t.plan(1);
 
