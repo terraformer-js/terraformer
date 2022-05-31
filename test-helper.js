@@ -18,7 +18,7 @@ for (var i = 0; i < packages.length; i++) {
   const tests = getTestFiles(`${packages[i]}/test`);
   for (var j = 0; j < tests.length; j++) {
     // use babel to transpile the source and pass each test to the Node.js CLI
-    exec(`babel-node ${packages[i]}/test/${tests[j]} [ babelify --presets @babel/preset-env ] | faucet`, function (err, res) {
+    exec(`babel-node ${packages[i]}/test/${tests[j]} [ babelify --presets @babel/preset-env ]`, function (err, res) {
       console.log(res);
       if (err) throw Error(err);
     });
