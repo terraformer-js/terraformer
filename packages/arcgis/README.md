@@ -6,8 +6,8 @@
 
 [npm-image]: https://img.shields.io/npm/v/@terraformer/arcgis.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/@terraformer/arcgis
-[travis-image]: https://img.shields.io/travis/terraformer-js/terraformer/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/terraformer-js/terraformer
+[travis-image]: https://app.travis-ci.com/terraformer-js/terraformer.svg?branch=main
+[travis-url]: https://app.travis-ci.com/terraformer-js/terraformer
 [standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/semistandard
 
@@ -34,7 +34,7 @@ npm install @terraformer/arcgis
 ### Terraformer.arcgisToGeoJSON(JSON, [idAttribute]) ⇒ <code>object</code>
 Converts [ArcGIS JSON](https://developers.arcgis.com/documentation/core-concepts/features-and-geometries/) into GeoJSON.
 
-**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)
 **Returns**: <code>object</code> - GeoJSON.
 ```js
 import { arcgisToGeoJSON } from "@terraformer/arcgis"
@@ -48,7 +48,7 @@ arcgisToGeoJSON({
 });
 
 >> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
-```  
+```
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ arcgisToGeoJSON({
 ### Terraformer.geojsonToArcGIS(GeoJSON, [idAttribute]) ⇒ <code>object</code>
 Converts [GeoJSON](https://tools.ietf.org/html/rfc7946) into ArcGIS JSON.
 
-**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)
 **Returns**: <code>object</code> - ArcGIS JSON.
 ```js
 import { geojsonToArcGIS } from "@terraformer/arcgis"
@@ -71,7 +71,7 @@ geojsonToArcGIS({
 })
 
 >> { "x":-122.6764, "y":45.5165, "spatialReference": { "wkid": 4326 } }
-```  
+```
 
 | Param | Type | Description |
 | --- | --- | --- |

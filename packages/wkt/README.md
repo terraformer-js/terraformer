@@ -6,8 +6,8 @@
 
 [npm-image]: https://img.shields.io/npm/v/@terraformer/wkt.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/@terraformer/wkt
-[travis-image]: https://img.shields.io/travis/terraformer-js/terraformer/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/terraformer-js/terraformer
+[travis-image]: https://app.travis-ci.com/terraformer-js/terraformer.svg?branch=main
+[travis-url]: https://app.travis-ci.com/terraformer-js/terraformer
 [standard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/semistandard
 
@@ -34,7 +34,7 @@ npm install @terraformer/wkt
 ### Terraformer.wktToGeoJSON(WKT) ⇒ <code>object</code>
 Converts a [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) geometry into a GeoJSON geometry.
 
-**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)
 **Returns**: <code>object</code> - GeoJSON.
 
 ```js
@@ -43,7 +43,7 @@ import { wktToGeoJSON } from "@terraformer/wkt"
 wktToGeoJSON("POINT (-122.6764 45.5165)");
 
 >> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
-```  
+```
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ wktToGeoJSON("POINT (-122.6764 45.5165)");
 ### Terraformer.geojsonToWKT(GeoJSON) ⇒ <code>string</code>
 Converts a GeoJSON geometry or GeometryCollection into a [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) string.
 
-**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)
 **Returns**: <code>string</code> - WKT.
 ```js
 import { geojsonToWKT } from "@terraformer/wkt"
@@ -67,7 +67,7 @@ const geojsonPoint = {
 geojsonToWKT(geojsonPoint)
 
 >> "POINT (-122.6764 45.5165)"
-```  
+```
 
 | Param | Type | Description |
 | --- | --- | --- |
