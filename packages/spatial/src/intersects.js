@@ -15,6 +15,10 @@ export const intersects = (geoJSON, comparisonGeoJSON) => {
     return true;
   }
 
+  if (geoJSON.type === 'MultiPolygon' && multipolygonIntersection(geoJSON, comparisonGeoJSON)) {
+    return true;
+  }
+
   if (geoJSON.type !== 'Point' && geoJSON.type !== 'MultiPoint' &&
     comparisonGeoJSON.type !== 'Point' && comparisonGeoJSON.type !== 'MultiPoint') {
     return arraysIntersectArrays(geoJSON.coordinates, comparisonGeoJSON.coordinates);
@@ -27,3 +31,13 @@ export const intersects = (geoJSON, comparisonGeoJSON) => {
   warn('Type ' + geoJSON.type + ' to ' + comparisonGeoJSON.type + ' intersection is not supported by intersects');
   return false;
 };
+
+function multipolygonIntersection (geoJSON, comparisonGeoJSON) {
+  return geoJSON.coordinates.some(coordinates => {
+    const componentPolygon = {
+      type: 'Polygon',
+      coordinates
+    };
+    return within(componentPolygon, comparisonGeoJSON) || within(comparisonGeoJSON, componentPolygon);
+  });
+}

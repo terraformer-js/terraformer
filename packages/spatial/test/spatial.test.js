@@ -188,6 +188,45 @@ test('should return true when a MultiPolygon intersects another.', function (t) 
   t.deepEqual(intersects(GeoJSON.multiPolygons[0], mp), true);
 });
 
+test('should return true when a Polygon overlap-intersects at least one polygon of MultiPolygon.', function (t) {
+  t.plan(1);
+
+  const p = {
+    type: 'Polygon',
+    coordinates: [
+      [[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]
+    ]
+  };
+
+  t.deepEqual(intersects(GeoJSON.multiPolygons[0], p), true);
+});
+
+test('should return true when a Polygon actually intersects at least one polygon of MultiPolygon.', function (t) {
+  t.plan(1);
+
+  const p = {
+    type: 'Polygon',
+    coordinates: [
+      [[102.5, 1.5], [103.5, 1.5], [103.5, 3.5], [102.5, 3.5], [102.5, 1.5]]
+    ]
+  };
+
+  t.deepEqual(intersects(GeoJSON.multiPolygons[0], p), true);
+});
+
+test('should return true when a Polygon intersects a MultiPolygon by containing at least one polygon of the component polygons.', function (t) {
+  t.plan(1);
+
+  const p = {
+    type: 'Polygon',
+    coordinates: [
+      [[101.5, 1.5], [103.5, 1.5], [103.5, 3.5], [101.5, 3.5], [101.5, 1.5]]
+    ]
+  };
+
+  t.deepEqual(intersects(GeoJSON.multiPolygons[0], p), true);
+});
+
 test('should calculate the bounds of a MultiPolygon.', function (t) {
   t.plan(1);
   t.deepEqual(calculateBounds(GeoJSON.multiPolygons[0]), [100, 0, 103, 3]);
@@ -395,7 +434,7 @@ test('should correctly determine intersection with a MultiPolygon in reverse', f
   t.equal(intersects({
     type: 'MultiPolygon',
     coordinates: [
-      [[[1, 1], [11, 1], [11, 6], [1, 6]]]
+      [[[1, 1], [11, 1], [11, 6], [1, 6], [1, 1]]]
     ]
   }, GeoJSON.polygons[4]), true);
 });
