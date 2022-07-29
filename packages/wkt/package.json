@@ -10,7 +10,7 @@
     "John Gravois <john@bikebbq.com>"
   ],
   "devDependencies": {
-    "jison": "GabrielRatener/jison"
+    "jison": "https://github.com/GabrielRatener/jison"
   },
   "files": [
     "dist/**"

@@ -1,5 +1,5 @@
-import resolve from 'rollup-plugin-node-resolve';
-import json from 'rollup-plugin-json';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 
 const path = require('path');
@@ -25,7 +25,7 @@ const sanitizedName = name.replace('@terraformer/', 't-');
 export default {
   input: 'src/index.js', // resolved by our plugin
   plugins: [
-    resolve(),
+    nodeResolve(),
     json(),
     babel({
       rootMode: 'upward'
