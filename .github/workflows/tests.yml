@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16, 17]
+
+    steps:
+    - name: Reconfigure git to use HTTP authentication
+      uses: actions/checkout@v3
+    - run: >
+          git config --global url."https://github.com/".insteadOf
+          ssh://git@github.com/
+    - name: Use Node.js ${{ matrix.node }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node }}
+    - run: npm i
+    - run: npm test
