@@ -49,7 +49,7 @@
     "babelify": "^10.0.0",
     "browserify": "^16.0.0",
     "gh-release": "^6.0.4",
-    "jsdoc": "^3.6.4",
+    "jsdoc": "^3.6.11",
     "jsdoc-to-markdown": "^7.1.1",
     "lerna": "^5.0.0",
     "onchange": "^6.1.0",
