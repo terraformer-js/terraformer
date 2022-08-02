@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### Fixed
-* intersects for multipolygons
 
+## [2.1.2]
+### Fixed
+
+* `@terraformer/spatial`
+  * fix `intersects` for multipolygons
+  * start exporting `applyConverter`
 ## [2.1.1] - 2022-05-31
 
 ### Fixed
@@ -43,6 +47,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * All packages are now standalone.
 
+[2.1.2]: https://github.com/terraformer-js/terraformer/compare/v2.1.1...v2.1.2
+[2.1.1]: https://github.com/terraformer-js/terraformer/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/terraformer-js/terraformer/compare/v2.0.7...v2.1.0
 [2.0.7]: https://github.com/terraformer-js/terraformer/compare/v2.0.5...v2.0.7
 [2.0.5]: https://github.com/terraformer-js/terraformer/compare/v2.0.0...v2.0.5
