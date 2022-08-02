@@ -315,8 +315,8 @@ intersects({
 
 | Param | Type | Description |
 | --- | --- | --- |
-| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
-| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
+| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry or Feature. |
+| GeoJSON | <code>Object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry or Feature. |
 
 <a name="module_Terraformer.toCircle"></a>
 
