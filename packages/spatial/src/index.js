@@ -3,13 +3,30 @@
 
 /** @module Terraformer */
 
-import {
+import { calculateBounds } from './bounds';
+import { positionToMercator } from './position';
+import { applyConverter } from './util';
+
+export {
+  /**
+   * Runs the passed function against every Coordinate in the geojson object.
+   * @function
+   * @param {object} GeoJSON - The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection.
+   * @param {function} function - Your function will be passed a Coordinate and will be expected to return a Coordinate.
+   * @return {object} GeoJSON - [GeoJSON](https://tools.ietf.org/html/rfc7946) with altered coordinates.
+   * ```js
+   * import { applyConverter } from "@terraformer/spatial"
+   *
+   * applyConverter({
+   *   type: "Point",
+   *   coordinates: [ 45, 60 ]
+   * }, (coord) => [coord[0] + 1, coord[1] - 1])
+   *
+   * >> { type: "Point", coordinates: [ 46, 59 ] }
+   * ```
+   */
   applyConverter
 } from './util';
-
-import { calculateBounds } from './bounds';
-
-import { positionToMercator } from './position';
 
 export {
   /**
