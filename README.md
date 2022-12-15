@@ -57,9 +57,9 @@
   npm install @terraformer/spatial
   ```
   ```js
-  const Terraformer = require('@terraformer/spatial')
+  import { convexHull } from '@terraformer/spatial'
 
-  Terraformer.convexHull({
+  convexHull({
     type: "LineString",
     coordinates: [
       [ 100, 0 ], [ -45, 122 ], [ 80, -60 ]
@@ -90,10 +90,10 @@
   npm install @terraformer/wkt
   ```
   ```js
-  const Terraformer = require('@terraformer/wkt')
+  import { wktToGeoJSON, geojsonToWkt } from '@terraformer/wkt'
 
-  Terraformer.wktToGeoJSON(/* ... */)
-  Terraformer.geojsonToWKT(/* ... */)
+  wktToGeoJSON(/* ... */)
+  geojsonToWKT(/* ... */)
   ```
 </details>
 
@@ -118,10 +118,10 @@
   npm install @terraformer/wkt
   ```
   ```js
-  const Terraformer = require('@terraformer/arcgis')
+  const { arcgisToGeoJSON, geojsonToArcGIS } from '@terraformer/arcgis'
 
-  Terraformer.arcgisToGeoJSON(/* ... */)
-  Terraformer.geojsonToArcGIS(/* ... */)
+  arcgisToGeoJSON(/* ... */)
+  geojsonToArcGIS(/* ... */)
   ```
 </details>
 
