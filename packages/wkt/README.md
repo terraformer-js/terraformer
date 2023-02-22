@@ -35,15 +35,7 @@ npm install @terraformer/wkt
 Converts a [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) geometry into a GeoJSON geometry.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>object</code> - GeoJSON.
-
-```js
-import { wktToGeoJSON } from "@terraformer/wkt"
-
-wktToGeoJSON("POINT (-122.6764 45.5165)");
-
->> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
-```  
+**Returns**: <code>object</code> - GeoJSON.```jsimport { wktToGeoJSON } from "@terraformer/wkt"wktToGeoJSON("POINT (-122.6764 45.5165)");>> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -55,19 +47,7 @@ wktToGeoJSON("POINT (-122.6764 45.5165)");
 Converts a GeoJSON geometry or GeometryCollection into a [WKT](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) string.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>string</code> - WKT.
-```js
-import { geojsonToWKT } from "@terraformer/wkt"
-
-const geojsonPoint = {
-  "type": "Point",
-  "coordinates": [-122.6764, 45.5165]
-}
-
-geojsonToWKT(geojsonPoint)
-
->> "POINT (-122.6764 45.5165)"
-```  
+**Returns**: <code>string</code> - WKT.```jsimport { geojsonToWKT } from "@terraformer/wkt"const geojsonPoint = {  "type": "Point",  "coordinates": [-122.6764, 45.5165]}geojsonToWKT(geojsonPoint)>> "POINT (-122.6764 45.5165)"```  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -35,20 +35,7 @@ npm install @terraformer/arcgis
 Converts [ArcGIS JSON](https://developers.arcgis.com/documentation/core-concepts/features-and-geometries/) into GeoJSON.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>object</code> - GeoJSON.
-```js
-import { arcgisToGeoJSON } from "@terraformer/arcgis"
-
-arcgisToGeoJSON({
-  "x":-122.6764,
-  "y":45.5165,
-  "spatialReference": {
-    "wkid": 4326
-  }
-});
-
->> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }
-```  
+**Returns**: <code>object</code> - GeoJSON.```jsimport { arcgisToGeoJSON } from "@terraformer/arcgis"arcgisToGeoJSON({  "x":-122.6764,  "y":45.5165,  "spatialReference": {    "wkid": 4326  }});>> { "type": "Point", "coordinates": [ -122.6764, 45.5165 ] }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -61,17 +48,7 @@ arcgisToGeoJSON({
 Converts [GeoJSON](https://tools.ietf.org/html/rfc7946) into ArcGIS JSON.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>object</code> - ArcGIS JSON.
-```js
-import { geojsonToArcGIS } from "@terraformer/arcgis"
-
-geojsonToArcGIS({
-  "type": "Point",
-  "coordinates": [45.5165, -122.6764]
-})
-
->> { "x":-122.6764, "y":45.5165, "spatialReference": { "wkid": 4326 } }
-```  
+**Returns**: <code>object</code> - ArcGIS JSON.```jsimport { geojsonToArcGIS } from "@terraformer/arcgis"geojsonToArcGIS({  "type": "Point",  "coordinates": [45.5165, -122.6764]})>> { "x":-122.6764, "y":45.5165, "spatialReference": { "wkid": 4326 } }```  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -41,6 +41,7 @@ npm install @terraformer/spatial
     * [.contains(GeoJSON, GeoJSON)](#module_Terraformer.contains) ⇒ <code>Boolean</code>
     * [.intersects(GeoJSON, GeoJSON)](#module_Terraformer.intersects) ⇒ <code>Boolean</code>
     * [.toCircle(CoordinatePair, [Radius], [Steps])](#module_Terraformer.toCircle) ⇒ <code>object</code>
+    * [.toGeographic(GeoJSON)](#module_Terraformer.toGeographic) ⇒ <code>object</code>
 
 <a name="module_Terraformer.MercatorCRS"></a>
 
@@ -60,17 +61,7 @@ WKID [4326](https://epsg.io/4326)
 Runs the passed function against every Coordinate in the geojson object.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>object</code> - GeoJSON - [GeoJSON](https://tools.ietf.org/html/rfc7946) with altered coordinates.
-```js
-import { applyConverter } from "@terraformer/spatial"
-
-applyConverter({
-  type: "Point",
-  coordinates: [ 45, 60 ]
-}, (coord) => [coord[0] + 1, coord[1] - 1])
-
->> { type: "Point", coordinates: [ 46, 59 ] }
-```  
+**Returns**: <code>object</code> - GeoJSON - [GeoJSON](https://tools.ietf.org/html/rfc7946) with altered coordinates.```jsimport { applyConverter } from "@terraformer/spatial"applyConverter({  type: "Point",  coordinates: [ 45, 60 ]}, (coord) => [coord[0] + 1, coord[1] - 1])>> { type: "Point", coordinates: [ 46, 59 ] }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -83,17 +74,7 @@ applyConverter({
 Calculate the bounding box of the input.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Array.&lt;Number&gt;</code> - [ xmin, ymin, xmax, ymax ].
-```js
-import { calculateBounds } from "@terraformer/spatial"
-
-calculateBounds({
-  type: "Point",
-  coordinates: [ 45, 60 ]
-})
-
->> [45, 60, 45, 60]
-```  
+**Returns**: <code>Array.&lt;Number&gt;</code> - [ xmin, ymin, xmax, ymax ].```jsimport { calculateBounds } from "@terraformer/spatial"calculateBounds({  type: "Point",  coordinates: [ 45, 60 ]})>> [45, 60, 45, 60]```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -105,17 +86,7 @@ calculateBounds({
 Calculate the envelope surrounding the input.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Object</code> - Object in the form { x, y, w, h }.
-```js
-import { calculateEnvelope } from "@terraformer/spatial"
-
-calculateEnvelope({
-  type: "Point",
-  coordinates: [ 100, 100 ]
-})
-
->> { x: 100, y: 100, w: 0, h: 0, }
-```  
+**Returns**: <code>Object</code> - Object in the form { x, y, w, h }.```jsimport { calculateEnvelope } from "@terraformer/spatial"calculateEnvelope({  type: "Point",  coordinates: [ 100, 100 ]})>> { x: 100, y: 100, w: 0, h: 0, }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -127,12 +98,7 @@ calculateEnvelope({
 Reprojects the passed Coordinate pair to WGS84 (4326) spatial reference.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Array.&lt;Number, Number&gt;</code> - CoordinatePair.
-```js
-import { positionToGeographic } from "@terraformer/spatial"
-
-positionToGeographic([ -13580978, 5621521 ]) // [ 45, 60  ]
-```  
+**Returns**: <code>Array.&lt;Number, Number&gt;</code> - CoordinatePair.```jsimport { positionToGeographic } from "@terraformer/spatial"positionToGeographic([ -13580978, 5621521 ]) // [ 45, 60  ]```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -144,12 +110,7 @@ positionToGeographic([ -13580978, 5621521 ]) // [ 45, 60  ]
 Reprojects the passed Coordinate pair to web mercator (3857) spatial reference.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Array.&lt;Number, Number&gt;</code> - CoordinatePair.
-```js
-import { positionToGeographic } from "@terraformer/spatial"
-
-positionToMercator([ 45, 60 ]) // [ -13580978, 5621521  ]
-```  
+**Returns**: <code>Array.&lt;Number, Number&gt;</code> - CoordinatePair.```jsimport { positionToGeographic } from "@terraformer/spatial"positionToMercator([ 45, 60 ]) // [ -13580978, 5621521  ]```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -161,17 +122,7 @@ positionToMercator([ 45, 60 ]) // [ -13580978, 5621521  ]
 Reproject WGS84 (Lat/Lng) GeoJSON to Web Mercator.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>object</code> - GeoJSON
-```js
-import { toMercator } from "@terraformer/spatial"
-
-toMercator({
-  type: "Point",
-  coordinates: [ 45, 60 ]
-})
-
->> { type: "Point", coordinates: [ -13580978, 5621521 ], crs }
-```  
+**Returns**: <code>object</code> - GeoJSON```jsimport { toMercator } from "@terraformer/spatial"toMercator({  type: "Point",  coordinates: [ 45, 60 ]})>> { type: "Point", coordinates: [ -13580978, 5621521 ], crs }```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -183,25 +134,7 @@ toMercator({
 Calculate the [convex hull](https://en.wikipedia.org/wiki/Convex_hull) of GeoJSON input.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Array.&lt;Coordinates&gt;</code> - An array of GeoJSON coordinates representing the convex hull of the input GeoJSON.
-```js
-import { convexHull } from "@terraformer/spatial"
-
-convexHull({
-  type: "LineString",
-  coordinates: [
-    [ 100, 0 ], [ -45, 122 ], [ 80, -60 ]
-  ]
-})
-
->>
-{
-  type: "Polygon",
-  coordinates: [
-    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
-  ]
-}
-```  
+**Returns**: <code>Array.&lt;Coordinates&gt;</code> - An array of GeoJSON coordinates representing the convex hull of the input GeoJSON.```jsimport { convexHull } from "@terraformer/spatial"convexHull({  type: "LineString",  coordinates: [    [ 100, 0 ], [ -45, 122 ], [ 80, -60 ]  ]})>>{  type: "Polygon",  coordinates: [    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]  ]}```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -213,19 +146,7 @@ convexHull({
 Determine whether input GeoJSON has a [convex](https://en.wikipedia.org/wiki/Convex_set) shape.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Boolean</code> - Yes/No
-```js
-import { isConvex } from "@terraformer/spatial"
-
-isConvex({
-  type: "Polygon",
-  coordinates: [
-    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]
-  ]
-})
-
->> true
-```  
+**Returns**: <code>Boolean</code> - Yes/No```jsimport { isConvex } from "@terraformer/spatial"isConvex({  type: "Polygon",  coordinates: [    [ [ 100, 0 ], [ -45, 122 ], [ 80, -60 ], [ 100, 0 ] ]  ]})>> true```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -237,19 +158,7 @@ isConvex({
 Accepts the geometry of a polygon and point and returns `true` if the point falls within the polygon.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Boolean</code> - Yes/No
-```js
-import { polygonContainsPoint } from "@terraformer/spatial"
-
-polygonContainsPoint(
-  [
-    [ [ 1, 2 ], [ 2, 2 ], [ 2, 1 ], [ 1, 1 ], [ 1, 2 ] ]
-  ],
-  [ 10, 10 ]
-)
-
->> false
-```  
+**Returns**: <code>Boolean</code> - Yes/No```jsimport { polygonContainsPoint } from "@terraformer/spatial"polygonContainsPoint(  [    [ [ 1, 2 ], [ 2, 2 ], [ 2, 1 ], [ 1, 1 ], [ 1, 2 ] ]  ],  [ 10, 10 ])>> false```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -262,23 +171,7 @@ polygonContainsPoint(
 Returns `true` if the GeoJSON passed as the first argument is completely inside the GeoJSON object passed in the second position.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Boolean</code> - Yes/No
-```js
-import { within } from "@terraformer/spatial"
-
-within({
-  type: "Point",
-  coordinates: [ 10, 10 ]
-},
-{
-  type: "Polygon",
-  coordinates: [
-    [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]
-  ]
-})
-
->> true
-```  
+**Returns**: <code>Boolean</code> - Yes/No```jsimport { within } from "@terraformer/spatial"within({  type: "Point",  coordinates: [ 10, 10 ]},{  type: "Polygon",  coordinates: [    [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]  ]})>> true```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -291,22 +184,7 @@ within({
 Returns `true` if the GeoJSON passed as the second argument is completely inside the GeoJSON object passed in the first position.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Boolean</code> - Yes/No
-```js
-import { contains } from "@terraformer/spatial"
-
-contains({
-  type: "Polygon",
-  coordinates: [
-    [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]
-]},
-{
-  type: "Point",
-  coordinates: [ 10, 10 ]
-})
-
->> true
-```  
+**Returns**: <code>Boolean</code> - Yes/No```jsimport { contains } from "@terraformer/spatial"contains({  type: "Polygon",  coordinates: [    [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]]},{  type: "Point",  coordinates: [ 10, 10 ]})>> true```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -319,23 +197,7 @@ contains({
 Returns `true` if the two input GeoJSON objects intersect one another.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>Boolean</code> - Yes/No
-```js
-import { intersects } from "@terraformer/spatial"
-
-intersects({
-  type: "Point",
-  coordinates: [ 10, 10 ]
-},
-{
-  type: "Polygon",
-  coordinates: [
-    [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]
-  ]
-})
-
->> true
-```  
+**Returns**: <code>Boolean</code> - Yes/No```jsimport { intersects } from "@terraformer/spatial"intersects({  type: "Point",  coordinates: [ 10, 10 ]},{  type: "Polygon",  coordinates: [    [ [ 5, 5 ], [ 5, 15 ], [ 15, 15 ], [ 15, 5 ], [ 5, 5 ] ]  ]})>> true```  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -348,20 +210,25 @@ intersects({
 Uses an input Coordinate pair to create a GeoJSON Feature containing a Polygon representing a circle with a discrete number of sides.
 
 **Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
-**Returns**: <code>object</code> - GeoJSON
-```js
-import { toCircle } from "@terraformer/spatial"
-
-toCircle([ -118, 34 ], 500)
-
->> { type: "Feature", geometry: { type: "Polygon"}, coordinates: [...] }
-```  
+**Returns**: <code>object</code> - GeoJSON```jsimport { toCircle } from "@terraformer/spatial"toCircle([ -118, 34 ], 500)>> { type: "Feature", geometry: { type: "Polygon"}, coordinates: [...] }```  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | CoordinatePair | <code>Array.&lt;Number, Number&gt;</code> |  | A GeoJSON Coordinate in `[x,y]` format. |
 | [Radius] | <code>Number</code> | <code>250</code> | The radius of the circle (in meters). |
 | [Steps] | <code>Number</code> | <code>64</code> | The number of sides the output polygon will contain. |
+
+<a name="module_Terraformer.toGeographic"></a>
+
+### Terraformer.toGeographic(GeoJSON) ⇒ <code>object</code>
+Reproject Web Mercator GeoJSON to WGS84 (Lat/Long).
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>object</code> - GeoJSON```jsimport { toGeographic } from "@terraformer/spatial"toGeographic({  type: "Point",  coordinates: [ -13580978, 5621521 ]})>> { type: "Point", coordinates: [ 45, 60 ] }```  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 * * *
 
