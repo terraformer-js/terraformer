@@ -1,0 +1,12 @@
+* text=auto
+
+# Files that should always have LF on checkout
+*.sh            text eol=lf 
+
+# Files that should always have CRLF on checkout
+*.sln           text eol=crlf
+*.csproj        text eol=crlf
+
+# Binary files that should not have any line-ending adjustments made to them
+*.png			binary
+*.jpg			binary
