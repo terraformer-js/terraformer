@@ -66,6 +66,21 @@ RingList.prototype.toJSON = function () {
   }
 };
 
+function GeometryList (geometry) {
+  this.data = [geometry];
+  this.type = 'GeometryList';
+}
+
+GeometryList.prototype.addGeometry = function (geometry) {
+  this.data.push(geometry);
+
+  return this;
+};
+
+GeometryList.prototype.toJSON = function () {
+  return this.data;
+};
+
 function PolygonList (polygon) {
   this.data = [polygon];
   this.type = 'PolygonList';
