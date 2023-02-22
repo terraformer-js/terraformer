@@ -900,7 +900,7 @@ test('should parse a GEOMETRYCOLLECTION with M property', function (t) {
   });
 });
 
-test('should parse a GEOMETRYCOLLECTION with geometry collection embedded property', function (t) {
+test('should parse a GEOMETRYCOLLECTION with geometry collection embedded', function (t) {
   t.plan(1);
 
   const input = 'GEOMETRYCOLLECTION ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)), GEOMETRYCOLLECTION ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40))))';
