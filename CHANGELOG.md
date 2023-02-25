@@ -3,12 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
 
 ## [2.2.0]
 ### Added
 * `@terraformer/wkt`
   * Parse WKT Geometry Collection to GeoJSON Geomtery Collection.
+
+## [Unreleased]
 
 ## [2.1.2]
 ### Fixed
