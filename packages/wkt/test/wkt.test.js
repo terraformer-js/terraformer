@@ -823,7 +823,7 @@ test('should parse a GEOMETRYCOLLECTION with a empty geometry and a non empty ge
 test('should parse a GEOMETRYCOLLECTION with Z property', function (t) {
   t.plan(1);
 
-  const input = 'GEOMETRYCOLLECTION Z ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))';
+  const input = 'GEOMETRYCOLLECTION Z ( POINT Z (40 10 10), LINESTRING Z (10 10 10, 20 20 10, 10 40 10), POLYGON Z ((40 40 10, 20 45 10, 45 30 10, 40 40 10)))';
 
   const output = wktToGeoJSON(input);
 
@@ -832,26 +832,35 @@ test('should parse a GEOMETRYCOLLECTION with Z property', function (t) {
     geometries: [
       {
         type: 'Point',
-        coordinates: [40, 10]
+        coordinates: [40, 10, 10],
+        properties: {
+          z: true
+        }
       },
       {
         type: 'LineString',
         coordinates: [
-          [10, 10],
-          [20, 20],
-          [10, 40]
-        ]
+          [10, 10, 10],
+          [20, 20, 10],
+          [10, 40, 10]
+        ],
+        properties: {
+          z: true
+        }
       },
       {
         type: 'Polygon',
         coordinates: [
           [
-            [40, 40],
-            [20, 45],
-            [45, 30],
-            [40, 40]
+            [40, 40, 10],
+            [20, 45, 10],
+            [45, 30, 10],
+            [40, 40, 10]
           ]
-        ]
+        ],
+        properties: {
+          z: true
+        }
       }
     ],
     properties: {
@@ -863,7 +872,7 @@ test('should parse a GEOMETRYCOLLECTION with Z property', function (t) {
 test('should parse a GEOMETRYCOLLECTION with M property', function (t) {
   t.plan(1);
 
-  const input = 'GEOMETRYCOLLECTION M ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))';
+  const input = 'GEOMETRYCOLLECTION M ( POINT M (40 10 15), LINESTRING M (10 10 15, 20 20 15, 10 40 15), POLYGON M ((40 40 15, 20 45 15, 45 30 15, 40 40 15)))';
 
   const output = wktToGeoJSON(input);
 
@@ -872,26 +881,35 @@ test('should parse a GEOMETRYCOLLECTION with M property', function (t) {
     geometries: [
       {
         type: 'Point',
-        coordinates: [40, 10]
+        coordinates: [40, 10, 15],
+        properties: {
+          m: true
+        }
       },
       {
         type: 'LineString',
         coordinates: [
-          [10, 10],
-          [20, 20],
-          [10, 40]
-        ]
+          [10, 10, 15],
+          [20, 20, 15],
+          [10, 40, 15]
+        ],
+        properties: {
+          m: true
+        }
       },
       {
         type: 'Polygon',
         coordinates: [
           [
-            [40, 40],
-            [20, 45],
-            [45, 30],
-            [40, 40]
+            [40, 40, 15],
+            [20, 45, 15],
+            [45, 30, 15],
+            [40, 40, 15]
           ]
-        ]
+        ],
+        properties: {
+          m: true
+        }
       }
     ],
     properties: {
@@ -968,7 +986,7 @@ test('should parse a GEOMETRYCOLLECTION with geometry collection embedded', func
 test('should parse a GEOMETRYCOLLECTION with ZM property', function (t) {
   t.plan(1);
 
-  const input = 'GEOMETRYCOLLECTION ZM ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))';
+  const input = 'GEOMETRYCOLLECTION ZM ( POINT ZM (40 10 10 15), LINESTRING ZM (10 10 10 15, 20 20 10 15, 10 40 10 15), POLYGON ZM ((40 40 10 15, 20 45 10 15, 45 30 10 15, 40 40 10 15)))';
 
   const output = wktToGeoJSON(input);
 
@@ -977,26 +995,38 @@ test('should parse a GEOMETRYCOLLECTION with ZM property', function (t) {
     geometries: [
       {
         type: 'Point',
-        coordinates: [40, 10]
+        coordinates: [40, 10, 10, 15],
+        properties: {
+          z: true,
+          m: true
+        }
       },
       {
         type: 'LineString',
         coordinates: [
-          [10, 10],
-          [20, 20],
-          [10, 40]
-        ]
+          [10, 10, 10, 15],
+          [20, 20, 10, 15],
+          [10, 40, 10, 15]
+        ],
+        properties: {
+          z: true,
+          m: true
+        }
       },
       {
         type: 'Polygon',
         coordinates: [
           [
-            [40, 40],
-            [20, 45],
-            [45, 30],
-            [40, 40]
+            [40, 40, 10, 15],
+            [20, 45, 10, 15],
+            [45, 30, 10, 15],
+            [40, 40, 10, 15]
           ]
-        ]
+        ],
+        properties: {
+          z: true,
+          m: true
+        }
       }
     ],
     properties: {
