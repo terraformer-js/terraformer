@@ -44,7 +44,7 @@ expressions
     | multipolygon EOF
         { return $1; }
     | geometrycollection EOF
-        { return $1;}
+        { return $1; }
     ;
 
 coordinate
