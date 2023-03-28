@@ -14,6 +14,7 @@
 "MULTIPOINT"                                 return 'MULTIPOINT'
 "MULTILINESTRING"                            return 'MULTILINESTRING'
 "MULTIPOLYGON"                               return 'MULTIPOLYGON'
+"GEOMETRYCOLLECTION"                         return 'GEOMETRYCOLLECTION'
 ","                                          return 'COMMA'
 "EMPTY"                                      return 'EMPTY'
 "M"                                          return 'M'
@@ -41,6 +42,8 @@ expressions
     | multilinestring EOF
         { return $1; }
     | multipolygon EOF
+        { return $1; }
+    | geometrycollection EOF
         { return $1; }
     ;
 
@@ -148,7 +151,7 @@ multipoint
     | MULTIPOINT ZM '(' point_list ')'
         { $$ = { "type": "MultiPoint", "coordinates": $4.data, "properties": { z: true, m: true } }; }
     | MULTIPOINT EMPTY
-        { $$ = { "type": "MultiPoint", "coordinates": [ ] } }
+        { $$ = { "type": "MultiPoint", "coordinates": [ ] }; }
     ;
 
 multilinestring
@@ -175,4 +178,41 @@ multipolygon
         { $$ = { "type": "MultiPolygon", "coordinates": $4.toJSON(), "properties": { z: true, m: true } }; }
     | MULTIPOLYGON EMPTY
         { $$ = { "type": "MultiPolygon", "coordinates": [ ] }; }
+    ;
+
+geometry
+    : point
+        { $$ = $1; }
+    | linestring
+        { $$ = $1; }
+    | polygon
+        { $$ = $1; }
+    | multipoint
+        { $$ = $1; }
+    | multilinestring
+        { $$ = $1; }
+    | multipolygon
+        { $$ = $1; }
+    | geometrycollection
+        { $$ = $1; }
+    ;
+
+geometry_collection
+    : geometry_collection COMMA geometry
+        { $$ = $1.addGeometry($3); }
+    | geometry
+        { $$ = new GeometryList($1); }
+    ;
+
+geometrycollection
+    : GEOMETRYCOLLECTION '(' geometry_collection ')'
+        { $$ = { "type": "GeometryCollection", "geometries": $3.toJSON() }; }
+    | GEOMETRYCOLLECTION Z '(' geometry_collection ')'
+        { $$ = { "type": "GeometryCollection", "geometries": $4.toJSON(), "properties": { z: true } }; }
+    | GEOMETRYCOLLECTION M '(' geometry_collection ')'
+        { $$ = { "type": "GeometryCollection", "geometries": $4.toJSON(), "properties": { m: true } }; }
+    | GEOMETRYCOLLECTION ZM '(' geometry_collection ')'
+        { $$ = { "type": "GeometryCollection", "geometries": $4.toJSON(), "properties": { z: true, m: true } }; }
+    | GEOMETRYCOLLECTION EMPTY
+        { $$ = { "type": "GeometryCollection", "geometries": [] }; }
     ;

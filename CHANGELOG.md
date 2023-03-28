@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+* `@terraformer/wkt`
+  * Parse WKT Geometry Collection to GeoJSON Geomtery Collection.
+  
 ## [2.1.2]
 ### Fixed
 

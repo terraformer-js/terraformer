@@ -604,3 +604,434 @@ test('should parse a MULTIPOLYGON with a hole', function (t) {
     ]
   });
 });
+
+test('should parse a GEOMETRYCOLLECTION', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10]
+      },
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10],
+          [20, 20],
+          [10, 40]
+        ]
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40],
+            [20, 45],
+            [45, 30],
+            [40, 40]
+          ]
+        ]
+      }
+    ]
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10]
+      },
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10],
+          [20, 20],
+          [10, 40]
+        ]
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40],
+            [20, 45],
+            [45, 30],
+            [40, 40]
+          ]
+        ]
+      }
+    ]
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION without points', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10],
+          [20, 20],
+          [10, 40]
+        ]
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40],
+            [20, 45],
+            [45, 30],
+            [40, 40]
+          ]
+        ]
+      }
+    ]
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION without lines', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( POINT (40 10), POLYGON ((40 40, 20 45, 45 30, 40 40)))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10]
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40],
+            [20, 45],
+            [45, 30],
+            [40, 40]
+          ]
+        ]
+      }
+    ]
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION without polygons', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10]
+      },
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10],
+          [20, 20],
+          [10, 40]
+        ]
+      }
+    ]
+  });
+});
+
+test('should parse a empty GEOMETRYCOLLECTION', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION EMPTY';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: []
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION with empty geometries', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( POINT EMPTY )';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: []
+      }
+    ]
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION with a empty geometry and a non empty geometry', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( POINT EMPTY, POINT (40 10))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: []
+      },
+      {
+        type: 'Point',
+        coordinates: [40, 10]
+      }
+    ]
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION with Z property', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION Z ( POINT Z (40 10 10), LINESTRING Z (10 10 10, 20 20 10, 10 40 10), POLYGON Z ((40 40 10, 20 45 10, 45 30 10, 40 40 10)))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10, 10],
+        properties: {
+          z: true
+        }
+      },
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10, 10],
+          [20, 20, 10],
+          [10, 40, 10]
+        ],
+        properties: {
+          z: true
+        }
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40, 10],
+            [20, 45, 10],
+            [45, 30, 10],
+            [40, 40, 10]
+          ]
+        ],
+        properties: {
+          z: true
+        }
+      }
+    ],
+    properties: {
+      z: true
+    }
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION with M property', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION M ( POINT M (40 10 15), LINESTRING M (10 10 15, 20 20 15, 10 40 15), POLYGON M ((40 40 15, 20 45 15, 45 30 15, 40 40 15)))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10, 15],
+        properties: {
+          m: true
+        }
+      },
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10, 15],
+          [20, 20, 15],
+          [10, 40, 15]
+        ],
+        properties: {
+          m: true
+        }
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40, 15],
+            [20, 45, 15],
+            [45, 30, 15],
+            [40, 40, 15]
+          ]
+        ],
+        properties: {
+          m: true
+        }
+      }
+    ],
+    properties: {
+      m: true
+    }
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION with geometry collection embedded', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)), GEOMETRYCOLLECTION ( POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40))))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10]
+      },
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10],
+          [20, 20],
+          [10, 40]
+        ]
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40],
+            [20, 45],
+            [45, 30],
+            [40, 40]
+          ]
+        ]
+      },
+      {
+        type: 'GeometryCollection',
+        geometries: [
+          {
+            type: 'Point',
+            coordinates: [40, 10]
+          },
+          {
+            type: 'LineString',
+            coordinates: [
+              [10, 10],
+              [20, 20],
+              [10, 40]
+            ]
+          },
+          {
+            type: 'Polygon',
+            coordinates: [
+              [
+                [40, 40],
+                [20, 45],
+                [45, 30],
+                [40, 40]
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  });
+});
+
+test('should parse a GEOMETRYCOLLECTION with ZM property', function (t) {
+  t.plan(1);
+
+  const input = 'GEOMETRYCOLLECTION ZM ( POINT ZM (40 10 10 15), LINESTRING ZM (10 10 10 15, 20 20 10 15, 10 40 10 15), POLYGON ZM ((40 40 10 15, 20 45 10 15, 45 30 10 15, 40 40 10 15)))';
+
+  const output = wktToGeoJSON(input);
+
+  t.deepEqual(output, {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'Point',
+        coordinates: [40, 10, 10, 15],
+        properties: {
+          z: true,
+          m: true
+        }
+      },
+      {
+        type: 'LineString',
+        coordinates: [
+          [10, 10, 10, 15],
+          [20, 20, 10, 15],
+          [10, 40, 10, 15]
+        ],
+        properties: {
+          z: true,
+          m: true
+        }
+      },
+      {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [40, 40, 10, 15],
+            [20, 45, 10, 15],
+            [45, 30, 10, 15],
+            [40, 40, 10, 15]
+          ]
+        ],
+        properties: {
+          z: true,
+          m: true
+        }
+      }
+    ],
+    properties: {
+      z: true,
+      m: true
+    }
+  });
+});
