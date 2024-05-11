@@ -1035,3 +1035,16 @@ test('should parse a GEOMETRYCOLLECTION with ZM property', function (t) {
     }
   });
 });
+
+test('should fail with friendly error message when wkt is invalid', function (t) {
+  t.plan(1);
+
+  const input = 'POINT(30,10)';
+
+  try {
+    wktToGeoJSON(input);
+  } catch (err) {
+    const error = err.toString();
+    t.deepEqual(error, 'Error: Unable to parse: Parse error on line 1:\nPOINT(30,10)\n--------^\nExpecting \'DOUBLE_TOK\', got \'COMMA\'');
+  }
+});

@@ -7,6 +7,10 @@
 
 'SOURCE';
 
+parser.yy.parseError = function (err) {
+  throw err;
+};
+
 function PointArray (point) {
   this.data = [point];
   this.type = 'PointArray';
