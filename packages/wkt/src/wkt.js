@@ -7,6 +7,11 @@
 
 'SOURCE';
 
+// surface parsing errors to calling code https://github.com/zaach/jison/issues/218
+parser.yy.parseError = function (err) {
+  throw err;
+};
+
 function PointArray (point) {
   this.data = [point];
   this.type = 'PointArray';
