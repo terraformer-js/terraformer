@@ -5,19 +5,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [2.2.1]
+## [2.2.1] - 2024-05-15
 
 ### Added
 * `@terraformer/wkt`
   * Errors parsing WKT are now surfaced instead of swallowed. 🙏🏽 @mpalmerlee 🙏🏽
 
-## [2.2.0]
+## [2.2.0] - 2023-03-28
 
 ### Added
 * `@terraformer/wkt`
   * Parse WKT Geometry Collection to GeoJSON Geomtery Collection. 🙏🏽 @Zakhmaster 🙏🏽
 
-## [2.1.2]
+## [2.1.2] - 2022-08-02
 ### Fixed
 
 * `@terraformer/spatial`
