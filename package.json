@@ -48,8 +48,8 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "babelify": "^10.0.0",
     "browserify": "^16.0.0",
-    "gh-release": "^6.0.4",
-    "jsdoc": "^3.6.11",
+    "gh-release": "^7.0.2",
+    "jsdoc": "^4.0.3",
     "jsdoc-to-markdown": "^7.1.1",
     "lerna": "^5.0.0",
     "onchange": "^6.1.0",
@@ -57,5 +57,8 @@
     "semistandard": "^14.2.0",
     "snazzy": "^8.0.0",
     "tape": "^4.0.0"
+  },
+  "overrides": {
+    "got": "^12.1.0"
   }
 }
