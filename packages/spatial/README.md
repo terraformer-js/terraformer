@@ -41,6 +41,7 @@ npm install @terraformer/spatial
     * [.contains(GeoJSON, GeoJSON)](#module_Terraformer.contains) ⇒ <code>Boolean</code>
     * [.intersects(GeoJSON, GeoJSON)](#module_Terraformer.intersects) ⇒ <code>Boolean</code>
     * [.toCircle(CoordinatePair, [Radius], [Steps])](#module_Terraformer.toCircle) ⇒ <code>object</code>
+    * [.toGeographic(GeoJSON)](#module_Terraformer.toGeographic) ⇒ <code>object</code>
 
 <a name="module_Terraformer.MercatorCRS"></a>
 
@@ -362,6 +363,28 @@ toCircle([ -118, 34 ], 500)
 | CoordinatePair | <code>Array.&lt;Number, Number&gt;</code> |  | A GeoJSON Coordinate in `[x,y]` format. |
 | [Radius] | <code>Number</code> | <code>250</code> | The radius of the circle (in meters). |
 | [Steps] | <code>Number</code> | <code>64</code> | The number of sides the output polygon will contain. |
+
+<a name="module_Terraformer.toGeographic"></a>
+
+### Terraformer.toGeographic(GeoJSON) ⇒ <code>object</code>
+Reproject Web Mercator GeoJSON to WGS84 (Lat/Long).
+
+**Kind**: static method of [<code>Terraformer</code>](#module_Terraformer)  
+**Returns**: <code>object</code> - GeoJSON
+```js
+import { toGeographic } from "@terraformer/spatial"
+
+toGeographic({
+  type: "Point",
+  coordinates: [ -13580978, 5621521 ]
+})
+
+>> { type: "Point", coordinates: [ 45, 60 ] }
+```  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| GeoJSON | <code>object</code> | The input [GeoJSON](https://tools.ietf.org/html/rfc7946) Geometry, Feature, GeometryCollection or FeatureCollection. |
 
 * * *
 

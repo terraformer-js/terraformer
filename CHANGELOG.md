@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.1]
+
+### Added
+* `@terraformer/wkt`
+  * Errors parsing WKT are now surfaced instead of swallowed. (:pray: @mpalmerlee :pray:)
+
 ## [2.2.0]
 
 ### Added
