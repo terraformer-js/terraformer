@@ -9,13 +9,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * `@terraformer/wkt`
-  * Errors parsing WKT are now surfaced instead of swallowed. (:pray: @mpalmerlee :pray:)
+  * Errors parsing WKT are now surfaced instead of swallowed. 🙏🏽 @mpalmerlee 🙏🏽
 
 ## [2.2.0]
 
 ### Added
 * `@terraformer/wkt`
-  * Parse WKT Geometry Collection to GeoJSON Geomtery Collection. (:pray: @Zakhmaster :pray:)
+  * Parse WKT Geometry Collection to GeoJSON Geomtery Collection. 🙏🏽 @Zakhmaster 🙏🏽
 
 ## [2.1.2]
 ### Fixed
@@ -59,6 +59,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * All packages are now standalone.
 
+[2.2.1]: https://github.com/terraformer-js/terraformer/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/terraformer-js/terraformer/compare/v2.1.2...v2.2.0
 [2.1.2]: https://github.com/terraformer-js/terraformer/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/terraformer-js/terraformer/compare/v2.1.0...v2.1.1
