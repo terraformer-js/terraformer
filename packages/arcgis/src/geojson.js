@@ -63,6 +63,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
         result.z = geojson.coordinates[2];
       }
       result.spatialReference = spatialReference;
+      result.type = 'point';
       break;
     case 'MultiPoint':
       result.points = geojson.coordinates.slice(0);
@@ -70,6 +71,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
         result.hasZ = true;
       }
       result.spatialReference = spatialReference;
+      result.type = 'multipoint';
       break;
     case 'LineString':
       result.paths = [geojson.coordinates.slice(0)];
@@ -77,6 +79,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
         result.hasZ = true;
       }
       result.spatialReference = spatialReference;
+      result.type = 'polyline';
       break;
     case 'MultiLineString':
       result.paths = geojson.coordinates.slice(0);
@@ -84,6 +87,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
         result.hasZ = true;
       }
       result.spatialReference = spatialReference;
+      result.type = 'polyline';
       break;
     case 'Polygon':
       result.rings = orientRings(geojson.coordinates.slice(0));
@@ -91,6 +95,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
         result.hasZ = true;
       }
       result.spatialReference = spatialReference;
+      result.type = 'polygon';
       break;
     case 'MultiPolygon':
       result.rings = flattenMultiPolygonRings(geojson.coordinates.slice(0));
@@ -98,6 +103,7 @@ export const geojsonToArcGIS = (geojson, idAttribute) => {
         result.hasZ = true;
       }
       result.spatialReference = spatialReference;
+      result.type = 'polygon';
       break;
     case 'Feature':
       if (geojson.geometry) {
