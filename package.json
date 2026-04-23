@@ -50,7 +50,7 @@
     "browserify": "^16.0.0",
     "jsdoc": "^4.0.3",
     "jsdoc-to-markdown": "^7.1.1",
-    "lerna": "^5.0.0",
+    "lerna": "^9.0.7",
     "onchange": "^6.1.0",
     "rollup": "^2.77.2",
     "semistandard": "^14.2.0",
