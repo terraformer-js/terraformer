@@ -1,3 +1,5 @@
+/* eslint no-loss-of-precision: "off" */
+
 export const GeoJSON = { // eslint-disable-line no-unused-vars
   points: [
     {

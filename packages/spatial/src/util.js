@@ -80,7 +80,7 @@ export const coordinateConvexHull = (points) => {
   // Returns the points on the convex hull of points in CCW order.
   const hull = [points.sort(compSort)[0]];
 
-  for (var p = 0; p < hull.length; p++) {
+  for (let p = 0; p < hull.length; p++) {
     const q = nextHullPoint(points, hull[p]);
 
     if (q !== hull[0]) {

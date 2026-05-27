@@ -38,7 +38,7 @@ test('should project a GeoJSON LineString to Web Mercator.', function (t) {
     type: 'MultiPoint',
     coordinates: [[-122, 45], [100, 0], [45, 62]]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'MultiPoint',
     coordinates: [[-13580977.876779145, 5621521.486191948], [11131949.079327168, 0], [5009377.085697226, 8859142.800565446]],
     crs: {
@@ -59,7 +59,7 @@ test('should project a GeoJSON LineString to Web Mercator.', function (t) {
     type: 'LineString',
     coordinates: [[-122, 45], [100, 0], [45, 62]]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'LineString',
     coordinates: [[-13580977.876779145, 5621521.486191948], [11131949.079327168, 0], [5009377.085697226, 8859142.800565446]],
     crs: {
@@ -83,7 +83,7 @@ test('should project a GeoJSON MultiLineString to Web Mercator.', function (t) {
       [[21.796875, 36.5625], [47.8359375, 71.015625]]
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'MultiLineString',
     coordinates: [
       [[4657155.25935914, 11407616.835043576], [6339992.874085551, 3995282.329624162]],
@@ -109,7 +109,7 @@ test('should project a GeoJSON Polygon to Web Mercator.', function (t) {
       [[41.8359375, 71.015625], [56.953125, 33.75], [21.796875, 36.5625], [41.8359375, 71.015625]]
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'Polygon',
     coordinates: [[[4657155.25935914, 11407616.835043576], [6339992.874085551, 3995282.329624162], [2426417.025884594, 4378299.115616046], [4657155.25935914, 11407616.835043576]]],
     crs: {
@@ -138,7 +138,7 @@ test('should project a GeoJSON MultiPolygon to Web Mercator.', function (t) {
     ]
   };
 
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'MultiPolygon',
     coordinates: [[[[11354588.060913712, 222684.2085055407], [11465907.551706985, 222684.2085055407], [11465907.551706985, 334111.1714019535], [11354588.060913712, 334111.1714019535], [11354588.060913712, 222684.2085055407]]], [[[11131949.079327168, 0], [11243268.57012044, 0], [11243268.57012044, 111325.14286638329], [11131949.079327168, 111325.14286638329], [11131949.079327168, 0]]]],
     crs: {
@@ -166,7 +166,7 @@ test('should project a GeoJSON Feature to Web Mercator.', function (t) {
       bar: 'baz'
     }
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'Feature',
     id: 'foo',
     geometry: {
@@ -216,7 +216,7 @@ test('should project a GeoJSON FeatureCollection to Web Mercator.', function (t)
       }
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'FeatureCollection',
     features: [
       {
@@ -268,7 +268,7 @@ test('should project a GeoJSON GeometryCollection to Web Mercator.', function (t
       }
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'GeometryCollection',
     geometries: [
       {
@@ -297,7 +297,7 @@ test('should project a GeoJSON Point to WGS84.', function (t) {
     type: 'Point',
     coordinates: [-13656274.38035172, 5703203.67194997]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'Point',
     coordinates: [-122.67639999999798, 45.516499999999255]
   };
@@ -311,7 +311,7 @@ test('should project a GeoJSON MultiPoint to WGS84.', function (t) {
     type: 'MultiPoint',
     coordinates: [[-13656274.380351715, 5703203.671949966], [11131949.079327168, 0], [-13619241.057432571, 6261718.09354067]]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'MultiPoint',
     coordinates: [[-122.67639999999793, 45.51649999999923], [99.99999999999831, 0], [-122.34372399999793, 48.92247999999917]]
   };
@@ -325,7 +325,7 @@ test('should project a GeoJSON LineString to WGS84.', function (t) {
     type: 'LineString',
     coordinates: [[743579.411158182, 6075718.008992066], [-7279251.077653782, 6869641.046935855], [-5831228.013819427, 5242073.5675988225]]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'LineString',
     coordinates: [[6.679687499999886, 47.8124999999992], [-65.3906249999989, 52.38281249999911], [-52.38281249999912, 42.53906249999928]]
   };
@@ -342,7 +342,7 @@ test('should project a GeoJSON MultiLineString to WGS84.', function (t) {
       [[21.796875, 36.5625], [47.8359375, 71.015625]]
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'MultiLineString',
     coordinates: [
       [[0.00037581862081719045, 0.0006379442134689308], [0.0005116186266586962, 0.00030318140838354136]], [[0.00019580465958542694, 0.00032844652575519755], [0.0004297175378643617, 0.0006379442134689308]]
@@ -360,7 +360,7 @@ test('should project a GeoJSON Polygon to WGS84.', function (t) {
       [[41.8359375, 71.015625], [56.953125, 33.75], [21.796875, 36.5625], [41.8359375, 71.015625]]
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'Polygon',
     coordinates: [
       [[0.00037581862081719045, 0.0006379442134689308], [0.0005116186266586962, 0.00030318140838354136], [0.00019580465958542694, 0.00032844652575519755], [0.00037581862081719045, 0.0006379442134689308]]
@@ -384,7 +384,7 @@ test('should project a GeoJSON MultiPolygon to WGS84.', function (t) {
     ]
   };
 
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'MultiPolygon',
     coordinates: [
       [
@@ -412,7 +412,7 @@ test('should project a GeoJSON Feature to WGS84.', function (t) {
       bar: 'baz'
     }
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'Feature',
     id: 'foo',
     geometry: {
@@ -455,7 +455,7 @@ test('should project a GeoJSON FeatureCollection to WGS84.', function (t) {
       }
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'FeatureCollection',
     features: [
       {
@@ -499,7 +499,7 @@ test('should project a GeoJSON GeometryCollection to WGS84.', function (t) {
       }
     ]
   };
-  var expectedOutput = {
+  const expectedOutput = {
     type: 'GeometryCollection',
     geometries: [
       {

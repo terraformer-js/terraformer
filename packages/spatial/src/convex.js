@@ -50,7 +50,7 @@ export const convexHull = (geojson) => {
 export const isConvex = (points) => {
   let ltz;
 
-  for (var i = 0; i < points.length - 3; i++) {
+  for (let i = 0; i < points.length - 3; i++) {
     const p1 = points[i];
     const p2 = points[i + 1];
     const p3 = points[i + 2];
