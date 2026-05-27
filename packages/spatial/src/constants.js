@@ -1,5 +1,5 @@
 export const EARTH_RADIUS = 6378137;
-export const DEGREES_PER_RADIAN = 57.295779513082320;
+export const DEGREES_PER_RADIAN = 57.29577951308232;
 export const RADIANS_PER_DEGREE = 0.017453292519943;
 
 export const MercatorCRS = {

@@ -13,8 +13,8 @@ import {
 } from './helpers';
 
 const coordinatesContainCoordinates = (outer, inner) => {
-  var intersects = arrayIntersectsArray(outer, inner);
-  var contains = coordinatesContainPoint(outer, inner[0]);
+  const intersects = arrayIntersectsArray(outer, inner);
+  const contains = coordinatesContainPoint(outer, inner[0]);
   if (!intersects && contains) {
     return true;
   }
@@ -24,28 +24,28 @@ const coordinatesContainCoordinates = (outer, inner) => {
 // do any polygons in this array contain any other polygons in this array?
 // used for checking for holes in arcgis rings
 const convertRingsToGeoJSON = (rings) => {
-  var outerRings = [];
-  var holes = [];
-  var x; // iterator
-  var outerRing; // current outer ring being evaluated
-  var hole; // current hole being evaluated
+  const outerRings = [];
+  const holes = [];
+  let x; // iterator
+  let outerRing; // current outer ring being evaluated
+  let hole; // current hole being evaluated
 
   // for each ring
-  for (var r = 0; r < rings.length; r++) {
-    var ring = closeRing(rings[r].slice(0));
+  for (let r = 0; r < rings.length; r++) {
+    const ring = closeRing(rings[r].slice(0));
     if (ring.length < 4) {
       continue;
     }
     // is this ring an outer ring? is it clockwise?
     if (ringIsClockwise(ring)) {
-      var polygon = [ring.slice().reverse()]; // wind outer rings counterclockwise for RFC 7946 compliance
+      const polygon = [ring.slice().reverse()]; // wind outer rings counterclockwise for RFC 7946 compliance
       outerRings.push(polygon); // push to outer rings
     } else {
       holes.push(ring.slice().reverse()); // wind inner rings clockwise for RFC 7946 compliance
     }
   }
 
-  var uncontainedHoles = [];
+  const uncontainedHoles = [];
 
   // while there are holes left...
   while (holes.length) {
@@ -53,7 +53,7 @@ const convertRingsToGeoJSON = (rings) => {
     hole = holes.pop();
 
     // loop over all outer rings and see if they contain our hole.
-    var contained = false;
+    let contained = false;
     for (x = outerRings.length - 1; x >= 0; x--) {
       outerRing = outerRings[x][0];
       if (coordinatesContainCoordinates(outerRing, hole)) {
@@ -77,7 +77,7 @@ const convertRingsToGeoJSON = (rings) => {
     hole = uncontainedHoles.pop();
 
     // loop over all outer rings and see if any intersect our hole.
-    var intersects = false;
+    let intersects = false;
 
     for (x = outerRings.length - 1; x >= 0; x--) {
       outerRing = outerRings[x][0];
@@ -108,9 +108,9 @@ const convertRingsToGeoJSON = (rings) => {
 };
 
 const getId = (attributes, idAttribute) => {
-  var keys = idAttribute ? [idAttribute, 'OBJECTID', 'FID'] : ['OBJECTID', 'FID'];
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
+  const keys = idAttribute ? [idAttribute, 'OBJECTID', 'FID'] : ['OBJECTID', 'FID'];
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
     if (
       key in attributes &&
       (typeof attributes[key] === 'string' ||
@@ -123,12 +123,12 @@ const getId = (attributes, idAttribute) => {
 };
 
 export const arcgisToGeoJSON = (arcgis, idAttribute) => {
-  var geojson = {};
+  let geojson = {};
 
   if (arcgis.features) {
     geojson.type = 'FeatureCollection';
     geojson.features = [];
-    for (var i = 0; i < arcgis.features.length; i++) {
+    for (let i = 0; i < arcgis.features.length; i++) {
       geojson.features.push(arcgisToGeoJSON(arcgis.features[i], idAttribute));
     }
   }

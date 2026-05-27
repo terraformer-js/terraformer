@@ -37,9 +37,9 @@ function Ring (point) {
 }
 
 Ring.prototype.toJSON = function () {
-  var data = [];
+  const data = [];
 
-  for (var i = 0; i < this.data.data.length; i++) {
+  for (let i = 0; i < this.data.data.length; i++) {
     data.push(this.data.data[i]);
   }
 
@@ -58,9 +58,9 @@ RingList.prototype.addRing = function (ring) {
 };
 
 RingList.prototype.toJSON = function () {
-  var data = [];
+  const data = [];
 
-  for (var i = 0; i < this.data.length; i++) {
+  for (let i = 0; i < this.data.length; i++) {
     data.push(this.data[i].toJSON());
   }
 
@@ -98,9 +98,9 @@ PolygonList.prototype.addPolygon = function (polygon) {
 };
 
 PolygonList.prototype.toJSON = function () {
-  var data = [];
+  let data = [];
 
-  for (var i = 0; i < this.data.length; i++) {
+  for (let i = 0; i < this.data.length; i++) {
     data = data.concat([this.data[i].toJSON()]);
   }
 
@@ -137,7 +137,7 @@ const arrayToRing = (arr) => {
   const parts = [];
   let ret = '';
 
-  for (var i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     parts.push(arr[i].join(' '));
   }
 
@@ -211,8 +211,8 @@ const polygonToWKTPolygon = (geojson) => {
   }
 
   ret += '(';
-  var parts = [];
-  for (var i = 0; i < geojson.coordinates.length; i++) {
+  const parts = [];
+  for (let i = 0; i < geojson.coordinates.length; i++) {
     parts.push(arrayToRing(geojson.coordinates[i]));
   }
 
@@ -223,7 +223,7 @@ const polygonToWKTPolygon = (geojson) => {
 };
 
 const multiPointToWKTMultiPoint = (geojson) => {
-  var ret = 'MULTIPOINT ';
+  let ret = 'MULTIPOINT ';
 
   if (geojson.coordinates === undefined || geojson.coordinates.length === 0 || geojson.coordinates[0].length === 0) {
     ret += 'EMPTY';
@@ -263,7 +263,7 @@ const multiLineStringToWKTMultiLineString = (geojson) => {
 
   ret += '(';
   const parts = [];
-  for (var i = 0; i < geojson.coordinates.length; i++) {
+  for (let i = 0; i < geojson.coordinates.length; i++) {
     parts.push(arrayToRing(geojson.coordinates[i]));
   }
 
@@ -274,7 +274,7 @@ const multiLineStringToWKTMultiLineString = (geojson) => {
 };
 
 const multiPolygonToWKTMultiPolygon = (geojson) => {
-  var ret = 'MULTIPOLYGON ';
+  let ret = 'MULTIPOLYGON ';
 
   if (geojson.coordinates === undefined || geojson.coordinates.length === 0 || geojson.coordinates[0].length === 0) {
     ret += 'EMPTY';
@@ -291,11 +291,11 @@ const multiPolygonToWKTMultiPolygon = (geojson) => {
   }
 
   ret += '(';
-  var inner = [];
-  for (var c = 0; c < geojson.coordinates.length; c++) {
-    var it = '(';
-    var parts = [];
-    for (var i = 0; i < geojson.coordinates[c].length; i++) {
+  const inner = [];
+  for (let c = 0; c < geojson.coordinates.length; c++) {
+    let it = '(';
+    const parts = [];
+    for (let i = 0; i < geojson.coordinates[c].length; i++) {
       parts.push(arrayToRing(geojson.coordinates[c][i]));
     }
 
@@ -330,6 +330,9 @@ const multiPolygonToWKTMultiPolygon = (geojson) => {
  * ```
  */
 export const geojsonToWKT = (geojson) => {
+  const ret = 'GEOMETRYCOLLECTION';
+  const parts = [];
+
   switch (geojson.type) {
     case 'Point':
       return pointToWKTPoint(geojson);
@@ -344,8 +347,6 @@ export const geojsonToWKT = (geojson) => {
     case 'MultiPolygon':
       return multiPolygonToWKTMultiPolygon(geojson);
     case 'GeometryCollection':
-      var ret = 'GEOMETRYCOLLECTION';
-      var parts = [];
       for (let i = 0; i < geojson.geometries.length; i++) {
         parts.push(geojsonToWKT(geojson.geometries[i]));
       }

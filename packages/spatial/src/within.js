@@ -163,10 +163,9 @@ export const within = (geoJSON, comparisonGeoJSON) => {
         if (within(geoJSON, poly)) {
           return true;
         }
-
-        return false;
       }
 
+      return false;
       // multilinestring.within(multipolygon)
     } else if (geoJSON.type === 'MultiLineString') {
       for (i = 0; i < geoJSON.coordinates.length; i++) {

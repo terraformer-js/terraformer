@@ -51,7 +51,7 @@
     "lerna": "^9.0.0",
     "onchange": "^6.1.0",
     "rollup": "^2.77.2",
-    "semistandard": "^14.2.0",
+    "semistandard": "^17.0.0",
     "snazzy": "^8.0.0",
     "tape": "^4.0.0"
   },

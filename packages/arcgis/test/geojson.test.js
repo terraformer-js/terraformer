@@ -14,7 +14,7 @@ test('should convert a GeoJSON Point to an ArcGIS Point', function (t) {
     coordinates: [-58.7109375, 47.4609375]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     x: -58.7109375,
@@ -33,7 +33,7 @@ test('should convert a GeoJSON Point to an ArcGIS Point and include z values', f
     coordinates: [-58.7109375, 47.4609375, 10]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     x: -58.7109375,
@@ -53,7 +53,7 @@ test('should convert a GeoJSON Point to an ArcGIS Point and include a z value of
     coordinates: [-58.7109375, 47.4609375, 0]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     x: -58.7109375,
@@ -73,7 +73,7 @@ test('should convert a GeoJSON Null Island to an ArcGIS Point', function (t) {
     coordinates: [0, 0]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     x: 0,
@@ -96,7 +96,7 @@ test('should convert a GeoJSON LineString to an ArcGIS Polyline', function (t) {
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     paths: [
@@ -124,7 +124,7 @@ test('should convert a GeoJSON LineString to an ArcGIS Polyline and include z va
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     paths: [
@@ -156,7 +156,7 @@ test('should convert a GeoJSON Polygon to an ArcGIS Polygon', function (t) {
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     rings: [
@@ -188,7 +188,7 @@ test('should convert a GeoJSON Polygon to an ArcGIS Polygon and include z values
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     rings: [
@@ -229,7 +229,7 @@ test('should convert a GeoJSON Polygon w/ a hole to an ArcGIS Polygon w/ 2 rings
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     rings: [
@@ -263,7 +263,7 @@ test('should strip invalid rings when converting a GeoJSON Polygon to and ArcGIS
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     rings: [
@@ -296,7 +296,7 @@ test('should close ring when converting a GeoJSON Polygon w/ a hole to an ArcGIS
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     rings: [
@@ -321,7 +321,7 @@ test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint', function (t)
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     points: [
@@ -347,7 +347,7 @@ test('should convert a GeoJSON MultiPoint to an ArcGIS Multipoint and include z 
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     points: [
@@ -379,7 +379,7 @@ test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline', function 
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     paths: [
@@ -415,7 +415,7 @@ test('should convert a GeoJSON MultiLineString to an ArcGIS Polyline and include
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     paths: [
@@ -450,7 +450,7 @@ test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon', function (t) 
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     rings: [
@@ -478,7 +478,7 @@ test('should convert a GeoJSON MultiPolygon to an ArcGIS Polygon and include z v
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     rings: [
@@ -508,7 +508,7 @@ test('should convert a GeoJSON MultiPolygon w/ holes to an ArcGIS Polygon', func
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
   t.deepEqual(output, {
     spatialReference: {
       wkid: 4326
@@ -554,7 +554,7 @@ test('should close rings when converting a GeoJSON MultiPolygon w/ holes to an A
     ]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
   t.deepEqual(output, {
     spatialReference: {
       wkid: 4326
@@ -607,7 +607,7 @@ test('should convert a GeoJSON Feature into an ArcGIS Feature', function (t) {
     }
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     geometry: {
@@ -650,7 +650,7 @@ test('should convert a GeoJSON Feature into an ArcGIS Feature w/ a custom id', f
     }
   };
 
-  var output = geojsonToArcGIS(input, 'myId');
+  const output = geojsonToArcGIS(input, 'myId');
 
   t.deepEqual(output, {
     geometry: {
@@ -683,7 +683,7 @@ test('should allow converting a GeoJSON Feature to an ArcGIS Feature with no pro
     properties: null
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, {
     attributes: {
@@ -738,7 +738,7 @@ test('should convert a GeoJSON FeatureCollection into an array of ArcGIS Feature
     }]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, [{
     geometry: {
@@ -802,7 +802,7 @@ test('should convert a GeoJSON GeometryCollection into an array of ArcGIS Geomet
     }]
   };
 
-  var output = geojsonToArcGIS(input);
+  const output = geojsonToArcGIS(input);
 
   t.deepEqual(output, [{
     rings: [
@@ -837,7 +837,7 @@ test('should convert a GeoJSON GeometryCollection into an array of ArcGIS Geomet
 test('should not modify the original GeoJSON object', function (t) {
   t.plan(1);
 
-  var geojson = {
+  const geojson = {
     type: 'FeatureCollection',
     features: [{
       type: 'Feature',

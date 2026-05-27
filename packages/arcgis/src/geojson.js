@@ -11,9 +11,9 @@ import {
 // outer rings are clockwise, holes are counterclockwise
 // used for converting GeoJSON Polygons to ArcGIS Polygons
 const orientRings = (poly) => {
-  var output = [];
-  var polygon = poly.slice(0);
-  var outerRing = closeRing(polygon.shift().slice(0));
+  const output = [];
+  const polygon = poly.slice(0);
+  const outerRing = closeRing(polygon.shift().slice(0));
   if (outerRing.length >= 4) {
     if (!ringIsClockwise(outerRing)) {
       outerRing.reverse();
@@ -21,8 +21,8 @@ const orientRings = (poly) => {
 
     output.push(outerRing);
 
-    for (var i = 0; i < polygon.length; i++) {
-      var hole = closeRing(polygon[i].slice(0));
+    for (let i = 0; i < polygon.length; i++) {
+      const hole = closeRing(polygon[i].slice(0));
       if (hole.length >= 4) {
         if (ringIsClockwise(hole)) {
           hole.reverse();
@@ -38,11 +38,11 @@ const orientRings = (poly) => {
 // This function flattens holes in multipolygons to one array of polygons
 // used for converting GeoJSON Polygons to ArcGIS Polygons
 const flattenMultiPolygonRings = (rings) => {
-  var output = [];
-  for (var i = 0; i < rings.length; i++) {
-    var polygon = orientRings(rings[i]);
-    for (var x = polygon.length - 1; x >= 0; x--) {
-      var ring = polygon[x].slice(0);
+  const output = [];
+  for (let i = 0; i < rings.length; i++) {
+    const polygon = orientRings(rings[i]);
+    for (let x = polygon.length - 1; x >= 0; x--) {
+      const ring = polygon[x].slice(0);
       output.push(ring);
     }
   }
@@ -51,9 +51,9 @@ const flattenMultiPolygonRings = (rings) => {
 
 export const geojsonToArcGIS = (geojson, idAttribute) => {
   idAttribute = idAttribute || 'OBJECTID';
-  var spatialReference = { wkid: 4326 };
-  var result = {};
-  var i;
+  const spatialReference = { wkid: 4326 };
+  let result = {};
+  let i;
 
   switch (geojson.type) {
     case 'Point':

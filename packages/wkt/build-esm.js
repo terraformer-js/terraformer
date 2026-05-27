@@ -1,14 +1,14 @@
-var fs = require('fs');
-var jison = require('jison');
+const fs = require('fs');
+const jison = require('jison');
 
-var grammar = fs.readFileSync('./src/wkt.yy', 'utf8');
-var wrapper = fs.readFileSync('./src/wkt.js', 'utf8');
+const grammar = fs.readFileSync('./src/wkt.yy', 'utf8');
+let wrapper = fs.readFileSync('./src/wkt.js', 'utf8');
 
-var Parser = jison.Parser;
-var parser = new Parser(grammar);
+const Parser = jison.Parser;
+const parser = new Parser(grammar);
 
 // generate source, ready to be written to disk using a jison fork to get a es module output: https://github.com/zaach/jison/pull/326
-var parserSource = parser.generate({ moduleType: 'es' });
+const parserSource = parser.generate({ moduleType: 'es' });
 
 wrapper = wrapper.replace('\'SOURCE\';', parserSource);
 fs.writeFileSync('./src/index.js', wrapper, 'utf8');

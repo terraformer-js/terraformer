@@ -15,11 +15,11 @@ export const closeRing = (coordinates) => {
 // or hole. this logic was found at http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-
 // points-are-in-clockwise-order
 export const ringIsClockwise = (ringToTest) => {
-  var total = 0;
-  var i = 0;
-  var rLength = ringToTest.length;
-  var pt1 = ringToTest[i];
-  var pt2;
+  let total = 0;
+  let i = 0;
+  const rLength = ringToTest.length;
+  let pt1 = ringToTest[i];
+  let pt2;
   for (i; i < rLength - 1; i++) {
     pt2 = ringToTest[i + 1];
     total += (pt2[0] - pt1[0]) * (pt2[1] + pt1[1]);
@@ -32,9 +32,9 @@ export const ringIsClockwise = (ringToTest) => {
 // outer rings are clockwise, holes are counterclockwise
 // used for converting GeoJSON Polygons to ArcGIS Polygons
 export const orientRings = (poly) => {
-  var output = [];
-  var polygon = poly.slice(0);
-  var outerRing = closeRing(polygon.shift().slice(0));
+  const output = [];
+  const polygon = poly.slice(0);
+  const outerRing = closeRing(polygon.shift().slice(0));
   if (outerRing.length >= 4) {
     if (!ringIsClockwise(outerRing)) {
       outerRing.reverse();
@@ -42,8 +42,8 @@ export const orientRings = (poly) => {
 
     output.push(outerRing);
 
-    for (var i = 0; i < polygon.length; i++) {
-      var hole = closeRing(polygon[i].slice(0));
+    for (let i = 0; i < polygon.length; i++) {
+      const hole = closeRing(polygon[i].slice(0));
       if (hole.length >= 4) {
         if (ringIsClockwise(hole)) {
           hole.reverse();
@@ -59,11 +59,11 @@ export const orientRings = (poly) => {
 // This function flattens holes in multipolygons to one array of polygons
 // used for converting GeoJSON Polygons to ArcGIS Polygons
 export const flattenMultiPolygonRings = (rings) => {
-  var output = [];
-  for (var i = 0; i < rings.length; i++) {
-    var polygon = orientRings(rings[i]);
-    for (var x = polygon.length - 1; x >= 0; x--) {
-      var ring = polygon[x].slice(0);
+  const output = [];
+  for (let i = 0; i < rings.length; i++) {
+    const polygon = orientRings(rings[i]);
+    for (let x = polygon.length - 1; x >= 0; x--) {
+      const ring = polygon[x].slice(0);
       output.push(ring);
     }
   }
@@ -73,8 +73,8 @@ export const flattenMultiPolygonRings = (rings) => {
 // shallow object clone for feature properties and attributes
 // from http://jsperf.com/cloning-an-object/2
 export const shallowClone = (obj) => {
-  var target = {};
-  for (var i in obj) {
+  const target = {};
+  for (const i in obj) {
     // both arcgis attributes and geojson props are just hardcoded keys
     if (obj.hasOwnProperty(i)) { // eslint-disable-line no-prototype-builtins
       target[i] = obj[i];
