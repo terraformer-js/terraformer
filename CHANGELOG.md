@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - `@terraformer/spatial`
   - fix Point `within` MultiLineString 🙏🏽 @greymoth-jp 🙏🏽
+  - fix `intersects` MultiPolygons 🙏🏽 @rgwozdz 🙏🏽
+  - export `applyConverter`
 
 ## [2.2.1] - 2024-05-15
 
