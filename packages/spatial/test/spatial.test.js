@@ -736,6 +736,28 @@ test('should return true if a point is within a multilinestring.', function (t) 
   }), true);
 });
 
+test('should return true if a point is within a later linestring of a multilinestring.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    type: 'MultiLineString',
+    coordinates: [
+      [[0, 0], [1, 1]],
+      [[2, 2], [3, 3]],
+      [[9, 9], [10, 10]]
+    ]
+  }), true);
+});
+
+test('should return false if a point is not within any linestring of a multilinestring.', function (t) {
+  t.plan(1);
+  t.equal(within(GeoJSON.points[3], {
+    type: 'MultiLineString',
+    coordinates: [
+      [[0, 0], [1, 1]]
+    ]
+  }), false);
+});
+
 // Polygon within
 
 test('should return true if a polygon is within a polygon.', function (t) {

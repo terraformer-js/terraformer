@@ -25,7 +25,7 @@ export const within = (geoJSON, comparisonGeoJSON) => {
   // point.within(multilinestring)
   if (comparisonGeoJSON.type === 'MultiLineString') {
     if (geoJSON.type === 'Point') {
-      for (i = 0; i < geoJSON.coordinates.length; i++) {
+      for (i = 0; i < comparisonGeoJSON.coordinates.length; i++) {
         const linestring = { type: 'LineString', coordinates: comparisonGeoJSON.coordinates[i] };
 
         if (within(geoJSON, linestring)) {
