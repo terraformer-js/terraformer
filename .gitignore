@@ -21,12 +21,6 @@ coverage
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
-
-# Bower dependency directory (https://bower.io/)
-bower_components
-
 # node-waf configuration
 .lock-wscript
 
@@ -37,12 +31,6 @@ build/Release
 node_modules/
 jspm_packages/
 
-# Typescript v1 declaration files
-typings/
-
-# Optional npm cache directory
-.npm
-
 # Optional eslint cache
 .eslintcache
 
@@ -51,9 +39,6 @@ typings/
 
 # Output of 'npm pack'
 *.tgz
-
-# Yarn Integrity file
-.yarn-integrity
 
 # dotenv environment variables file
 .env
@@ -74,24 +59,12 @@ docs/.typedoc_temp/
 dist
 .zip
 
-# Debugging files
-packages/*/debug/
-
-# no idea
-/packages/*/.rpt2_cache
-
-# packages in development
-packages/arcgis-rest-portal/
-
 #
 test.html
 test.js
 
 #
 demos/test/*
-
-# test log
-packages/**/.source.**.html
 
 # jsdoc
 docs/*
